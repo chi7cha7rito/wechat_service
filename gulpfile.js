@@ -76,7 +76,7 @@ gulp.task('js-app', function() {
         .pipe(plumber())
         .pipe(concat('app.min.js'))
         .pipe(gulpif(isTest, uglify()))
-        .pipe(gulp.dest('js'))
+        .pipe(gulp.dest('static/js'))
 });
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 定义对jssrc目录脚本的编译任务

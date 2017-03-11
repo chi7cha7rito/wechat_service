@@ -4,11 +4,11 @@ import favicon from 'serve-favicon'
 import path from 'path'
 
 var app = express()
+// 静态资源目录注册
+app.use('/static',express.static('static'))
 
 bootstrap(app)
 
-// 静态资源目录注册
-app.use(express.static(path.join(__dirname, 'static')))
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
