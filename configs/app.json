@@ -1,0 +1,25 @@
+{
+    "version": "1.0",
+    "name":"financial",
+    "fsDomain": "http://fs.express.me",
+    "uploadDir": "../fs.express.me",
+    "session": {
+        "secret": "wkzf",
+        "timeout": "1800",
+        "prefix": "financial_sess:"
+    },
+    "SOA": {
+        "timeout": 60000,
+        "successCode": 1,
+        "sessionExpireCode": 1502
+    },
+    "middleware": {
+        "global": [
+            "logger"
+        ],
+        "api": [
+        ],
+        "render": [
+        ]
+    }
+}

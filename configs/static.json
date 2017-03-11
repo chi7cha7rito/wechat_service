@@ -1,0 +1,57 @@
+{
+    "prefix": "/",
+    "app": "public",
+    "pluginCss": {
+        "wktable": [
+            "/wkzf/js/util/jQuery.wktable/wktable.min.css"
+        ],
+        "select2": [
+            "/wkzf/js/util/select2/4.0.1/dist/css/select2.min.css"
+        ],
+        "treeviewSelect": [
+            "/wkzf/jssrc/treeViewSelect/css/treeviewSelect.min.css"
+        ],
+        "daterangepicker": [
+            "/wkzf/js/util/daterangepicker/daterangepicker.css"
+        ],
+        "bootstrap-switch": [
+            "/bootstrap/plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css"
+        ],
+        "bootstrap-datepicker": [
+            "/bootstrap/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"
+        ],
+        "simple.slide": [
+            "/wkzf/js/util/SimpleSlide/css/simple.slide.css"
+        ]
+    },
+    "pluginJs": {
+        "wktable": [
+            "/wkzf/js/util/jQuery.wktable/jquery.wktable.min.js",
+            "/wkzf/js/util/jQuery.wktable/jquery.wktable.checkall.min.js"
+        ],
+        "select2": [
+            "/wkzf/js/util/select2/4.0.1/dist/js/select2.min.js",
+            "/wkzf/js/util/select2/4.0.1/dist/js/i18n/zh-CN.js"
+        ],
+        "moment": [
+            "/wkzf/js/util/daterangepicker/moment.min.js"
+        ],
+        "daterangepicker": [
+            "/wkzf/js/util/daterangepicker/daterangepicker.js"
+        ],
+        "bootstrap-switch": [
+            "/bootstrap/plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js"
+        ],
+        "bootstrap-datepicker": [
+            "/bootstrap/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js",
+            "/bootstrap/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.zh-CN.min.js"
+        ],
+        "simple.slide": [
+            "/wkzf/js/util/SimpleSlide/js/simple.slide.js"
+        ],
+        "validationEngine": [
+            "/wkzf/js/util/validation/js/jquery.validationEngine.js",
+            "/wkzf/js/util/validation/js/languages/jquery.validationEngine-zh_CN.js"
+        ]
+    }
+}
