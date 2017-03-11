@@ -4,6 +4,21 @@ import routerUtil from '../../utils/router'
 
 let router = express.Router()
 
+router.get('/list', (req, res, next) => {
+  let param = {
+    req: req,
+    matchJavascript: true,
+    matchStylesheet: true
+  }
+
+  let templateData = routerUtil.getTemplateBasicData(param);
+
+  Object.assign(templateData, { "title": "个人中心" });
+
+  return res.render("personal/list", templateData);
+})
+
+
 router.get('/consume', (req, res, next) => {
   let param = {
     req: req,
