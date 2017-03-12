@@ -6,7 +6,6 @@
 
 @import '../mixins.less';
 @import '../font.less';
-
 .wrapper {
     background-color: #f0f0f0;
     &>div {
@@ -32,8 +31,7 @@
                     height: 50px;
                     .inline-block();
                 }
-
-                span{
+                span {
                     margin-left: 20px;
                     font-size: 14px;
                 }
@@ -42,11 +40,33 @@
         &.content {
             &>.weui-grids {
                 background-color: #fff;
-
-                .fa{
-                    margin-left: 3px;
-                    color: #4081d6;
+                .fa {
+                    color: #3cc51f;
                     font-size: 25px;
+                    &.fa-file-text {
+                        color: #1BA1E2;
+                    }
+                    &.fa-credit-card-alt {
+                        color: #F09609;
+                    }
+                    &.fa-money {
+                        color: #E51400;
+                    }
+                    &.fa-search-plus {
+                        color: #8CBF26
+                    }
+
+                    &.fa-gamepad{
+                        color: #FF69B4;
+                    }
+
+                    &.fa-sign-in{
+                        color: #996600;
+                    }
+
+                    &.fa-phone-square{
+                        color:#A200FF
+                    }
                 }
             }
         }
