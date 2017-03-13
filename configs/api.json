@@ -1,9 +1,15 @@
 {
     "domain": {
-        "dev": "https://yun2.dev.wkzf",
-        "test": "https://yun2.test.wkzf",
-        "sim": "https://yun2.sim.wkzf",
-        "prod": "https://yun2.wkzf.com"
+        "dev": "http://localhost:7001/",
+        "prod": ""
     },
-    "prefix": "financial2"
+    "prefix": "api",
+    "member":{
+        "find":"/member/findByWechatOpenId"
+    },
+    "wechat":{
+        "getAccessToken":"https://api.weixin.qq.com/cgi-bin/token",
+        "getUserInfo":"https://api.weixin.qq.com/cgi-bin/user/info",
+        "createMenu":"https://api.weixin.qq.com/cgi-bin/menu/create?access_token=GEJswqy2Khf2plhzvij4Mp6vRgDpLTm8i1Ci4uqiTf7VEC7_IRGkAF9TZ1OmwTRivY2Gdlm6pbmDcT6tNRmMGpb2OWME6Mdg-n56tg8NZE8KPRcACATYA"
+    }
 }

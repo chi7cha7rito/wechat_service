@@ -1,6 +1,6 @@
 {
     "version": "1.0",
-    "name":"financial",
+    "name": "financial",
     "fsDomain": "http://fs.express.me",
     "uploadDir": "../fs.express.me",
     "session": {
@@ -8,18 +8,13 @@
         "timeout": "1800",
         "prefix": "financial_sess:"
     },
-    "SOA": {
-        "timeout": 60000,
-        "successCode": 1,
-        "sessionExpireCode": 1502
-    },
     "middleware": {
         "global": [
             "logger"
         ],
-        "api": [
-        ],
+        "api": [],
         "render": [
+            "userContext"
         ]
     }
 }

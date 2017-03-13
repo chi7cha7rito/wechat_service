@@ -1,5 +1,7 @@
 import path from "path";
 import apiConfs from "../../configs/api.json";
+import request from "../utils/request";
+
 export default function (app) {
     /**
      * desc:设置阶段环境
@@ -7,10 +9,8 @@ export default function (app) {
     var stageEnv = process.env.STAGE_ENV || 'dev';
     app.set('stage_env', stageEnv);
 
-    /**
-     * desc:设置当前apidomain
-     */
-    global.apiDomain = `${apiConfs["domain"][stageEnv]}/${apiConfs["prefix"]}`;
+
+    global.requestHelper=new request();
 
     /**
      * desc:模板目录及引擎设置 
