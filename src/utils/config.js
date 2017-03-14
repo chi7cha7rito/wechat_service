@@ -2,9 +2,7 @@
  * desc:获取配置项
  */
 
-/**
- * desc:加载配置目录下的相关模块
- */
+import md5 from 'md5'
 import staticConfs from '../../configs/static.json'
 import appConfs from '../../configs/app.json'
 import apiConfs from '../../configs/api.json'
@@ -33,8 +31,8 @@ class Config {
    * @param  {} name
    * @param  {} key
    */
-  static getApi (name, key) {
-    return `${apiConfs[name][key]}`
+  static getApi (moduleName, controller, action) {
+    return `${apiConfs[moduleName]["domain"][env]}/${apiConfs[moduleName][controller][action]}`
   }
 
   /**
@@ -51,6 +49,13 @@ class Config {
    */
   static getAppVersion () {
     return appConfs.version
+  }
+
+  /**
+   * desc 获取请求service token
+   */
+  static getServiceToken () {
+    return md5(appConfs.soa.token);
   }
 
   /**

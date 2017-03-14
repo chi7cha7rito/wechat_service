@@ -1,15 +1,39 @@
 {
-    "domain": {
-        "dev": "http://localhost:7001/",
-        "prod": ""
+    "hulk_service": {
+        "domain": {
+            "dev": "http://localhost:7001",
+            "prod": ""
+        },
+        "member": {
+            "create": "api/member/create",
+            "find": "api/member/findByWechatOpenId"
+        },
+        "wechatToken":{
+            "create":"api/wechatToken/create",
+            "find":"api/wechatToken/findByOpenId"
+        },
+        "signIn": {
+            "create": "api/signIn/create"
+        }
     },
-    "prefix": "api",
-    "member":{
-        "find":"/member/findByWechatOpenId"
+    "sms_service": {
+        "domain": {
+            "dev": "http://localhost:7001",
+            "prod": ""
+        },
+        "sms": {
+            "send": ""
+        }
     },
-    "wechat":{
-        "getAccessToken":"https://api.weixin.qq.com/cgi-bin/token",
-        "getUserInfo":"https://api.weixin.qq.com/cgi-bin/user/info",
-        "createMenu":"https://api.weixin.qq.com/cgi-bin/menu/create?access_token=GEJswqy2Khf2plhzvij4Mp6vRgDpLTm8i1Ci4uqiTf7VEC7_IRGkAF9TZ1OmwTRivY2Gdlm6pbmDcT6tNRmMGpb2OWME6Mdg-n56tg8NZE8KPRcACATYA"
+    "wechat": {
+        "domain": {
+            "dev": "https://api.weixin.qq.com",
+            "prod": "https://api.weixin.qq.com"
+        },
+        "common": {
+            "getAccessToken": "cgi-bin/token",
+            "getUserInfo": "cgi-bin/user/info",
+            "createMenu": "cgi-bin/menu/create"
+        }
     }
 }

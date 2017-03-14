@@ -1,12 +1,12 @@
 {
     "version": "1.0",
-    "name": "financial",
-    "fsDomain": "http://fs.express.me",
-    "uploadDir": "../fs.express.me",
+    "name": "hulk_wechat",
     "session": {
-        "secret": "wkzf",
-        "timeout": "1800",
-        "prefix": "financial_sess:"
+        "secret": "hulk_club_20170312",
+        "timeout": "1800"
+    },
+    "soa":{
+        "token":"hulk_club"
     },
     "middleware": {
         "global": [

@@ -2,6 +2,7 @@ import rp from 'request-promise'
 import config from '../utils/config'
 import logger from './logger';
 
+const service_Token = config.getServiceToken();
 
 class Http_Request {
 
@@ -10,28 +11,35 @@ class Http_Request {
      * @param  {} name
      * @param  {} data
      */
-    async get(moduleName, action, data) {
+    async get({ moduleName, controller, action, data }) {
         try {
             let resp;
-            let uri = config.getApi(moduleName, action);
-
+            let uri = config.getApi(moduleName, controller, action);
             let options = {
                 method: "GET",
                 uri: uri,
                 qs: data,
-                json: true
+                json: true,
+                headers: {
+                    "token": service_Token
+                }
             }
 
-            logger.info(`${moduleName}_${action}_request_data:${JSON.stringify(options)}`)
+            //目前只有调用hulk_service 需要headers 加入 token
+            if (moduleName != "hulk_service") {
+                delete options.headers;
+            }
+
+            logger.info(`${moduleName}_${controller}_${action}_request_data:${JSON.stringify(options)}`)
 
             resp = await rp(options);
 
-            logger.info(`${moduleName}_${action}_response_data:${JSON.stringify(resp)}`)
+            logger.info(`${moduleName}_${controller}_${action}_response_data:${JSON.stringify(resp)}`)
 
             return resp;
         }
         catch (e) {
-            logger.error(`${moduleName}_${action}_error:${JSON.stringify(e)}`)
+            logger.error(`${moduleName}_${controller}_${action}_error:${JSON.stringify(e)}`)
         }
     }
     /**
@@ -40,17 +48,25 @@ class Http_Request {
      * @param  {} contentType
      * @param  {} data
      */
-    async post(moduleName, action, data,contentType = "application/json") {
+    async post({ moduleName, controller, action, data, contentType = "application/json" }) {
         try {
             let resp;
-            let uri = config.getApi(moduleName, action);
-
-            console.log(uri)
+            let uri = config.getApi(moduleName, controller, action);
 
             let options = {
+                headers: {
+                    "token": service_Token,
+                    "Content-Type": contentType
+                },
                 method: "POST",
                 uri: uri,
-                body: data
+                body: data,
+                json: true
+            }
+
+            //目前只有调用hulk_service 需要headers 加入 token
+            if (moduleName != "hulk_service") {
+                delete options.headers.token;
             }
 
             logger.info(`${moduleName}_${action}_request_data:${JSON.stringify(options)}`)
