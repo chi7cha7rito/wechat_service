@@ -117,6 +117,7 @@ router.all('/auth', async (req, res, next) => {
         }
       })
 
+      console.log("==================wechat/auth"+JSON.stringify(userInfo))
       //存入session
       req.session.user = userInfo;
 

@@ -5,332 +5,54 @@
  4. 备注：对api的依赖：jQuery
  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 function Controller () {
-  /*-----------------------------------------------------------------------------------------------------------
-  根据当前的访问域名返回系统环境
-  -----------------------------------------------------------------------------------------------------------*/
-  this.getEnv = function () {
-    var env = 'dev'
-    var domain = document.domain
-    switch (domain) {
-      case 'yun2.test.wkzf':
-        env = 'test'
-        break
-      case 'yun2.sim.wkzf':
-        env = 'sim'
-        break
-      case 'yun2.wkzf.com':
-        env = 'prod'
-        break
-      default:
-        env = 'dev'
-        break
-    }
 
-    return env
-  }
-  /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  对环境的定义：
-  @dev : 开发环境，对应静态资源域名为：dev01.fe.wkzf - dev10.fe.wkzf
-  @test：测试环境，对应静态资源域名为：test01.fe.wkzf - test10.fe.wkzf
-  @beta：beta环境，对应静态资源域名为：beta01.fe.wkzf - beta10.fe.wkzf
-  @sim：sim环境，对应静态资源域名为：sim01.fe.wkzf - sim10.fe.wkzf.com
-  @prod ：生产环境，对应静态资源域名为：cdn01.wkzf.com - cdn10.wkzf.com
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-  // this.environment = "dev" ; //环境定义
-  this.environment = this.getEnv()
   /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
   一些关于cookie参数的配置
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-  this.cookieDomain = (this.environment === 'sim' || this.environment === 'prod') ? '.wkzf.com' : '.wkzf.cn'; // cookie域名设置
+  this.cookieDomain = ''; // cookie域名设置
   this.cookieExpires = 60; // 整个应用cookie的生存周期，单位为分钟
   this.cookieKeyPrefix = 'WKY_'; // cookie的key值前缀，用来区分哪个应用的cookie，比如M_表示M站，O_表示Offical website(官网)，JDY表示筋斗云管理系统
   this.cookieKeyConf = {
 
   }
-  /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  根据环境决定static资源域名
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-  this.staticDomain = '//dev01.fe.wkzf'
-  if (this.environment === 'test') this.staticDomain = '//test01.fe.wkzf'
-  else if (this.environment === 'sim') this.staticDomain = '//sim01.fe.wkzf'
-  else if (this.environment === 'prod') this.staticDomain = '//cdn01.wkzf.com'
-  // this.staticDomain = "//yun2.test.wkzf/fe"
-  /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  工具库路径及应用的控制器路径
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-  this.bootstrapStaticPrefix = this.staticDomain + '/fe_public_library/bootstrap'
-  this.utilStaticPrefix = this.staticDomain + '/fe_public_library/wkzf/js/util'
-  this.appStaticPrefix = this.staticDomain + '/financial2_fe/js'
-  /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  一些关于dialog | tips | confirm 参数的配置
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-  this.tipsDialogId = 'wkzf-tips'; // 整个应用通用的tips框的id值
-  this.confirmDialogId = 'wkzf-confirm'; // 整个应用通用的confirm框的id值
+
   /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
   整个应用Ajax请求的时候的数据类型统一为json
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-  this.apiDataType = 'jsonp'
+  this.apiDataType = 'json'
+
   /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
   接口的地址，把整个应用的所有接口地址写在这里，方便统一维护    
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-  this.financeApiPrefix = (this.environment == 'dev') ? '/api/' : '/financial2node/api/'; // 新房财务Api请求接口前缀
-  this.financePrefix = (this.environment == 'dev') ? '/' : '/financial2node/'
-  this.frameApiPrefix = (this.environment == 'dev') ? '//gary.sso.wkzf/' : '/'; // 框架组接口前缀
+  this.apiPrefix = '/api/'
 
-  // 架构组接口地址前缀,sso要单独判断
-  this.frameApiPrefix = '//yun2.dev.wkzf/'
-  if (this.environment === 'test') this.frameApiPrefix = '//yun2.test.wkzf/'
-  else if (this.environment === 'sim') this.frameApiPrefix = '//yun2.sim.wkzf/'
-  else if (this.environment === 'prod') this.frameApiPrefix = '//yun2.wkzf.com/'
+  /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  跳转URL   
+  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+  this.redirectUrlPrefix = '/'
 
   /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
   系统各个模块API地址
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
   this.apiUrl = {
-    employ: { // 请佣
-      getDevelopersList: this.financeApiPrefix + 'signedReceivables/getDevelopersList', // 开发商列表接口
-      getPleaseCommissionOrderList: this.financeApiPrefix + 'signedReceivables/getList', // 请佣收款单接口
-      cancelReceivables: this.financeApiPrefix + 'signedReceivables/cancel', // 取消收款接口
-      saveReceivables: this.financeApiPrefix + 'signedReceivables/save', // 确认收款接口
-      getPleaseCommissionOrderDetails: this.financeApiPrefix + 'signedReceivables/getDetails', // 收款单详情接口
-      detailDialog: this.financePrefix + 'signedReceivables/_details', // 详情框地址
-      gatheringDialog: this.financePrefix + 'signedReceivables/_gathering', // 收款框地址
+    'account': {
+      'register': this.apiPrefix + 'account/add'
     },
-    audit: {
-      getGrouponList: this.financeApiPrefix + 'audit/getList', // 获取表格内容
-      approve: this.financeApiPrefix + 'audit/approve', // 团购款审批通过
-      reject: this.financeApiPrefix + 'audit/reject' // 团购款审批驳回
-    },
-    public: {
-      getCity: this.frameApiPrefix + 'combo/city.action', // sso的接口
-      getCityLocal: this.financeApiPrefix + 'common/getCityListByUser', // 项目自己提供的
-    },
-    vouchermgt: {
-      getCityListByUser: this.financeApiPrefix + 'common/getCityListByUser', // 获取城市树菜单
-      groupMoneyData: this.financeApiPrefix + 'voucherMgt/grouponFee/getList', // 团购款获取表格
-      groupServiceFeeData: this.financeApiPrefix + 'voucherMgt/serviceFee/getList', // 团购费转服务费
-      uploadVouchers: this.financeApiPrefix + 'voucherMgt/uploadVouchers', // 团购费转服务费，上传凭证
-      serviceFeeOrderData: this.financeApiPrefix + 'voucherMgt/serviceFeeOrder/getList' // 获取成交客户服务费发票表格数据
-    },
-    position: {
-      getList: this.financeApiPrefix + 'position/getList',
-      getDetails: this.financeApiPrefix + 'position/getDetails',
-      edit: this.financeApiPrefix + 'position/edit'
-    },
-    employee: {
-      getList: this.financeApiPrefix + 'employee/getList',
-      getDetails: this.financeApiPrefix + 'employee/getDetails',
-      edit: this.financeApiPrefix + 'employee/edit'
-    },
-    common: {
-      getPositions: this.financeApiPrefix + 'common/getPositions',
-      getDepartments: this.financeApiPrefix + 'common/getDepartments',
-      getCompanies: this.financeApiPrefix + 'common/getCompanies',
-      getAgentList: this.financeApiPrefix + 'common/getAgentList' // 获取经纪人搜索列表
-
-    },
-    customer: {
-      getConsumerReceivablesList: this.financeApiPrefix + 'customerReceivables/getList', // 客户收款单接口
-      getConsumerReceivablesDetails: this.financeApiPrefix + 'customerReceivables/getDetails', // 详情接口
-      exportConsumerReceivablesList: this.financePrefix + 'customerReceivables/export', //
-      detailDialog: this.financePrefix + 'customerReceivables/_details', // 详情框地址
-      getList: this.financeApiPrefix + 'customer/getList',
-      getDetails: this.financeApiPrefix + 'customer/getDetails',
-      checkNameExist: this.financeApiPrefix + 'customer/checkNameExist',
-      add: this.financeApiPrefix + 'customer/add',
-      edit: this.financeApiPrefix + 'customer/edit',
-      editDialog: this.financePrefix + 'customer/_edit',
-      addDialog: this.financePrefix + 'customer/_add'
-    },
-    department: {
-      getList: this.financeApiPrefix + 'department/getList',
-      getDetails: this.financeApiPrefix + 'department/getDetails',
-      edit: this.financeApiPrefix + 'department/edit',
-      editDialog: this.financePrefix + 'department/_edit'
-    },
-    newHouseProject: {
-      indexGetList: this.financeApiPrefix + 'newHouseProject/indexGetList', // 获取城市树菜单
-      addDialogGetList: this.financeApiPrefix + 'newHouseProject/addDialogGetList', // 新增对话框，获取表格列表
-      editSave: this.financeApiPrefix + 'newHouseProject/editSave', // 编辑对话框点击保存按钮
-      importSave: this.financeApiPrefix + 'newHouseProject/importSave' // 导入对话框点击保存
-    },
-    expenditureMgt: { // 出款管理
-      getList: this.financeApiPrefix + 'expenditureMgt/getList', // 获取列表
-      getPeopleList: this.financeApiPrefix + 'expenditureMgt/getInvitedList', // 获取已邀请人数据
-      approve: this.financeApiPrefix + 'expenditureMgt/approval', // 审批接口
-      getApproveResult: this.financeApiPrefix + 'expenditureMgt/getApprovalDetails', // 查看审批结果接口
-      approvalDialog: this.financePrefix + 'expenditureMgt/_approval', // 审批弹框
-      approvalDetailDialog: this.financePrefix + 'expenditureMgt/_approvalDetail', // 查看审批详情弹框
-      invitedDialog: this.financePrefix + 'expenditureMgt/_invited' // 查看已邀请人弹框
-    },
-    incomeMgt: { // 收款管理
-      getList: this.financeApiPrefix + 'incomeMgt/getList', // 获取表格列表
-    },
-    agentMgt: {
-      getList: this.financeApiPrefix + 'agentMgt/getList', // 获取列表
-      setStatus: this.financeApiPrefix + 'agentMgt/edit', // 设置取款状态
-      getLogsList: this.financeApiPrefix + 'agentMgt/getLogsList', // 获取历史操作记录
-      editlDialog: this.financePrefix + 'agentMgt/_edit' // 审批弹框
+    'common': {
+      'verifyCode': this.apiPrefix + 'common/genVerifyCodeImg',
+      'getSmsCode': this.apiPrefix + 'common/getSmsCode'
     }
   }
 
+  /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  系统客户端跳转Url的配置
+  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
   this.redirectUrl = {
-    position: {
-      details: this.financePrefix + 'position/_details'
-    },
-    employee: {
-      details: this.financePrefix + 'employee/_details'
+    'personal': {
+      'list': this.redirectUrlPrefix + 'personal/list'
     }
   }
-  /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  新增模态框的公共方法，是下面的this.dialog和this.tips两个方法的基础方法
-  1. 使用方法：
-      this.createModalDialog({
-          "type" : "dialog" ,  //模态框类型，值为：dialog | tips | confirm
-          "id" : "my-modal-dialog" ,  //模态框ID值
-          "effect" : true ,  //弹出dialog的时候是否需要fade效果
-          "tabindex" : 1 ,  //模态框的tabindex值
-          "dimension" : "lg"  //模态框的尺寸，可以是："sm" | "lg" 分别指小模态框和大模态框
-      }) 
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-  this.createModalDialog = function (params) {
-    var type = (params === null || params.type === null || params.type === undefined) ? 'dialog' : params.type
-    var effect = (params === null || params.effect === null || params.effect === undefined) ? true : params.effect
-    var tabindex = (params === null || params.tabindex === null || params.tabindex === undefined) ? null : params.tabindex
-    var dimension = (params === null || params.dimension === null || params.dimension === undefined) ? '' : params.dimension
-    var id = params.id
-    if (type === 'tips') id = this.tipsDialogId
-    else if (type === 'confirm') id = this.confirmDialogId
-    var modal = $(document.createElement('DIV')).attr('id', id).attr('role', 'dialog').attr('aria-labelledby', 'myModalLabel').addClass('modal')
-    if (effect) $(modal).addClass('fade')
-    if (tabindex) $(modal).attr('tabindex', tabindex)
-    var modalDialog = $(document.createElement('DIV')).attr('role', 'document').addClass('modal-dialog').append($(document.createElement('DIV')).addClass('modal-content'))
-    if (dimension) {
-      $(modal).addClass('bs-example-modal-' + dimension)
-      $(modalDialog).addClass('modal-' + dimension)
-    }
-    $(modal).append(modalDialog)
-    $('body').prepend(modal)
 
-    $(modal).on('hidden.bs.modal', function () {
-      if ($('.modal-backdrop').length > 0) {
-        $('body').addClass('modal-open')
-      }
-    })
-  }
-  /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  弹出普通的内容为某个url的html结构的模态框，始终都是先干掉先前如果存在的同样ID的模态框再新增
-  备注：这个方法只能打开同域名下的页面
-  使用方法：
-  this.dialog({
-      "id" : id ,
-      "url" : url ,
-      "tabindex" : tabindex        
-  }) 
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-  this.dialog = function (params) {
-    var tabindex = (params === null || params.tabindex === null || params.tabindex === undefined) ? null : params.tabindex
-    var dimension = (params === null || params.dimension === null || params.dimension === undefined) ? '' : params.dimension
-    if ($('#' + params.id).size() > 0) $('#' + params.id).remove()
-    this.createModalDialog({
-      'type': 'dialog',
-      'id': params.id,
-      'tabindex': tabindex,
-      'dimension': dimension
-    })
-    $('#' + params.id).modal({
-      remote: params.url,
-      isSync: true
-    })
-    $.fn.modal.Constructor.prototype.enforceFocus = function () {}
-  }
-  /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  弹出tips提示框，参数：
-  @content：提示的html信息
-  @time：表示多少秒之后关闭，如果为0表示不关闭，单位为秒
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-  this.tips = function (content, time, callback) {
-    var classSelf = this
-    if ($('#' + this.tipsDialogId).size() > 0) {
-      /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-      如果提示框html结构已经存在，就改变内容再显示
-      -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-      $('#' + this.tipsDialogId + ' .modal-tips').html(content)
-      $('#' + this.tipsDialogId).modal('show')
-    } else {
-      /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-      如果先前页面都没有提示过就先创建模态框
-      -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-      this.createModalDialog({
-        'type': 'tips'
-      })
-      $('#' + this.tipsDialogId).addClass('bs-example-modal-sm')
-      $('#' + this.tipsDialogId + ' .modal-dialog').addClass('modal-sm')
-      $('#' + this.tipsDialogId + ' .modal-content').append($(document.createElement('DIV')).addClass('modal-tips').html(content))
-      $('#' + this.tipsDialogId).modal({
-        'keyboard': true
-      })
-    }
-    /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    最后根据需要决定是否关闭
-    -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-    if (time) {
-      window.setTimeout(function () {
-        $('#' + classSelf.tipsDialogId).modal('hide')
-        if (callback) callback()
-      }, time * 1000)
-    }
-  }
-  /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  确认框
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-  this.confirm = function (params) {
-    var classSelf = this
-    var title = (params === null || params.title === null || params.title === undefined) ? '系统确认' : params.title
-    var content = (params === null || params.content === null || params.content === undefined) ? '' : params.content
-    var showConfirmBtn = (params === null || params.showConfirmBtn === null || params.showConfirmBtn === undefined) ? true : params.showConfirmBtn
-    var confirmLabel = (params === null || params.confirmLabel === null || params.confirmLabel === undefined) ? '确认' : params.confirmLabel
-    var showCancelBtn = (params === null || params.showCancelBtn === null || params.showCancelBtn === undefined) ? true : params.showCancelBtn
-    var cancelLabel = (params === null || params.cancelLabel === null || params.cancelLabel === undefined) ? '取消' : params.cancelLabel
-    var confirmInterface = (params === null || params.confirmInterface === null || params.confirmInterface === undefined) ? null : params.confirmInterface
-    var cancelInterface = (params === null || params.cancelInterface === null || params.cancelInterface === undefined) ? null : params.cancelInterface
-    /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    如果先前有这个dialog就删除
-    -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-    if ($('#' + this.confirmDialogId).size() > 0) $('#' + this.confirmDialogId).remove()
-    /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    先创建一个dialog
-    -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-    this.createModalDialog({
-      'type': 'confirm'
-    })
-    /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    再将节点贴进去
-    -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-    $('#' + this.confirmDialogId + ' .modal-content').append($(document.createElement('DIV')).addClass('modal-header').append('<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title">' + title + '</h4>'))
-    $('#' + this.confirmDialogId + ' .modal-content').append($(document.createElement('DIV')).addClass('modal-confirm').html(content))
-    var confirmFooter = $(document.createElement('DIV')).addClass('modal-footer')
-    if (showConfirmBtn) {
-      var confirmBtn = $(document.createElement('BUTTON')).attr('type', 'button').addClass('btn btn-primary btn-sm').text(confirmLabel)
-      $(confirmBtn).click(function () {
-        if (confirmInterface) confirmInterface()
-        $('#' + classSelf.confirmDialogId).modal('hide')
-      })
-      $(confirmFooter).append(confirmBtn)
-    }
-    if (showCancelBtn) {
-      var cancelBtn = $(document.createElement('BUTTON')).attr('type', 'button').addClass('btn btn-default btn-sm').attr('data-dismiss', 'modal').text(cancelLabel)
-      $(cancelBtn).click(function () {
-        $('#' + classSelf.confirmDialogId).modal('hide')
-        if (cancelInterface) cancelInterface()
-      })
-      $(confirmFooter).append(cancelBtn)
-    }
-    $('#' + this.confirmDialogId + ' .modal-content').append(confirmFooter)
-    $('#' + this.confirmDialogId).modal({
-      'keyboard': true
-    })
-  }
   /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
   发送Ajax请求的方法：
   @apiUrl：请求的url地址
@@ -349,13 +71,14 @@ function Controller () {
     var type = (params === null || params.type === null || params.type === undefined) ? 'GET' : params.type
     var contentType = (params === null || params.contentType === null || params.contentType === undefined) ? 'application/x-www-form-urlencoded' : params.contentType
 
-    // if (this.environment === "dev") type = "GET"; //只要是jsonp请求，type肯定为GET
     var process = (params === null || params.process === null || params.process === undefined) ? null : params.process
-    var showLoadingTips = (params === null || params.showLoadingTips === null || params.showLoadingTips === undefined) ? true : params.showLoadingTips
-    var loadingTips = (params === null || params.loadingTips === null || params.loadingTips === undefined) ? '正在加载数据，请稍等...' : params.loadingTips
+    var showLoadingTips = (params === null || params.showLoadingTips === null || params.showLoadingTips === undefined) ? false : params.showLoadingTips
+    var loadingTips = (params === null || params.loadingTips === null || params.loadingTips === undefined) ? '数据加载中...' : params.loadingTips
     var apiDataType = (params === null || params.apiDataType === null || params.apiDataType === undefined) ? this.apiDataType : params.apiDataType
     var onExceptionInterface = (params === null || params.onExceptionInterface === null || params.onExceptionInterface === undefined) ? null : params.onExceptionInterface
-    if (this.showLoadingTips) this.tips(loadingTips)
+    var onErrorInterface = (params === null || params.onErrorInterface === null || params.onErrorInterface === undefined) ? null : params.onErrorInterface
+
+    if (this.showLoadingTips) $.showLoading(loadingTips)
     var options = {
       url: apiUrl,
       type: type,
@@ -363,28 +86,25 @@ function Controller () {
       dataType: apiDataType,
       contentType: contentType,
       error: function (e) {
-        classSelf.tips('调用数据接口失败！请测试您的数据接口！', 3)
+        $.toast('调用数据接口失败！请测试您的数据接口！', 'text')
+        onErrorInterface && onErrorInterface()
       },
       success: function (data) {
-        $('#' + classSelf.tipsDialogId).modal('hide')
         if (data.status.toString() === '1') {
           if (process) process(data); // 没有问题，就处理数据
-        } else if (data.status.toString() === '1502') {
-          parent.window.location.reload()
-        } else {
-          if (loadingTips) classSelf.tips(data.message, 3)
-          if (onExceptionInterface) onExceptionInterface(data.status, data.message)
+        }  else {
+          $.toast(data.message, 'text')
+          if (onExceptionInterface) {
+            onExceptionInterface(data.status, data.message)
+          }
         }
       }
     }
     try {
       $.ajax(options)
     } catch (e) {
-      classSelf.tips('错误名称：' + e.name + '\n错误描述：' + e.message, 3)
+      $.toast('错误名称：' + e.name + '\n错误描述：' + e.message, 'text')
     }
-  /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  整个try-catch块结束
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
   }
 
   /*-----------------------------------------------------------------------------------------------------------
@@ -415,6 +135,108 @@ function Controller () {
     return re.test(text)
   }
 
+  /*-----------------------------------------------------------------------------------------------------------
+    去掉字符串头尾空格
+    -----------------------------------------------------------------------------------------------------------*/
+  this.trim = function (str) {
+    return str.replace(/(^\s*)|(\s*$)/g, '')
+  }
+
+  /*-----------------------------------------------------------------------------------------------------------
+   判断身份证号码是否合法 
+   -----------------------------------------------------------------------------------------------------------*/
+  this.IdCardValidate = function (idCard) {
+    var classSelf = this
+    var Wi = [ 7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1 ]; // 加权因子   
+    var ValideCode = [ 1, 0, 10, 9, 8, 7, 6, 5, 4, 3, 2 ]; // 身份证验证位值.10代表X
+
+    idCard = classSelf.trim(idCard.replace(/ /g, '')); // 去掉字符串头尾空格                     
+    if (idCard.length == 15) {
+      return isValidityBrithBy15IdCard(idCard); // 进行15位身份证的验证    
+    } else if (idCard.length == 18) {
+      var a_idCard = idCard.split(''); // 得到身份证数组   
+      if (isValidityBrithBy18IdCard(idCard) && isTrueValidateCodeBy18IdCard(a_idCard)) { // 进行18位身份证的基本验证和第18位的验证
+        return true
+      }else {
+        return false
+      }
+    } else {
+      return false
+    }
+
+    /**  
+     * 判断身份证号码为18位时最后的验证位是否正确  
+     * @param a_idCard 身份证号码数组  
+     * @return  
+     */
+    function isTrueValidateCodeBy18IdCard (a_idCard) {
+      var sum = 0; // 声明加权求和变量   
+      if (a_idCard[17].toLowerCase() == 'x') {
+        a_idCard[17] = 10; // 将最后位为x的验证码替换为10方便后续操作   
+      }
+      for ( var i = 0; i < 17; i++) {
+        sum += Wi[i] * a_idCard[i]; // 加权求和   
+      }
+      valCodePosition = sum % 11; // 得到验证码所位置   
+      if (a_idCard[17] == ValideCode[valCodePosition]) {
+        return true
+      } else {
+        return false
+      }
+    }
+
+    /**  
+    * 验证18位数身份证号码中的生日是否是有效生日  
+    * @param idCard 18位书身份证字符串  
+    * @return  
+    */
+    function isValidityBrithBy18IdCard (idCard18) {
+      var year = idCard18.substring(6, 10)
+      var month = idCard18.substring(10, 12)
+      var day = idCard18.substring(12, 14)
+      var temp_date = new Date(year, parseFloat(month) - 1, parseFloat(day))
+      // 这里用getFullYear()获取年份，避免千年虫问题   
+      if (temp_date.getFullYear() != parseFloat(year)
+        || temp_date.getMonth() != parseFloat(month) - 1
+        || temp_date.getDate() != parseFloat(day)) {
+        return false
+      }else {
+        return true
+      }
+    }
+
+    /**  
+     * 验证15位数身份证号码中的生日是否是有效生日  
+     * @param idCard15 15位书身份证字符串  
+     * @return  
+     */
+    function isValidityBrithBy15IdCard (idCard15) {
+      var year = idCard15.substring(6, 8)
+      var month = idCard15.substring(8, 10)
+      var day = idCard15.substring(10, 12)
+      var temp_date = new Date(year, parseFloat(month) - 1, parseFloat(day))
+      // 对于老身份证中的你年龄则不需考虑千年虫问题而使用getYear()方法   
+      if (temp_date.getYear() != parseFloat(year)
+        || temp_date.getMonth() != parseFloat(month) - 1
+        || temp_date.getDate() != parseFloat(day)) {
+        return false
+      }else {
+        return true
+      }
+    }
+  }
+
+  /*-----------------------------------------------------------------------------------------------------------
+   判断手机号是否合法 
+   -----------------------------------------------------------------------------------------------------------*/
+  this.checkPhone = function (phone) {
+    if (!(/^1(3|4|5|7|8)\d{9}$/.test(phone))) {
+      return false
+    }else {
+      return true
+    }
+  }
+
   // 获取url search参数值方法
   this.getQueryString = function (name) {
     var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i')
@@ -429,8 +251,7 @@ function Controller () {
   /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
   页面加载的时候执行的公共逻辑
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-  this.onload = function () {
-  }
+  this.onload = function () {}
   /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
   整个基类逻辑结束
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/

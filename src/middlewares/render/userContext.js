@@ -19,7 +19,8 @@ export default async (req, res, next) => {
         if (absoluteUrl == "/account/register"
             || absoluteUrl == "/wechat"
             || absoluteUrl == "/wechat/auth"
-            || absoluteUrl == "/common/genCaptchapng") {
+            || absoluteUrl == "/common/genVerifyCodeImg"
+            || absoluteUrl == "/common/getSmsCode") {
             next()
         }
         else {
