@@ -12,7 +12,9 @@ var minifyCss = require('gulp-minify-css')
 var gulpSequence = require('gulp-sequence')
 var copy = require('gulp-copy')
 var gulpif = require('gulp-if')
+var requirejsOptimize = require('gulp-requirejs-optimize')
 var isTest = gulp.env.env === 'test'
+var os = require('os');
 
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 需要编译到css目录下对应目录的less文件路径定义
@@ -31,7 +33,8 @@ var pathLess = [
 var pathJs = [
   'static/jssrc/*/*/*.js',
   'static/jssrc/*/*.js',
-  '!static/jssrc/lib/*.js'
+  '!static/jssrc/lib/*.js',
+  '!static/jssrc/components/*.js'
 ]
 
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -98,13 +101,39 @@ gulp.task('copyFont', function () {
     .pipe(gulp.dest('static/css/fonts/'))
 })
 
+gulp.task('rjs', function () {
+  var osType = os.platform()
+  return gulp.src(['static/jssrc/**/*.js', '!static/jssrc/lib/*.js', '!static/jssrc/components/*.js'])
+    .pipe(requirejsOptimize(function (file) {
+      var fileName = ''
+      if (osType === 'win32' || osType === 'win64') {
+        fileName = file.relative.replace(/(\w+)\\([A-Za-z0-9-_]+)\.js$/, '$1/$2')
+      } else if (osType === 'linux' || osType === 'darwin') {
+        fileName = file.relative.replace(/\.js$/, '')
+      }
+      console.log(fileName)
+      return {
+        baseUrl: 'static/jssrc',
+        optimize: 'none',
+        name: '' + fileName,
+        include: ''
+      }
+    }))
+    .pipe(gulpif(isTest, uglify()))
+    .pipe(rename({
+      suffix: '.min'
+    }))
+    .pipe(gulp.dest('static/js'))
+})
+
 /*-----------------------------------------------------------------------------------------------------------
 定义watch任务
 -----------------------------------------------------------------------------------------------------------*/
 gulp.task('watch', function () {
-  gulp.watch('static/less/**/**/**.less', ['less','copyFont'])
+  gulp.watch('static/less/**/**/**.less', ['less', 'copyFont'])
   gulp.watch(pathAppJs, ['js-app'])
-  gulp.watch(pathJs, ['js'])
+  // gulp.watch(pathJs, ['js'])
+  gulp.watch(pathJs, ['rjs'])
 })
 
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -115,4 +144,4 @@ gulp.task('watch', function () {
 4. 编译脚本
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 gulp.task('default', ['watch'])
-gulp.task('build', gulpSequence('clean', 'less', 'js-app', 'js'))
+gulp.task('build', gulpSequence('clean', 'less','copyFont','js','rjs','js-app' ))

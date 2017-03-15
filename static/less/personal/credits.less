@@ -4,22 +4,37 @@
  3. 作者：KingsleyYu
  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
+@import "../mixins.less";
 .wrapper {
-     padding-bottom: 42px;
-    .minus {
-        color: #F95355;
-        font-size: 1.4em;
-    }
-    .plus {
-        color: #4081d6;
-        font-size: 1.4em;
-    }
-
-    .weui-form-preview__hd{
-        padding: 0 15px;
-    }
-
-    .weui-form-preview__bd{
-        padding: 5px 15px;
+    padding-bottom: 42px;
+    &>.credits-list {
+        &>.item {
+            border-bottom: 1px solid #999;
+            padding: 10px 15px;
+            .clearfix();
+            dt {
+                float: left;
+                color: #000;
+                h1 {
+                    font-size: 16px;
+                }
+                p {
+                    margin-top: 5px;
+                    font-size: 12px;
+                }
+            }
+            dd {
+                float: right;
+                font-size: 18px;
+                margin-top: 10px;
+                &.positive {
+                    color: #3cc51f;
+                }
+                &.negative {
+                    color: #000;
+                }
+            }
+        }
     }
 }
+

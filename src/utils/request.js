@@ -69,16 +69,16 @@ class Http_Request {
                 delete options.headers.token;
             }
 
-            logger.info(`${moduleName}_${action}_request_data:${JSON.stringify(options)}`)
+            logger.info(`${moduleName}_${controller}_${action}_request_data:${JSON.stringify(options)}`)
 
             resp = await rp(options);
 
-            logger.info(`${moduleName}_${action}_response_data:${JSON.stringify(resp)}`)
+            logger.info(`${moduleName}_${controller}_${action}_response_data:${JSON.stringify(resp)}`)
 
             return resp;
         }
         catch (e) {
-            logger.error(`${moduleName}_${action}_error:${JSON.stringify(e)}`)
+            logger.error(`${moduleName}_${controller}_${action}_error:${JSON.stringify(e)}`)
         }
     }
 }

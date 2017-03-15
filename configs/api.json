@@ -5,15 +5,18 @@
             "prod": ""
         },
         "member": {
-            "create": "api/member/create",
-            "find": "api/member/findByWechatOpenId"
+            "create": "member/create",
+            "find": "member/findByWechatOpenId"
         },
         "wechatToken":{
-            "create":"api/wechatToken/create",
-            "find":"api/wechatToken/findByOpenId"
+            "create":"wechatToken/create",
+            "find":"wechatToken/findByOpenId"
         },
         "signIn": {
-            "create": "api/signIn/create"
+            "create": "signIn/create"
+        },
+        "points":{
+            "find":"point/findEntries"
         }
     },
     "sms_service": {

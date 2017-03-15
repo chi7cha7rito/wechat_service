@@ -41,6 +41,9 @@ function Controller () {
     'common': {
       'verifyCode': this.apiPrefix + 'common/genVerifyCodeImg',
       'getSmsCode': this.apiPrefix + 'common/getSmsCode'
+    },
+    'credits': {
+      'get': this.apiPrefix + 'credits/get'
     }
   }
 

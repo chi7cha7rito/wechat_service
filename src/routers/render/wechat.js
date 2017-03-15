@@ -117,14 +117,14 @@ router.all('/auth', async (req, res, next) => {
         }
       })
 
-      console.log("==================wechat/auth"+JSON.stringify(userInfo))
+
       //存入session
       req.session.user = userInfo;
 
       return res.redirect('/account/register?returnUrl=' + r_url)
     }
-    else {
-      req.session.member = memberInfo;
+    else {      
+      req.session.member = memberInfo.data;
 
       return res.redirect(r_url)
     }
