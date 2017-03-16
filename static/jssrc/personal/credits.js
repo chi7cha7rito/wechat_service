@@ -10,6 +10,10 @@ function CreditsController () {
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
   Controller.call(this)
 
+
+  /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  定义pageSize
+  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
   this.pageSize = 10
 
   /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -32,6 +36,7 @@ CreditsController.prototype.initPage = function () {
     'showLoadingTips': true,
     'process': function (data) {
       classSelf.renderList(data)
+      classSelf.initPullLoad();
     }
   })
 }
@@ -43,16 +48,13 @@ CreditsController.prototype.initPullLoad = function () {
   var classSelf = this
   require(['components/pullload.js'], function () {
     $('.credits-list').pullload({
-      apiUrl: requestUrl,
+      apiUrl: classSelf.apiUrl.credits.get,
       threshold: 15,
       crossDoman: false,
-      childrenSelector: '.record-item',
       pageSize: classSelf.pageSize,
-      tipsClassName: 'loading-tips',
-      requestpageIndexKey: 'page',
-      countKey: 'total',
+      countKey: 'data.count',
       callback: function (resp) {
-        classSelf.renderList(resp.data)
+        classSelf.renderList(resp.data,true)
       }
     })
   })
@@ -61,17 +63,56 @@ CreditsController.prototype.initPullLoad = function () {
 /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 渲染列表
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-CreditsController.prototype.renderList = function (data,isAppend) {
+CreditsController.prototype.renderList = function (data, isAppend) {
   var classSelf = this
   var $recordsList = $('.credits-list')
-  var htmlTpl = ''
-  
-  console.log(data);
 
-  if(!isAppend){
-      $recordsList.empty();
+  if (!isAppend) {
+    $recordsList.empty()
   }
-  
+
+  $.each(data.rows, function (i, oRow) {
+    $recordsList.append(classSelf.getItem(oRow))
+  })
+}
+/*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+绘制item dom 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+CreditsController.prototype.getItem = function (data) {
+  var classSelf = this
+
+  var htmlTpl = ''
+
+  var sourceStr = '充值返现'; // 1:充值返现,2:比赛奖励,3:店内消费,4:商城消费,5:手工调整
+  var valueClass = 'positive',points = '+' + data.points
+  if (data.source == '1') {
+    sourceStr = '充值返现'
+  }else if (data.source == '2') {
+    sourceStr = '比赛奖励'
+  }else if (data.source == '3') {
+    sourceStr = '店内消费'
+  }else if (data.source == '4') {
+    sourceStr = '商城消费'
+  }else if (data.source == '5') {
+    sourceStr = '手工调整'
+  }
+
+  if (!data.isPositive) {
+    valueClass = 'negative'
+    points = '-' + data.points
+  }
+
+  htmlTpl += '<dl class="item">'
+  htmlTpl += '<dt>'
+  htmlTpl += '<h1>' + sourceStr + '</h1>'
+  htmlTpl += '<p>' + data.createdAt + '</p>'
+  htmlTpl += '</dt>'
+
+  htmlTpl += '<dd class="'+valueClass+'">' + points + '</dd>'
+
+  htmlTpl += '</dl>'
+
+  return $(htmlTpl)
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------

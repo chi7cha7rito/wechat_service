@@ -81,7 +81,7 @@ function Controller () {
     var onExceptionInterface = (params === null || params.onExceptionInterface === null || params.onExceptionInterface === undefined) ? null : params.onExceptionInterface
     var onErrorInterface = (params === null || params.onErrorInterface === null || params.onErrorInterface === undefined) ? null : params.onErrorInterface
 
-    if (this.showLoadingTips) $.showLoading(loadingTips)
+    if (showLoadingTips) $.showLoading(loadingTips)
     var options = {
       url: apiUrl,
       type: type,
@@ -93,14 +93,15 @@ function Controller () {
         onErrorInterface && onErrorInterface()
       },
       success: function (data) {
+        if (showLoadingTips) $.hideLoading()
         if (data.status.toString() === '1') {
-          if (process) process(data); // 没有问题，就处理数据
+          if (process) process(data.data); // 没有问题，就处理数据
         }  else {
           $.toast(data.message, 'text')
           if (onExceptionInterface) {
             onExceptionInterface(data.status, data.message)
           }
-        }
+        }  
       }
     }
     try {
