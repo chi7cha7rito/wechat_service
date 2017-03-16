@@ -40,4 +40,27 @@ router.post("/add",async (req,res,next)=>{
     }
 })
 
+
+/**
+ * 签到
+ */
+router.get("/signIn",async (req,res,next)=>{
+    try{
+        let memberId=req.session.member.member.id
+        let resp=await requestHelper.post({
+            "moduleName":"hulk_service",
+            "controller":"signIn",
+            "action":"create",
+            "data":{
+               memberId
+            }
+        })
+
+        res.json(resp);
+
+    }catch(e){
+        logger.error(`api_account_signIn_error=>${JSON.stringify(e)}`)
+    }
+})
+
 module.exports = router

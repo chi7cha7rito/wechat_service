@@ -1,5 +1,5 @@
 /**
- * desc:个人积分相关的api 定义
+ * desc:个人帐户相关的api 定义
  */
 
 import express from 'express'
@@ -8,7 +8,7 @@ import logger from '../../utils/logger';
 let router = express.Router()
 
 /**
- * 获取个人积分信息
+ * 获取个人帐户明细
  */
 router.get("/get",async (req,res,next)=>{
     try{
@@ -18,7 +18,7 @@ router.get("/get",async (req,res,next)=>{
 
         let resp=await requestHelper.get({
             "moduleName":"hulk_service",
-            "controller":"points",
+            "controller":"banlance",
             "action":"find",
             "data":{
                pageIndex,
@@ -30,12 +30,12 @@ router.get("/get",async (req,res,next)=>{
         res.json(resp);
 
     }catch(e){
-        logger.error(`api_credits_get_error=>${JSON.stringify(e)}`);
+        logger.error(`api_balance_get_error=>${JSON.stringify(e)}`);
     }
 })
 
 /**
- * 获取个人积分余额
+ * 获取个人帐户余额
  */
 router.get("/total",async (req,res,next)=>{
     try{
@@ -43,7 +43,7 @@ router.get("/total",async (req,res,next)=>{
 
         let resp=await requestHelper.get({
             "moduleName":"hulk_service",
-            "controller":"points",
+            "controller":"banlance",
             "action":"total",
             "data":{
                memberId
@@ -53,7 +53,7 @@ router.get("/total",async (req,res,next)=>{
         res.json(resp);
 
     }catch(e){
-        logger.error(`api_points_total_error=>${JSON.stringify(e)}`);
+        logger.error(`api_balance_total_error=>${JSON.stringify(e)}`);
     }
 })
 

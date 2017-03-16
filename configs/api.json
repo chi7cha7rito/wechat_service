@@ -8,15 +8,26 @@
             "create": "member/create",
             "find": "member/findByWechatOpenId"
         },
-        "wechatToken":{
-            "create":"wechatToken/create",
-            "find":"wechatToken/findByOpenId"
+        "wechatToken": {
+            "create": "wechatToken/create",
+            "find": "wechatToken/findByOpenId"
         },
         "signIn": {
             "create": "signIn/create"
         },
-        "points":{
-            "find":"point/findEntries"
+        "points": {
+            "find": "point/findEntries",
+            "total": "point/totalByMemberId"
+        },
+        "balance": {
+            "create": "balance/create",
+            "find": "balance/findEntries",
+            "total": "balance/totalByMemberId"
+        },
+        "match": {
+            "find": "match/findMatches",
+            "apply": "attendance/create",
+            "result": "attendance/findRankingByMemberId"
         }
     },
     "sms_service": {
