@@ -6,7 +6,7 @@
         {
             "category": "info",
             "type": "dateFile",
-            "filename": "../logs/financial/info/",
+            "filename": "../logs/wechat_service/info/",
             "pattern": "yyyy-MM-dd.log",
             "alwaysIncludePattern": true,
             "maxLogSize": 1024
@@ -14,7 +14,7 @@
         {
             "category": "warn",
             "type": "dateFile",
-            "filename": "../logs/financial/warn/",
+            "filename": "../logs/wechat_service/warn/",
             "pattern": "yyyy-MM-dd.log",
             "alwaysIncludePattern": true,
             "maxLogSize": 1024
@@ -22,7 +22,7 @@
         {
             "category": "error",
             "type": "dateFile",
-            "filename": "../logs/financial/error/",
+            "filename": "../logs/wechat_service/error/",
             "pattern": "yyyy-MM-dd.log",
             "alwaysIncludePattern": true,
             "maxLogSize": 1024
