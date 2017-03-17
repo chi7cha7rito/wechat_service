@@ -2,5 +2,6 @@
     "token":"weixin",
     "appid":"wxb2ddd5a35be4cabd",
     "secret":"b80729334002393f5354c5d28af1ea1c",
-    "encodingAESKey":""
+    "encodingAESKey":"",
+    "host":"http://www.ryan911.com"
 }
