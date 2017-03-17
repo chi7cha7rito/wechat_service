@@ -56,7 +56,7 @@ router.all('/', wechat(wechatConfig.token, async (req, res, next) => {
   // console.log(userInfo);
 
 
-  // res.reply('aaa')
+  res.reply('尚在建设中，请耐心等待！')
 }))
 
 
