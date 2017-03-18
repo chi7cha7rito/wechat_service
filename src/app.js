@@ -5,7 +5,8 @@ import path from 'path'
 
 var app = express()
 // 静态资源目录注册
-app.use('/static',express.static('static'))
+app.use('/',express.static('static'))
+
 
 bootstrap(app)
 

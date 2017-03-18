@@ -1,6 +1,6 @@
 {
-    "prefix": "/",
-    "app": "static",
+    "prefix": "",
+    "app": "",
     "pluginCss": {
         "wktable": [
             "/wkzf/js/util/jQuery.wktable/wktable.min.css"
