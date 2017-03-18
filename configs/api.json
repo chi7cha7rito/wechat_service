@@ -47,7 +47,7 @@
         "common": {
             "getAccessToken": "cgi-bin/token",
             "getUserInfo": "cgi-bin/user/info",
-            "createMenu": "cgi-bin/menu/create"
+            "createMenu": "cgi-bin/menu/create?access_token=M5_M5m3INHRQuxgWpw16Dp4nH_PhU_2V9eL-F35rGfohPFRfvewobo6i7FTQdPEk4NVOWGQLr0pnxGTNx-dfPl_iE27Uxjrkl4gkVLBNXeB67wH8Quzb_-CLS-LVIvjlUIYbAGAFTJ"
         }
     }
 }

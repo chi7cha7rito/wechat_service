@@ -16,77 +16,79 @@ router.all('/', wechat(wechatConfig.token, async (req, res, next) => {
   let open_id = message.FromUserName
 
   // console.log(accessTokenInfo);
-  let accessTokenInfo = await requestHelper.get({
-    "moduleName": "wechat",
-    "controller": "common",
-    "action": "getAccessToken",
-    "data": {
-      "grant_type": "client_credential",
-      "appid": wechatConfig.appid,
-      "secret": wechatConfig.secret
-    }
-  });
-
-  console.log(accessTokenInfo)
-
-  // //menu
-  // let menuOption = {
-  //   "button": [
-  //     {
-  //       "name": "豪客服务",
-  //       "sub_button": [
-  //         {
-  //           "type": "view",
-  //           "name": "会员中心",
-  //           "url": `${wechatConfig.host}/personal/list`
-  //         },
-  //         {
-  //           "type": "view",
-  //           "name": "在线充值",
-  //           "url": `${wechatConfig.host}/account/recharge`
-  //         },
-  //         {
-  //           "type": "view",
-  //           "name": "在线签到",
-  //           "url": `${wechatConfig.host}/account/recharge`
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       "name": "赛事服务",
-  //       "sub_button": [
-  //         {
-  //           "type": "view",
-  //           "name": "赛事报名",
-  //           "url": `${wechatConfig.host}/match/apply`
-  //         },
-  //         {
-  //           "type": "view",
-  //           "name": "战绩查询",
-  //           "url": `${wechatConfig.host}/personal/standings`
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       "name": "豪客积分",
-  //       "sub_button": [
-  //         {
-  //           "type": "view",
-  //           "name": "积分记录",
-  //           "url": `${wechatConfig.host}/personal/credits`
-  //         }
-  //       ]
-  //     }
-  //   ]
-  // }
-
-  // //create Menu
-  // let menuResp = await requestHelper.post({
+  // let accessTokenInfo = await requestHelper.get({
   //   "moduleName": "wechat",
   //   "controller": "common",
-  //   "action": "createMenu",
-  //   "data": JSON.stringify(menuOption)
+  //   "action": "getAccessToken",
+  //   "data": {
+  //     "grant_type": "client_credential",
+  //     "appid": wechatConfig.appid,
+  //     "secret": wechatConfig.secret
+  //   }
   // });
+
+  // console.log(accessTokenInfo)
+
+  // //menu
+  let menuOption = {
+    "button": [
+      {
+        "name": "豪客服务",
+        "sub_button": [
+          {
+            "type": "view",
+            "name": "会员中心",
+            "url": `${wechatConfig.host}/personal/list`
+          },
+          {
+            "type": "view",
+            "name": "在线充值",
+            "url": `${wechatConfig.host}/account/recharge`
+          },
+          {
+            "type": "view",
+            "name": "在线签到",
+            "url": `${wechatConfig.host}/account/recharge`
+          }
+        ]
+      },
+      {
+        "name": "赛事服务",
+        "sub_button": [
+          {
+            "type": "view",
+            "name": "赛事报名",
+            "url": `${wechatConfig.host}/match/apply`
+          },
+          {
+            "type": "view",
+            "name": "战绩查询",
+            "url": `${wechatConfig.host}/personal/standings`
+          }
+        ]
+      },
+      {
+        "name": "豪客积分",
+        "sub_button": [
+          {
+            "type": "view",
+            "name": "积分记录",
+            "url": `${wechatConfig.host}/personal/credits`
+          }
+        ]
+      }
+    ]
+  }
+
+  //create Menu
+  let menuResp = await requestHelper.post({
+    "moduleName": "wechat",
+    "controller": "common",
+    "action": "createMenu",
+    "data": JSON.stringify(menuOption)
+  });
+
+  console.log(menuResp);
 
   res.reply('尚在建设中，请耐心等待！')
 }))
