@@ -50,7 +50,8 @@ function Controller () {
     },
     'match': {
       'get': this.apiPrefix + 'match/get',
-      'apply': this.apiPrefix + 'match/apply'
+      'apply': this.apiPrefix + 'match/apply',
+      'result': this.apiPrefix + 'match/result'
     }
   }
 

@@ -15,9 +15,24 @@ router.get('/apply', (req, res, next) => {
 
   let templateData = routerUtil.getTemplateBasicData(param);
 
-  Object.assign(templateData, { "title": "比赛报名" });
+  Object.assign(templateData, { "title": "赛事信息" });
 
   return res.render("match/apply", templateData);
+})
+
+//比赛成绩
+router.get('/result', (req, res, next) => {
+  let param = {
+    req: req,
+    matchJavascript: true,
+    matchStylesheet: true
+  }
+
+  let templateData = routerUtil.getTemplateBasicData(param);
+
+  Object.assign(templateData, { "title": "战绩" });
+
+  return res.render("match/result", templateData);
 })
 
 
