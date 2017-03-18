@@ -26,7 +26,7 @@
         },
         "match": {
             "find": "match/findMatches",
-            "apply": "attendance/create",
+            "apply": "attendance/createOnline",
             "result": "attendance/findRankingByMemberId"
         }
     },

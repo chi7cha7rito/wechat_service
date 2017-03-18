@@ -44,6 +44,13 @@ function Controller () {
     },
     'credits': {
       'get': this.apiPrefix + 'credits/get'
+    },
+    'balance': {
+      'get': this.apiPrefix + 'balance/get'
+    },
+    'match': {
+      'get': this.apiPrefix + 'match/get',
+      'apply': this.apiPrefix + 'match/apply'
     }
   }
 
@@ -101,7 +108,7 @@ function Controller () {
           if (onExceptionInterface) {
             onExceptionInterface(data.status, data.message)
           }
-        }  
+        }
       }
     }
     try {
@@ -239,6 +246,10 @@ function Controller () {
     }else {
       return true
     }
+  }
+
+  this.utcToLocal = function (utc) {
+    return moment.utc(utc).local().format('YYYY-MM-DD HH:mm')
   }
 
   // 获取url search参数值方法
