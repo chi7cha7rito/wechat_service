@@ -62,7 +62,7 @@ router.get("/result",async (req,res,next)=>{
 /**
  * 报名参赛
  */
-router.get("/apply",async (req,res,next)=>{
+router.post("/apply",async (req,res,next)=>{
     try{
         let memberId=req.session.member.member.id
         let matchId = req.body.matchId

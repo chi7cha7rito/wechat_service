@@ -49,19 +49,19 @@ router.get('/info', (req, res, next) => {
 })
 
 //充值记录
-router.get('/recharge', (req, res, next) => {
-  let param = {
-    req: req,
-    matchJavascript: true,
-    matchStylesheet: true
-  }
+// router.get('/recharge', (req, res, next) => {
+//   let param = {
+//     req: req,
+//     matchJavascript: true,
+//     matchStylesheet: true
+//   }
 
-  let templateData = routerUtil.getTemplateBasicData(param);
+//   let templateData = routerUtil.getTemplateBasicData(param);
 
-  Object.assign(templateData, { "title": "充值记录" });
+//   Object.assign(templateData, { "title": "充值记录" });
 
-  return res.render("personal/recharge", templateData);
-})
+//   return res.render("personal/recharge", templateData);
+// })
 
 //积分记录
 router.get('/credits', (req, res, next) => {
@@ -73,7 +73,7 @@ router.get('/credits', (req, res, next) => {
 
   let templateData = routerUtil.getTemplateBasicData(param);
 
-  Object.assign(templateData, { "title": "积分记录" });
+  Object.assign(templateData, { "title": "积分明细" });
 
   return res.render("personal/credits", templateData);
 })
