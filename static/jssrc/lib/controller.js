@@ -44,6 +44,9 @@ function Controller () {
     },
     'credits': {
       'get': this.apiPrefix + 'credits/get'
+    },
+    'balance':{
+      'get': this.apiPrefix + 'balance/get'
     }
   }
 
@@ -239,6 +242,10 @@ function Controller () {
     }else {
       return true
     }
+  }
+
+  this.utcToLocal= function(utc){
+    return moment.utc(utc).local().format('YYYY-MM-DD HH:mm:ss')
   }
 
   // 获取url search参数值方法

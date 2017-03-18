@@ -19,7 +19,7 @@ router.get('/list', (req, res, next) => {
 })
 
 //消费记录
-router.get('/consume', (req, res, next) => {
+router.get('/balance', (req, res, next) => {
   let param = {
     req: req,
     matchJavascript: true,
@@ -28,9 +28,9 @@ router.get('/consume', (req, res, next) => {
 
   let templateData = routerUtil.getTemplateBasicData(param);
 
-  Object.assign(templateData, { "title": "消费记录查询" });
+  Object.assign(templateData, { "title": "帐户明细" });
 
-  return res.render("personal/consume", templateData);
+  return res.render("personal/balance", templateData);
 })
 
 //个人信息

@@ -1,15 +1,14 @@
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
  1. 项目名称：豪客微信站
- 2. 文件名称：static/jssrc/personal/credits.js --> (个人中心/积分记录)
- 3. 作者：KingsleyYu
+ 2. 文件名称：static/jssrc/personal/consume.js --> (个人中心/消费记录)
+ 3. 作者：RyanLu
  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
-function CreditsController () {
+function ConsumeController () {
   /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
   继承于Controller基类
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
   Controller.call(this)
-
 
   /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
   定义pageSize
@@ -26,17 +25,17 @@ function CreditsController () {
 /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 初始化页面
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-CreditsController.prototype.initPage = function () {
+ConsumeController.prototype.initPage = function () {
   var classSelf = this
 
-  classSelf.request(classSelf.apiUrl.credits.get, {
+  classSelf.request(classSelf.apiUrl.balance.get, {
     'pageIndex': 1,
     'pageSize': classSelf.pageSize
   }, {
     'showLoadingTips': true,
     'process': function (data) {
       classSelf.renderList(data)
-      classSelf.initPullLoad();
+      classSelf.initPullLoad()
     }
   })
 }
@@ -44,17 +43,17 @@ CreditsController.prototype.initPage = function () {
 /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 初始化滚动加载更多
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-CreditsController.prototype.initPullLoad = function () {
+ConsumeController.prototype.initPullLoad = function () {
   var classSelf = this
   require(['components/pullload.js'], function () {
-    $('.credits-list').pullload({
-      apiUrl: classSelf.apiUrl.credits.get,
+    $('.balance-list').pullload({
+      apiUrl: classSelf.apiUrl.balance.get,
       threshold: 15,
       crossDoman: false,
       pageSize: classSelf.pageSize,
       countKey: 'data.count',
       callback: function (resp) {
-        classSelf.renderList(resp.data,true)
+        classSelf.renderList(resp.data, true)
       }
     })
   })
@@ -63,9 +62,9 @@ CreditsController.prototype.initPullLoad = function () {
 /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 渲染列表
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-CreditsController.prototype.renderList = function (data, isAppend) {
+ConsumeController.prototype.renderList = function (data, isAppend) {
   var classSelf = this
-  var $recordsList = $('.credits-list')
+  var $recordsList = $('.balance-list')
 
   if (!isAppend) {
     $recordsList.empty()
@@ -78,40 +77,28 @@ CreditsController.prototype.renderList = function (data, isAppend) {
 /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 绘制item dom 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-CreditsController.prototype.getItem = function (data) {
+ConsumeController.prototype.getItem = function (data) {
   var classSelf = this
-
+  var amountCls = data.isPositive ? 'positive' : 'negative'
   var htmlTpl = ''
-
-  var sourceStr = '充值返现'; // 1:充值返现,2:比赛奖励,3:店内消费,4:商城消费,5:手工调整
-  var valueClass = 'positive',points = '+' + data.points
-  // if (data.source == '1') {
-  //   sourceStr = '充值返现'
-  // }else if (data.source == '2') {
-  //   sourceStr = '比赛奖励'
-  // }else if (data.source == '3') {
-  //   sourceStr = '店内消费'
-  // }else if (data.source == '4') {
-  //   sourceStr = '商城消费'
-  // }else if (data.source == '5') {
-  //   sourceStr = '手工调整'
-  // }
-
-  if (!data.isPositive) {
-    valueClass = 'negative'
-    points = '-' + data.points
-  }
-
-  htmlTpl += '<dl class="item">'
-  htmlTpl += '<dt>'
-  htmlTpl += '<h1>' + data.source + '</h1>'
-  htmlTpl += '<p>' + this.utcToLocal(data.createdAt) + '</p>'
-  htmlTpl += '</dt>'
-
-  htmlTpl += '<dd class="'+valueClass+'">' + points + '</dd>'
-
-  htmlTpl += '</dl>'
-
+  htmlTpl += '<div class="weui-form-preview">'
+  htmlTpl += '<div class="weui-form-preview__hd">'
+  htmlTpl += '<div class="weui-form-preview__item">'
+  htmlTpl += '<label class="weui-form-preview__label">金额</label>'
+  htmlTpl += '<em class="weui-form-preview__value ' + amountCls + '">' + (data.isPositive ? '+' : '-') + '¥' + data.amount + '</em>'
+  htmlTpl += '</div>'
+  htmlTpl += '</div>'
+  htmlTpl += '<div class="weui-form-preview__bd">'
+  htmlTpl += '<div class="weui-form-preview__item">'
+  htmlTpl += '<label class="weui-form-preview__label">用途</label>'
+  htmlTpl += '<span class="weui-form-preview__value status">' + data.source + '</span>'
+  htmlTpl += '</div>'
+  htmlTpl += '<div class="weui-form-preview__item">'
+  htmlTpl += '<label class="weui-form-preview__label">时间</label>'
+  htmlTpl += '<span class="weui-form-preview__value">' + classSelf.utcToLocal(data.createdAt) + '</span>'
+  htmlTpl += '</div>'
+  htmlTpl += '</div>'
+  htmlTpl += '</div>'
   return $(htmlTpl)
 }
 
@@ -119,5 +106,5 @@ CreditsController.prototype.getItem = function (data) {
 类的初始化
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 $(function () {
-  new CreditsController()
+  new ConsumeController()
 })

@@ -44,6 +44,7 @@ var pathAppJs = [
   'static/jssrc/lib/jquery-2.1.4.js',
   'static/jssrc/lib/jquery-weui.js',
   'static/jssrc/lib/jquery.cookie.js',
+  'static/jssrc/lib/moment-2.17.1.js',
   'static/jssrc/lib/controller.js'
 ]
 

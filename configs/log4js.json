@@ -6,7 +6,7 @@
         {
             "category": "info",
             "type": "dateFile",
-            "filename": "../logs/wechat_service/info/",
+            "filename": "../logs/hulk_wechat/info/",
             "pattern": "yyyy-MM-dd.log",
             "alwaysIncludePattern": true,
             "maxLogSize": 1024
@@ -14,7 +14,7 @@
         {
             "category": "warn",
             "type": "dateFile",
-            "filename": "../logs/wechat_service/warn/",
+            "filename": "../logs/hulk_wechat/warn/",
             "pattern": "yyyy-MM-dd.log",
             "alwaysIncludePattern": true,
             "maxLogSize": 1024
@@ -22,7 +22,7 @@
         {
             "category": "error",
             "type": "dateFile",
-            "filename": "../logs/wechat_service/error/",
+            "filename": "../logs/hulk_wechat/error/",
             "pattern": "yyyy-MM-dd.log",
             "alwaysIncludePattern": true,
             "maxLogSize": 1024
