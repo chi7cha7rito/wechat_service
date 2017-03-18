@@ -23,7 +23,7 @@ export default async (req, res, next) => {
         }
         else {
             if (!req.session.member) {
-                var url = client.getAuthorizeURL("http://xiaochenyu8065.s1.natapp.cc/wechat/auth", absoluteUrl);
+                var url = client.getAuthorizeURL(`${wechatConfig.host}/wechat/auth`, absoluteUrl);
                 res.redirect(url);
             }
             else {
