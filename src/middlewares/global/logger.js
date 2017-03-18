@@ -8,7 +8,7 @@
 import logger from '../../utils/logger'
 
 export default function (req, res, next) {
-  req.session.member = {member: {id: 1}}
+  // req.session.member = {member: {id: 1}}
   req.app.locals.log = logger
   logger.info(`=======request_url=======:${req.url} `)
   // logger.info(`request_headers:${JSON.stringify(req.headers)}`)

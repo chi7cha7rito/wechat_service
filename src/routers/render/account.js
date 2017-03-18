@@ -1,5 +1,5 @@
 import express from "express";
-import Logger from '../../utils/logger';
+import logger from '../../utils/logger';
 import routerUtil from "../../utils/router";
 
 

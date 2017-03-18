@@ -43,7 +43,7 @@ router.get("/total",async (req,res,next)=>{
 
         let resp=await requestHelper.get({
             "moduleName":"hulk_service",
-            "controller":"banlance",
+            "controller":"balance",
             "action":"total",
             "data":{
                memberId
