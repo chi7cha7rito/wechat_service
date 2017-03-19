@@ -9,6 +9,8 @@ import wechatPay from 'wechat-pay';
 
 let router = express.Router()
 
+let wechatConfig = config.getWechat();
+
 //wechat pay unifiedorder 基本参数
 let payment = new wechatPay.Payment({
   "appId": wechatConfig.appid,
