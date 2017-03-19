@@ -21,19 +21,19 @@ let payment = new wechatPay.Payment({
  * desc:微信支付调用统一下单接口，获取prepay_id
  * @see https://api.mch.weixin.qq.com/pay/unifiedorder
  */
-router.get("/getPrePayInfo",async (req,res,next)=>{
-        let respData={
-      "status":"1",
-      "message":"",
-      "data":null
-    }
-     try {
+router.get("/getPrePayInfo", async (req, res, next) => {
+  let respData = {
+    "status": "1",
+    "message": "",
+    "data": null
+  }
+  try {
     let body = req.body.name;
     let attach = "";
     let total_fee = req.body.price * 100;
     let spbill_create_ip = req.ip;
     let openid = req.session.member.wechat.wechatOpenId; //从 session 获取open_id
-    let out_trade_no='hulk_club' +(new Date().valueOf());
+    let out_trade_no = 'hulk_club' + (new Date().valueOf());
     let trade_type = "JSAPI";
 
     let order = {
@@ -45,19 +45,23 @@ router.get("/getPrePayInfo",async (req,res,next)=>{
       openid,
       trade_type
     }
-
-
-
-    payment.getBrandWCPayRequestParams(order, function (err, payargs) {
-      respData.data=payargs;
-      res.json(respData);
-    });
+   new Promise((resolve, reject) => {
+      payment.getBrandWCPayRequestParams(order, function (err, payargs) {
+        console.log('getBrandWCPayRequestParams...........................')
+        if(err){reject(err)};
+        resolve(payargs);     
+      });
+    }).then(function(data){
+      console.log('getBrandWCPayRequestParams then...........................')
+       respData.data = data;
+       res.json(respData);
+    })
 
   } catch (e) {
     logger.error("wechat_getPrePayInfo_error:" + JSON.stringify(e));
-    respData.status="0";
-    respData.message="获取统一下单信息失败";
-    resp.data=null;
+    respData.status = "0";
+    respData.message = "获取统一下单信息失败";
+    respData.data = null;
     res.json(respData);
   }
 })
