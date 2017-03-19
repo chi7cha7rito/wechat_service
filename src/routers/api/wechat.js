@@ -22,6 +22,11 @@ let payment = new wechatPay.Payment({
  * @see https://api.mch.weixin.qq.com/pay/unifiedorder
  */
 router.get("/getPrePayInfo",async (req,res,next)=>{
+        let respData={
+      "status":"1",
+      "message":"",
+      "data":null
+    }
      try {
     let body = req.body.name;
     let attach = "";
@@ -41,11 +46,7 @@ router.get("/getPrePayInfo",async (req,res,next)=>{
       trade_type
     }
 
-    let respData={
-      "status":"1",
-      "message":"",
-      "data":null
-    }
+
 
     payment.getBrandWCPayRequestParams(order, function (err, payargs) {
       respData.data=payargs;
