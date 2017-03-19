@@ -268,7 +268,6 @@ router.get("/pay",(req,res,next)=>{
     catch(e){
       logger.error("wechat_pay_page_error"+JSON.stringify(e));
     }
-  
 })
 
 
