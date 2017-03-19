@@ -233,7 +233,7 @@ router.all('/payNotify', (message, req, res, next)=> {
    * 有错误返回错误，不然微信会在一段时间里以一定频次请求你
    * res.reply(new Error('...'))
    */
-}));
+});
 
 
 module.exports = router
