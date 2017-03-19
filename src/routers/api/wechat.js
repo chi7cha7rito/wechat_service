@@ -21,7 +21,7 @@ let payment = new wechatPay.Payment({
  * desc:微信支付调用统一下单接口，获取prepay_id
  * @see https://api.mch.weixin.qq.com/pay/unifiedorder
  */
-router.get("/getPrePayInfo", async (req, res, next) => {
+router.post("/getPrePayInfo", async (req, res, next) => {
   let respData = {
     "status": "1",
     "message": "",
