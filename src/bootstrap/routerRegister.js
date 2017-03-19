@@ -24,6 +24,7 @@ let apiMiddlewares = []
 
 let stageEnv = process.env.STAGE_ENV || 'dev'
 
+
 /**
  * desc:根据app.json中middlewares配置顺序组装api中间件
  */
@@ -59,4 +60,7 @@ export default function (app) {
       app.use('/api/' + key, [...apiMiddlewares, apiRoutes[key]])
     })
   }
+
+  //特殊处理当路由为微信支付回调的时候，加入paymentMiddleware 注册路由与路由中间件
+  app.use('/wechat/payNotify',renderModules["paymentNotification"]["default"])
 }
