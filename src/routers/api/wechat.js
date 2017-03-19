@@ -31,10 +31,9 @@ router.post("/getPrePayInfo", async (req, res, next) => {
   }
   try {
     let body = req.body.name;
-    let attach = "";
+    let attach = req.session.member.member.id;
     let total_fee = req.body.price * 100;
     let spbill_create_ip = "127.0.0.1";
-    console.log(req.session.member.member)
     let openid = req.session.member.member.wechat.wechatOpenId; //从 session 获取open_id
     let out_trade_no = 'hulk_club' + (new Date().valueOf());
     let trade_type = "JSAPI";
@@ -56,7 +55,6 @@ router.post("/getPrePayInfo", async (req, res, next) => {
     function getBrandWCPayRequestParams(order) {
       return new Promise((resolve, reject) => {
         payment.getBrandWCPayRequestParams(order, function (err, payargs) {
-          console.log('getBrandWCPayRequestParams...........................')
           if (err) { reject(err) };
           resolve(payargs);
         });
