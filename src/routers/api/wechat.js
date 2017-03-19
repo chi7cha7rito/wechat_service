@@ -45,17 +45,20 @@ router.get("/getPrePayInfo", async (req, res, next) => {
       openid,
       trade_type
     }
-   new Promise((resolve, reject) => {
-      payment.getBrandWCPayRequestParams(order, function (err, payargs) {
-        console.log('getBrandWCPayRequestParams...........................')
-        if(err){reject(err)};
-        resolve(payargs);     
-      });
-    }).then(function(data){
-      console.log('getBrandWCPayRequestParams then...........................')
-       respData.data = data;
-       res.json(respData);
-    })
+
+    let payargs = await getBrandWCPayRequestParams(order);
+    respData.data = payargs;
+    return res.json(respData);
+
+    function getBrandWCPayRequestParams(order) {
+      return new Promise((resolve, reject) => {
+        payment.getBrandWCPayRequestParams(order, function (err, payargs) {
+          console.log('getBrandWCPayRequestParams...........................')
+          if (err) { reject(err) };
+          resolve(payargs);
+        });
+      })
+    }
 
   } catch (e) {
     logger.error("wechat_getPrePayInfo_error:" + JSON.stringify(e));
