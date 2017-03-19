@@ -145,7 +145,7 @@ router.all('/auth', async (req, res, next) => {
 
       let memberInfo={};
       memberInfo.wechat={
-        "wechatOpenId":userInfo.openid;
+        "wechatOpenId":userInfo.openid
       };
 
       req.session.member = memberInfo;
