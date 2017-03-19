@@ -3,7 +3,7 @@ import wechat from 'wechat'
 import OAuth from 'wechat-oauth'
 import logger from '../../utils/logger';
 import config from '../../utils/config';
-import Payment from 'wechat-pay';
+import wechatPay from 'wechat-pay';
 
 
 let router = express.Router()
@@ -13,13 +13,13 @@ let wechatConfig = config.getWechat();
 let client = new OAuth(wechatConfig.appid, wechatConfig.secret);
 
 //wechat pay unifiedorder 基本参数
-let payment = new Payment({
+let payment = new wechatPay.Payment({
   "appId": wechatConfig.appid,
   "mchId": wechatConfig.mch_id
 })
 
 //wechat pay notify middleware
-let middleware = Payment.middleware;
+let middleware = wechatPay.middleware;
 
 
 /**
