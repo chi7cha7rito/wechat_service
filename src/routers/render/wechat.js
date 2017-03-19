@@ -16,7 +16,7 @@ let client = new OAuth(wechatConfig.appid, wechatConfig.secret);
 let payment = new wechatPay.Payment({
   "appId": wechatConfig.appid,
   "mchId": wechatConfig.mch_id,
-  "parterKey":wechatConfig.parterKey,
+  "partnerKey":wechatConfig.partnerKey,
   "notifyUrl":`${wechatConfig.host}/wechat/payNotify`
 })
 
