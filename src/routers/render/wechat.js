@@ -118,8 +118,30 @@ router.all('/auth', async (req, res, next) => {
     let accessToken = result.data.access_token;//网页授权access_token
     let openid = result.data.openid;
 
+    //将token 信息 存入db
+    await requestHelper.post({
+      "moduleName": "hulk_service",
+      "controller": "wechatToken",
+      "action": "create",
+      "data": {
+        "access_token": accessToken,
+        "openid": openid,
+        "scope": result.data.scope,
+        "expires_in": result.data.expires_in
+      }
+    })
 
-    //获取全局的access_token
+    let memberInfo = await requestHelper.get({
+      "moduleName": "hulk_service",
+      "controller": "member",
+      "action": "find",
+      "data": {
+        "wechatOpenId": openid
+      }
+    });
+
+    if (!memberInfo.data) {
+      //获取全局的access_token
       let accessTokenInfo = await requestHelper.get({
         "moduleName": "wechat",
         "controller": "common",
@@ -143,73 +165,17 @@ router.all('/auth', async (req, res, next) => {
         }
       })
 
-      let memberInfo={};
-      memberInfo.wechat={
-        "wechatOpenId":userInfo.openid
-      };
 
-      req.session.member = memberInfo;
+      //存入session
+      req.session.user = userInfo;
 
-    // let memberInfo = await requestHelper.get({
-    //   "moduleName": "hulk_service",
-    //   "controller": "member",
-    //   "action": "find",
-    //   "data": {
-    //     "wechatOpenId": openid
-    //   }
-    // });
+      return res.redirect('/account/register?returnUrl=' + r_url)
+    }
+    else {
+      req.session.member = memberInfo.data;
 
-    // //将token 信息 存入db
-    // await requestHelper.post({
-    //   "moduleName": "hulk_service",
-    //   "controller": "wechatToken",
-    //   "action": "create",
-    //   "data": {
-    //     "access_token": accessToken,
-    //     "openid": openid,
-    //     "scope": result.data.scope,
-    //     "expires_in": result.data.expires_in
-    //   }
-    // })
-
-    // if (!memberInfo.data) {
-    //   //获取全局的access_token
-    //   let accessTokenInfo = await requestHelper.get({
-    //     "moduleName": "wechat",
-    //     "controller": "common",
-    //     "action": "getAccessToken",
-    //     "data": {
-    //       "grant_type": "client_credential",
-    //       "appid": wechatConfig.appid,
-    //       "secret": wechatConfig.secret
-    //     }
-    //   });
-
-
-    //   //获取openid 对应的用户基本信息
-    //   let userInfo = await requestHelper.get({
-    //     "moduleName": "wechat",
-    //     "controller": "common",
-    //     "action": "getUserInfo",
-    //     "data": {
-    //       "access_token": accessTokenInfo.access_token,
-    //       "openid": openid
-    //     }
-    //   })
-
-
-    //   //存入session
-    //   req.session.user = userInfo;
-
-    //   return res.redirect('/account/register?returnUrl=' + r_url)
-    // }
-    // else {
-    //   req.session.member = memberInfo.data;
-
-    //   return res.redirect(r_url)
-    // }
-
-
+      return res.redirect(r_url)
+    }
   });
 })
 
