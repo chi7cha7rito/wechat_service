@@ -1,7 +1,10 @@
 {
-    "token":"weixin",
+    "token":"hulk_club",
     "appid":"wxb2ddd5a35be4cabd",
     "secret":"b80729334002393f5354c5d28af1ea1c",
     "encodingAESKey":"",
-    "host":"http://www.ryan911.com"
+    "host":"http://www.ryan911.com",
+    "mch_id":"1438571302",
+    "device_info":"web",
+    "trade_type":"JSAPI"
 }
