@@ -33,10 +33,10 @@ WechatPayController.prototype.bindEvents = function () {
       'price': price
     }
 
-    classSelf.getPrePayInfo(requestData, function (data) {
+    classSelf.getPrePayInfo(requestData, function (payargs) {
       WeixinJSBridge.invoke('getBrandWCPayRequest', payargs, function (resp) {
         if (resp.err_msg == 'get_brand_wcpay_request：ok') {
-            window.location.href=classSelf.redirectUrl.pay.success
+            window.location.href=classSelf.redirectUrl.pay.success;
         }
       })
     })
