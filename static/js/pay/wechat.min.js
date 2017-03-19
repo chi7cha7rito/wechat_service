@@ -51,6 +51,7 @@ WechatPayController.prototype.getPrePayInfo = function (data, callback) {
   var classSelf = this
 
   classSelf.request(classSelf.apiUrl.wechat.getPrePayInfo, data, {
+    'type':'POST',
     'process': function (data) {
       if (data) {
         callback && callback(data)
