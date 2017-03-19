@@ -14,7 +14,9 @@ let wechatConfig = config.getWechat();
 //wechat pay unifiedorder 基本参数
 let payment = new wechatPay.Payment({
   "appId": wechatConfig.appid,
-  "mchId": wechatConfig.mch_id
+  "mchId": wechatConfig.mch_id,
+  "parterKey":wechatConfig.parterKey,
+  "notifyUrl":`${wechatConfig.host}/wechat/payNotify`
 })
 
 /**
