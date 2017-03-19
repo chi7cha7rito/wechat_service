@@ -32,7 +32,7 @@ router.get("/getPrePayInfo", async (req, res, next) => {
     let attach = "";
     let total_fee = req.body.price * 100;
     let spbill_create_ip = req.ip;
-    let openid = req.session.member.wechat.wechatOpenId; //从 session 获取open_id
+    let openid = req.session.member.member.wechat.wechatOpenId; //从 session 获取open_id
     let out_trade_no = 'hulk_club' + (new Date().valueOf());
     let trade_type = "JSAPI";
 
