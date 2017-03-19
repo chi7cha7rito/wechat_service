@@ -186,14 +186,14 @@ router.all('/auth', async (req, res, next) => {
  * @see https://api.mch.weixin.qq.com/pay/unifiedorder
  */
 router.all('/payNotify', middleware(payment).getNotify().done(function (message, req, res, next) {
+  console.log("wechat payNotify============="+JSON.stringify(message));
   let openid = message.openid;
   let order_id = message.out_trade_no;//订单号
   let memberId=message.attach; //商家的数据包
 
-
   //memberId, type, amount, source, sourceNo, remark, status
   try {
-    console.log("wechat payNotify============="+JSON.stringify(message));
+    
   } catch (e) { 
     logger.error('wechat_payNotify_error'+e);
   }
