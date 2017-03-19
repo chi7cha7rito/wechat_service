@@ -227,7 +227,7 @@ router.get('/getPrePayInfo', (req, res, next) => {
  * desc:接收微信付款确认请求
  * @see https://api.mch.weixin.qq.com/pay/unifiedorder
  */
-router.all('/payNotify', middleware(initConfig).getNotify().done(function (message, req, res, next) {
+router.all('/payNotify', middleware(payment).getNotify().done(function (message, req, res, next) {
   var openid = message.openid;
   var order_id = message.out_trade_no;
   var attach = {};
