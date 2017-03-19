@@ -32,6 +32,7 @@ router.get("/getPrePayInfo", async (req, res, next) => {
     let attach = "";
     let total_fee = req.body.price * 100;
     let spbill_create_ip = req.ip;
+    console.log(req.session.member.member)
     let openid = req.session.member.member.wechat.wechatOpenId; //从 session 获取open_id
     let out_trade_no = 'hulk_club' + (new Date().valueOf());
     let trade_type = "JSAPI";
@@ -61,6 +62,7 @@ router.get("/getPrePayInfo", async (req, res, next) => {
     }
 
   } catch (e) {
+    console.log(e)
     logger.error("wechat_getPrePayInfo_error:" + JSON.stringify(e));
     respData.status = "0";
     respData.message = "获取统一下单信息失败";
