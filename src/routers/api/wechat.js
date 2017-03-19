@@ -40,9 +40,9 @@ router.post("/getPrePayInfo", async (req, res, next) => {
     let order = {
       body,
       attach,
+      out_trade_no,
       total_fee,
       spbill_create_ip,
-      out_trade_no,
       openid,
       trade_type
     }
