@@ -3,7 +3,7 @@ import logger from '../../utils/logger'
 import routerUtil from '../../utils/router'
 import wechatPay from 'wechat-pay'
 import config from '../../utils/config'
-import PaymentNotify from '../../utils/PaymentNotify'
+import PaymentNotify from '../../utils/paymentNotify'
 
 let router = express.Router()
 
