@@ -226,8 +226,8 @@ router.all('/notify', middleware(paymentConfig).getNotify().done(async function 
         if (notifyInfo.status == "1" && !notifyInfo.message) {
 
           let sortedQueryString=paymentConfig._toQueryString(message);
-          let sortedQueryString=sortedQueryString+'&key='+wechatConfig.partnerKey;
-          let newSign=md5(sortedQueryString).toUpperCase();
+          let stringSignTemp=sortedQueryString+'&key='+wechatConfig.partnerKey;
+          let newSign=md5(stringSignTemp).toUpperCase();
 
           console.log("newSign======================"+newSign);
           /**
