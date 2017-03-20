@@ -195,7 +195,6 @@ router.all('/notify', middleware(paymentConfig).getNotify().done(async function 
     let notifySign = message.sign;
     let tmpParmas = _.clone(message);
 
-    console.log("message===============================" + JSON.stringify(message))
     //先查询
     let payInfo = await requestHelper.get({
       "moduleName": "hulk_service",
@@ -213,8 +212,8 @@ router.all('/notify', middleware(paymentConfig).getNotify().done(async function 
       let stringSignTemp = sortedQueryString + '&key=' + wechatConfig.partnerKey;
       let newSign = md5(stringSignTemp).toUpperCase();
 
-      console.log("newSign======================" + newSign);
-      if (payInfo.data.total_fee == notifyTotalFee) {
+      //签名验证,并校验返回的订单金额是否与商户侧的订单金额一致
+      if (payInfo.data.total_fee == notifyTotalFee && newSign == notifySign) {
         //更新payment row status 
         let transaction_id = message.transaction_id;
         let time_end = message.time_end;
@@ -244,12 +243,14 @@ router.all('/notify', middleware(paymentConfig).getNotify().done(async function 
          * 有错误返回错误，不然微信会在一段时间里以一定频次请求你
          * res.reply(new Error('...'))
          */
+          res.reply(new Error('订单更新失败'))
         }
       } else {
         /**
        * 有错误返回错误，不然微信会在一段时间里以一定频次请求你
        * res.reply(new Error('...'))
        */
+        res.reply(new Error('回调信息有误'))
       }
     }
   } catch (e) {
