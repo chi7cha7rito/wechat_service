@@ -1,5 +1,5 @@
 import express from 'express'
-import Logger from '../../utils/logger'
+import logger from '../../utils/logger'
 import routerUtil from '../../utils/router'
 import wechatPay from 'wechat-pay'
 import config from '../../utils/config'
@@ -103,9 +103,14 @@ router.get('/error', (req, res, next) => {
 // }))
 
 router.all('/pay/wechatNotify', async (req, res, next) => {
-   var payNotify=new PaymentNotify();
+  try {
+    var payNotify = new PaymentNotify();
 
-   console.log("parseData======================"+JSON.stringify(payNotify.parseData(req.rawBody)))
+    console.log("parseData======================" + JSON.stringify(payNotify.parseData(req.rawBody)))
+  } catch (e) {
+    logger.error("pay_wechatNotify_error:" + e);
+  }
+
 })
 
 module.exports = router
