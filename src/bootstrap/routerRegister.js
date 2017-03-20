@@ -74,24 +74,24 @@ export default function (app) {
   }
 
   // 特殊处理当路由为微信支付回调的时候，加入paymentMiddleware 注册路由与路由中间件
-  app.use('/pay/wechatNotify', paymentMiddleware(paymentConfig).getNotify().done(function (message, req, res, next) {
-    console.log(JSON.stringify(message))
-    var openid = message.openid
-    var order_id = message.out_trade_no
-    var attach = {}
-    try {
-      attach = JSON.parse(message.attach)
-    } catch(e) {}
+  // app.use('/pay/wechatNotify', paymentMiddleware(paymentConfig).getNotify().done(function (message, req, res, next) {
+  //   console.log(JSON.stringify(message))
+  //   var openid = message.openid
+  //   var order_id = message.out_trade_no
+  //   var attach = {}
+  //   try {
+  //     attach = JSON.parse(message.attach)
+  //   } catch(e) {}
 
-    /**
-     * 查询订单，在自己系统里把订单标为已处理
-     * 如果订单之前已经处理过了直接返回成功
-     */
-    res.reply('success')
+  //   /**
+  //    * 查询订单，在自己系统里把订单标为已处理
+  //    * 如果订单之前已经处理过了直接返回成功
+  //    */
+  //   res.reply('success')
 
-  /**
-   * 有错误返回错误，不然微信会在一段时间里以一定频次请求你
-   * res.reply(new Error('...'))
-   */
-  }))
+  // /**
+  //  * 有错误返回错误，不然微信会在一段时间里以一定频次请求你
+  //  * res.reply(new Error('...'))
+  //  */
+  // }))
 }

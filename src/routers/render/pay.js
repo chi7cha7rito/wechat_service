@@ -101,4 +101,17 @@ router.get('/error', (req, res, next) => {
 //    */
 // }))
 
+router.all('/pay/wechatNotify', async (req, res, next) => {
+  var _reBody = _req.body || _req.rawBody;
+  var _payInfo = _reBody.xml;
+
+  if (_payInfo.return_code == 'SUCCESS') {
+    console.log('用户成功支付金额：', _payInfo.cash_fee);
+    console.log('用户openid：', _payInfo.openid);
+  } else {
+    console.log('用户支付失败：', _payInfo.return_msg);
+    console.log('用户openid：', _payInfo.openid);
+  }
+})
+
 module.exports = router
