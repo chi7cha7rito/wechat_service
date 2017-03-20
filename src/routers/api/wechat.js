@@ -54,6 +54,9 @@ router.post("/getPrePayInfo", async (req, res, next) => {
     let payargs = await getBrandWCPayRequestParams(order);
     respData.data = payargs;
 
+
+    console.log("payargs========================="+JSON.stringify(payargs))
+
     //添加一条wechatPayment 记录
     let resp = requestHelper.post({
       "moduleName": "hulk_service",
