@@ -69,11 +69,13 @@ router.post("/getPrePayInfo", async (req, res, next) => {
         out_trade_no,
         spbill_create_ip,
         total_fee,
-        trade_type
+        trade_type,
+        attach,
+        nonce_str: payargs.payargs
       }
     })
 
- 
+
     return res.json(respData);
 
     function getBrandWCPayRequestParams(order) {
