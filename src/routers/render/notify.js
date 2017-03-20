@@ -19,23 +19,21 @@ let paymentConfig = new wechatPay.Payment({
 // wechat pay notify middleware
 let middleware = wechatPay.middleware
 
-
 /**
  * desc:接收微信支付回调请求
  * @see https://api.mch.weixin.qq.com/pay/unifiedorder
  */
 
-router.use(middleware(paymentConfig).getNotify().done(function (message, req, res, next) {
-  console.log("wechat payNotify============="+JSON.stringify(message))
+router.all('/wechat', middleware(paymentConfig).getNotify().done(function (message, req, res, next) {
+  console.log('wechat payNotify=============' + JSON.stringify(message))
   let openid = message.openid
-  let order_id = message.out_trade_no;//订单号
-  let memberId=message.attach; //商家的数据包
+  let order_id = message.out_trade_no; // 订单号
+  let memberId = message.attach; // 商家的数据包
 
-  //memberId, type, amount, source, sourceNo, remark, status
+  // memberId, type, amount, source, sourceNo, remark, status
   try {
-
-  } catch (e) { 
-    logger.error('wechat_payNotify_error'+e)
+  } catch (e) {
+    logger.error('wechat_payNotify_error' + e)
   }
 
   /**
@@ -44,21 +42,17 @@ router.use(middleware(paymentConfig).getNotify().done(function (message, req, re
    */
   res.reply('success')
 
+  next()
 
-  next();
-
-  /**
-   * 有错误返回错误，不然微信会在一段时间里以一定频次请求你
-   * res.reply(new Error('...'))
-   */
-}))
-
-router.all('/wechat', async (req, res, next) => {
+/**
+ * 有错误返回错误，不然微信会在一段时间里以一定频次请求你
+ * res.reply(new Error('...'))
+ */
+}), (req, res, next) => {
   try {
-    console.log("this is in pay_wechatNotif.......................")
-     
+    console.log('this is in pay_wechatNotif.......................')
   } catch (e) {
-    logger.error("pay_wechatNotify_error:" + e);
+    logger.error('pay_wechatNotify_error:' + e)
   }
 })
 
