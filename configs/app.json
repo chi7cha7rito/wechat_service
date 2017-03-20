@@ -6,7 +6,7 @@
         "timeout": "1800"
     },
     "soa":{
-        "token":"hulk_club"
+        "token":"hulk_club_20170312"
     },
     "middleware": {
         "global": [

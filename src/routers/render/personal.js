@@ -14,7 +14,7 @@ router.get('/list', async (req, res, next) => {
 
     let templateData = routerUtil.getTemplateBasicData(param)
 
-    let memberId = req.session.member.member.id
+    let memberId = req.session.user.member.id
 
     let balance = await requestHelper.get({
       'moduleName': 'hulk_service',

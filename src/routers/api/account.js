@@ -15,9 +15,9 @@ router.post("/add",async (req,res,next)=>{
         let name=req.body.name;
         let phoneNo=req.body.phoneNo;
         let idCardNo=req.body.idCardNo;
-        let wechatOpenId=req.session.user.openid;
-        let nickName=req.session.user.nickname;
-        let headImgUrl=req.session.user.headimgurl;
+        let wechatOpenId=req.session.wechatUser.openid;
+        let nickName=req.session.wechatUser.nickname;
+        let headImgUrl=req.session.wechatUser.headimgurl;
 
         let resp=await requestHelper.post({
             "moduleName":"hulk_service",
@@ -46,7 +46,7 @@ router.post("/add",async (req,res,next)=>{
  */
 router.get("/signIn",async (req,res,next)=>{
     try{
-        let memberId=req.session.member.member.id
+        let memberId=req.session.user.member.id
         let resp=await requestHelper.post({
             "moduleName":"hulk_service",
             "controller":"signIn",

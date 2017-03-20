@@ -14,7 +14,7 @@ router.get("/get",async (req,res,next)=>{
     try{
         let pageIndex=req.query.pageIndex;
         let pageSize=req.query.pageSize;
-        let memberId=req.session.member.member.id;
+        let memberId=req.session.user.member.id;
 
         let resp=await requestHelper.get({
             "moduleName":"hulk_service",
@@ -39,7 +39,7 @@ router.get("/get",async (req,res,next)=>{
  */
 router.get("/total",async (req,res,next)=>{
     try{
-        let memberId=req.session.member.member.id;
+        let memberId=req.session.user.member.id;
 
         let resp=await requestHelper.get({
             "moduleName":"hulk_service",

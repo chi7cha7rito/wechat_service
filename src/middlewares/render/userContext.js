@@ -23,7 +23,7 @@ export default async (req, res, next) => {
             next()
         }
         else {
-            if (!req.session.member) {
+            if (!req.session.user) {
                 var url = client.getAuthorizeURL(`${wechatConfig.host}/wechat/auth`, absoluteUrl);
                 res.redirect(url);
             }

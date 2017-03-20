@@ -39,7 +39,7 @@ router.get("/result",async (req,res,next)=>{
     try{
         let pageIndex=req.query.pageIndex
         let pageSize=req.query.pageSize
-        let memberId=req.session.member.member.id
+        let memberId=req.session.user.member.id
 
         let resp=await requestHelper.get({
             "moduleName":"hulk_service",
@@ -64,7 +64,7 @@ router.get("/result",async (req,res,next)=>{
  */
 router.post("/apply",async (req,res,next)=>{
     try{
-        let memberId=req.session.member.member.id
+        let memberId=req.session.user.member.id
         let matchId = req.body.matchId
         let resp=await requestHelper.post({
             "moduleName":"hulk_service",

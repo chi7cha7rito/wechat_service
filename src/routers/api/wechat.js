@@ -15,8 +15,8 @@ let wechatConfig = config.getWechat();
 let payment = new wechatPay.Payment({
   "appId": wechatConfig.appid,
   "mchId": wechatConfig.mch_id,
-  "partnerKey":wechatConfig.partnerKey,
-  "notifyUrl":`${wechatConfig.host}/wechat/notify`
+  "partnerKey": wechatConfig.partnerKey,
+  "notifyUrl": `${wechatConfig.host}/wechat/notify`
 })
 
 /**
@@ -30,12 +30,16 @@ router.post("/getPrePayInfo", async (req, res, next) => {
     "data": null
   }
   try {
+    let memberId = req.session.user.member.id;
+    let appid = wechatConfig.appid;
+    let mch_id = wechatConfig.mch_id;
+    let notify_url = wechatConfig.host + '/wechat/notify';
     let body = req.body.name;
-    let attach = req.session.member.member.id;
+    let attach = req.session.user.member.id;
     let total_fee = req.body.price * 100;
     let spbill_create_ip = "127.0.0.1";
-    let openid = req.session.member.member.wechat.wechatOpenId; //从 session 获取open_id
-    let out_trade_no = 'hulk_club' + (new Date().valueOf());
+    let openid = req.session.user.member.wechat.wechatOpenId; //从 session 获取open_id
+    let out_trade_no = req.session.user.member.id + '_' + (new Date().valueOf());
     let trade_type = "JSAPI";
 
     let order = {
@@ -47,9 +51,29 @@ router.post("/getPrePayInfo", async (req, res, next) => {
       openid,
       trade_type
     }
-
     let payargs = await getBrandWCPayRequestParams(order);
     respData.data = payargs;
+
+    //添加一条wechatPayment 记录
+    let resp = requestHelper.post({
+      "moduleName": "hulk_service",
+      "controller": "wechatPayment",
+      "action": "create",
+      "data": {
+        memberId,
+        appid,
+        body,
+        mch_id,
+        notify_url,
+        openid,
+        out_trade_no,
+        spbill_create_ip,
+        total_fee,
+        trade_type
+      }
+    })
+
+ 
     return res.json(respData);
 
     function getBrandWCPayRequestParams(order) {
@@ -62,7 +86,6 @@ router.post("/getPrePayInfo", async (req, res, next) => {
     }
 
   } catch (e) {
-    console.log(e)
     logger.error("wechat_getPrePayInfo_error:" + JSON.stringify(e));
     respData.status = "0";
     respData.message = "获取统一下单信息失败";
@@ -71,5 +94,45 @@ router.post("/getPrePayInfo", async (req, res, next) => {
   }
 })
 
+/**
+ * @desc 添加微信的支付记录
+ */
+router.post('createPayment', async (req, res, next) => {
+  try {
+    let memberId = req.session.user.member.id;
+    let appid = wechatConfig.appid;
+    let body = req.body.name;
+    let mch_id = wechatConfig.mch_id;
+    let notify_url = wechatConfig.host + '/wechat/notify';
+    let openid = req.session.user.member.wechat.wechatOpenId;
+    let out_trade_no = req.body.tradeNo;
+    let spbill_create_ip = req.body.ip;
+    let total_fee = req.body.fee;
+    let trade_type = req.body.tradeType;
+
+    let resp = await requestHelper.post({
+      "moduleName": "",
+      "controller": "",
+      "action": "createPayment",
+      "data": {
+        memberId,
+        appid,
+        body,
+        mch_id,
+        notify_url,
+        openid,
+        out_trade_no,
+        spbill_create_ip,
+        total_fee,
+        trade_type
+      }
+    })
+
+    return res.json(resp);
+
+  } catch (e) {
+    logger.error("api_wechat_createPayment_error" + e);
+  }
+})
 
 module.exports = router

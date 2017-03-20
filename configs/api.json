@@ -28,6 +28,11 @@
             "find": "match/findMatches",
             "apply": "attendance/createOnline",
             "result": "attendance/findRankingByMemberId"
+        },
+        "wechatPayment": {
+            "create": "wechatPayment/create",
+            "notify": "wechatPayment/notify",
+            "find": "wechatPayment/findEntry"
         }
     },
     "sms_service": {

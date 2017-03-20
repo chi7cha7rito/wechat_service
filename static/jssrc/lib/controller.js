@@ -54,7 +54,8 @@ function Controller () {
       'result': this.apiPrefix + 'match/result'
     },
     'wechat': {
-      'getPrePayInfo': this.apiPrefix + 'wechat/getPrePayInfo'
+      'getPrePayInfo': this.apiPrefix + 'wechat/getPrePayInfo',
+      'createPayment': this.apiPrefix + 'wechat/createPayment'
     }
   }
 
@@ -65,8 +66,8 @@ function Controller () {
     'personal': {
       'list': this.redirectUrlPrefix + 'personal/list'
     },
-    'pay':{
-      'success':this.redirectUrlPrefix+'pay/success'
+    'pay': {
+      'success': this.redirectUrlPrefix + 'pay/success'
     }
   }
 
