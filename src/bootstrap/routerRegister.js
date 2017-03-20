@@ -88,6 +88,8 @@ export default function (app) {
      * 如果订单之前已经处理过了直接返回成功
      */
     res.reply('success')
+    
+    next();
 
   /**
    * 有错误返回错误，不然微信会在一段时间里以一定频次请求你

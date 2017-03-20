@@ -75,7 +75,7 @@ router.get('/error', (req, res, next) => {
  * @see https://api.mch.weixin.qq.com/pay/unifiedorder
  */
 
-// router.post('/wechatNotify', middleware(payment).getNotify().done(function (message, req, res, next) {
+// router.use('/wechatNotify', middleware(payment).getNotify().done(function (message, req, res, next) {
 //   console.log("wechat payNotify============="+JSON.stringify(message))
 //   let openid = message.openid
 //   let order_id = message.out_trade_no;//订单号
@@ -100,16 +100,13 @@ router.get('/error', (req, res, next) => {
 //    */
 // }))
 
-// router.all('/pay/wechatNotify', async (req, res, next) => {
-//   try {
-//     console.log("this is in pay_wechatNotif.......................")
-//     var payNotify = new PaymentNotify();
-
-//     console.log("parseData======================" + JSON.stringify(payNotify.parseData(req.rawBody)))
-//   } catch (e) {
-//     logger.error("pay_wechatNotify_error:" + e);
-//   }
-
-// })
+router.all('/wechatNotify', async (req, res, next) => {
+  try {
+    console.log("this is in pay_wechatNotif.......................")
+     
+  } catch (e) {
+    logger.error("pay_wechatNotify_error:" + e);
+  }
+})
 
 module.exports = router
