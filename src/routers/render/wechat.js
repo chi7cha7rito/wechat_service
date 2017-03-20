@@ -5,6 +5,7 @@ import logger from '../../utils/logger';
 import config from '../../utils/config';
 import wechatPay from 'wechat-pay'
 import md5 from 'md5'
+import _ from 'lodash'
 
 
 
@@ -192,8 +193,9 @@ router.all('/notify', middleware(paymentConfig).getNotify().done(async function 
     let memberId = message.attach;
     let notifyTotalFee = message.total_fee;
     let notifySign = message.sign;
+    let tmpParmas = _.clone(message);
 
-    console.log("message===============================" + message)
+    console.log("message===============================" + JSON.stringify(message))
     //先查询
     let payInfo = await requestHelper.get({
       "moduleName": "hulk_service",
@@ -206,6 +208,11 @@ router.all('/notify', middleware(paymentConfig).getNotify().done(async function 
     })
 
     if (payInfo && payInfo.data) {
+      let sortedQueryString = paymentConfig._toQueryString(tmpParmas);
+      let stringSignTemp = sortedQueryString + '&key=' + wechatConfig.partnerKey;
+      let newSign = md5(stringSignTemp).toUpperCase();
+
+      console.log("newSign======================" + newSign);
       if (payInfo.data.total_fee == notifyTotalFee) {
         //更新payment row status 
         let transaction_id = message.transaction_id;
@@ -223,13 +230,8 @@ router.all('/notify', middleware(paymentConfig).getNotify().done(async function 
             status
           }
         })
+
         if (notifyInfo.status == "1" && !notifyInfo.message) {
-
-          let sortedQueryString=paymentConfig._toQueryString(message);
-          let stringSignTemp=sortedQueryString+'&key='+wechatConfig.partnerKey;
-          let newSign=md5(stringSignTemp).toUpperCase();
-
-          console.log("newSign======================"+newSign);
           /**
          * 查询订单，在自己系统里把订单标为已处理
          * 如果订单之前已经处理过了直接返回成功
