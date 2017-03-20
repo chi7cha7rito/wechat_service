@@ -14,7 +14,7 @@ let wechatConfig = config.getWechat();
 let client = new OAuth(wechatConfig.appid, wechatConfig.secret);
 
 // wechat pay unifiedorder 基本参数
-let payment = new wechatPay.Payment({
+let paymentConfig = new wechatPay.Payment({
   'appId': wechatConfig.appid,
   'mchId': wechatConfig.mch_id,
   'partnerKey': wechatConfig.partnerKey,
@@ -180,6 +180,34 @@ router.all('/auth', async (req, res, next) => {
     }
   });
 })
+
+/**
+ * desc:接收微信支付回调请求
+ * @see https://api.mch.weixin.qq.com/pay/unifiedorder
+ */
+router.all('/notify', middleware(paymentConfig).getNotify().done(function (message, req, res, next) {
+  let openid = message.openid
+  let order_id = message.out_trade_no;//订单号
+  let memberId=message.attach; //商家的数据包
+
+  //memberId, type, amount, source, sourceNo, remark, status
+  try {
+
+  } catch (e) { 
+    logger.error('wechat_payNotify_error'+e)
+  }
+
+  /**
+   * 查询订单，在自己系统里把订单标为已处理
+   * 如果订单之前已经处理过了直接返回成功
+   */
+  res.reply('success')
+
+  /**
+   * 有错误返回错误，不然微信会在一段时间里以一定频次请求你
+   * res.reply(new Error('...'))
+   */
+}))
 
 
 module.exports = router

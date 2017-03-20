@@ -16,18 +16,6 @@ export default function (app) {
    * 设置此处可以将client提交过来的post请求放入request.body中。
    */
 
-  // xmlBodyParse(bodyParser)
-
-  // // 解决微信支付通知回调数据
-  // app.use(bodyParser.xml({
-  //   limit: '1MB', // Reject payload bigger than 1 MB 
-  //   xmlParseOptions: {
-  //     normalize: true, // Trim whitespace inside text nodes 
-  //     normalizeTags: true, // Transform tags to lowercase 
-  //     explicitArray: false // Only put nodes in array if >1 
-  //   }
-  // }))
-
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({ extended: false }))
 
