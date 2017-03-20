@@ -25,18 +25,6 @@ let apiMiddlewares = []
 
 let stageEnv = process.env.STAGE_ENV || 'dev'
 
-let wechatConfig = config.getWechat()
-
-// wechat pay unifiedorder 基本参数
-let paymentConfig = new wechatPay.Payment({
-  'appId': wechatConfig.appid,
-  'mchId': wechatConfig.mch_id,
-  'partnerKey': wechatConfig.partnerKey,
-  'notifyUrl': `${wechatConfig.host}/pay/wechatNotify`
-})
-
-let paymentMiddleware = wechatPay.middleware
-
 /**
  * desc:根据app.json中middlewares配置顺序组装api中间件
  */
