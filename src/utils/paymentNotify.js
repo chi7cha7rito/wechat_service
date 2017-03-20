@@ -13,7 +13,9 @@ class PaymentNotify {
     xml2js.parseString(rawBody, {
       trim: true,
       explicitArray: false
-    }, function (err, data) {
+    }, function (err, json) {
+      var error = null,
+        data
       data = json ? json.xml : {}
 
       return data
