@@ -71,7 +71,7 @@ router.post("/getPrePayInfo", async (req, res, next) => {
         total_fee,
         trade_type,
         attach,
-        nonce_str: payargs.payargs
+        nonce_str: payargs.nonce_str
       }
     })
 

@@ -214,7 +214,7 @@ router.all('/notify', middleware(paymentConfig).getNotify().done(async function 
           "openid": payInfo.data.openid,
           "nonce_str": payInfo.data.nonce_str,
           "out_trade_no": payInfo.data.out_trade_no,
-          "total_fee": payInfo.data.total_fee,
+          "total_fee": parseInt(payInfo.data.total_fee),
           "spbill_create_ip": payInfo.data.spbill_create_ip,
           "trade_type": payInfo.data.trade_type,
           "notify_url": payInfo.data.notify_url
