@@ -16,7 +16,7 @@ let payment = new wechatPay.Payment({
   "appId": wechatConfig.appid,
   "mchId": wechatConfig.mch_id,
   "partnerKey":wechatConfig.partnerKey,
-  "notifyUrl":`${wechatConfig.host}/wechat/payNotify`
+  "notifyUrl":`${wechatConfig.host}/pay/wechatNotify`
 })
 
 /**
