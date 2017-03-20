@@ -19,7 +19,7 @@ export default async (req, res, next) => {
         if (absoluteUrl == "/account/register"
             || absoluteUrl == "/wechat/"
             || absoluteUrl == "/wechat/auth"
-            || absoluteUrl == "/wechat/notify") {
+            || absoluteUrl == "/pay/wechatNotify") {
             next()
         }
         else {
