@@ -201,8 +201,6 @@ router.all('/notify', middleware(paymentConfig).getNotify().done(async function 
       }
     })
 
-    console.log("wechat_notify_getpayinfo=================>" + JSON.stringify(payInfo));
-
     if (payInfo && payInfo.data) {
       //更新payment row status 
       let transaction_id = message.transaction_id;
@@ -214,6 +212,7 @@ router.all('/notify', middleware(paymentConfig).getNotify().done(async function 
         "controller": "wechatPayment",
         "action": "notify",
         "data": {
+          out_trade_no,
           transaction_id,
           time_end,
           status
