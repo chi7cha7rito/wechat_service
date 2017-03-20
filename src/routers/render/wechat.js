@@ -4,6 +4,7 @@ import OAuth from 'wechat-oauth'
 import logger from '../../utils/logger';
 import config from '../../utils/config';
 import wechatPay from 'wechat-pay'
+import md5 from 'md5'
 
 
 
@@ -192,7 +193,7 @@ router.all('/notify', middleware(paymentConfig).getNotify().done(async function 
     let notifyTotalFee = message.total_fee;
     let notifySign = message.sign;
 
-    console.log("notifySign===============================" + notifySign)
+    console.log("message===============================" + message)
     //先查询
     let payInfo = await requestHelper.get({
       "moduleName": "hulk_service",
@@ -205,24 +206,7 @@ router.all('/notify', middleware(paymentConfig).getNotify().done(async function 
     })
 
     if (payInfo && payInfo.data) {
-      let newPaySign = paymentConfig._getSign(
-        {
-          "appid": payInfo.data.appid,
-          "mch_id": payInfo.data.mch_id,
-          "body": payInfo.data.body,
-          "attch": payInfo.data.attch,
-          "openid": payInfo.data.openid,
-          "nonce_str": payInfo.data.nonce_str,
-          "out_trade_no": payInfo.data.out_trade_no,
-          "total_fee": parseInt(payInfo.data.total_fee),
-          "spbill_create_ip": payInfo.data.spbill_create_ip,
-          "trade_type": payInfo.data.trade_type,
-          "notify_url": payInfo.data.notify_url
-        }
-      )
-      console.log("newPaySign===============================" + newPaySign)
-
-      if (payInfo.data.total_fee == notifyTotalFee && newPaySign == notifySign) {
+      if (payInfo.data.total_fee == notifyTotalFee) {
         //更新payment row status 
         let transaction_id = message.transaction_id;
         let time_end = message.time_end;
@@ -240,6 +224,12 @@ router.all('/notify', middleware(paymentConfig).getNotify().done(async function 
           }
         })
         if (notifyInfo.status == "1" && !notifyInfo.message) {
+
+          let sortedQueryString=paymentConfig._toQueryString(message);
+          let sortedQueryString=sortedQueryString+'&key='+wechatConfig.partnerKey;
+          let newSign=md5(sortedQueryString).toUpperCase();
+
+          console.log("newSign======================"+newSign);
           /**
          * 查询订单，在自己系统里把订单标为已处理
          * 如果订单之前已经处理过了直接返回成功
