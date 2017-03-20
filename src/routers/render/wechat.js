@@ -208,6 +208,7 @@ router.all('/notify', middleware(paymentConfig).getNotify().done(async function 
     })
 
     if (payInfo && payInfo.data) {
+      delete tmpParmas.sign;
       let sortedQueryString = paymentConfig._toQueryString(tmpParmas);
       let stringSignTemp = sortedQueryString + '&key=' + wechatConfig.partnerKey;
       let newSign = md5(stringSignTemp).toUpperCase();
