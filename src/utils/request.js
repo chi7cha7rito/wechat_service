@@ -21,7 +21,7 @@ class Http_Request {
                 qs: data,
                 json: true,
                 headers: {
-                    "token": service_Token
+                    "hulk_token": service_Token
                 }
             }
 
@@ -55,7 +55,7 @@ class Http_Request {
 
             let options = {
                 headers: {
-                    "token": service_Token,
+                    "hulk_token": service_Token,
                     "Content-Type": contentType
                 },
                 method: "POST",
