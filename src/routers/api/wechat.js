@@ -16,7 +16,7 @@ let payment = new wechatPay.Payment({
   "appId": wechatConfig.appid,
   "mchId": wechatConfig.mch_id,
   "partnerKey":wechatConfig.partnerKey,
-  "notifyUrl":`${wechatConfig.host}/notify/wechat`
+  "notifyUrl":`${wechatConfig.host}/wechat/notify`
 })
 
 /**
@@ -70,5 +70,6 @@ router.post("/getPrePayInfo", async (req, res, next) => {
     res.json(respData);
   }
 })
+
 
 module.exports = router
