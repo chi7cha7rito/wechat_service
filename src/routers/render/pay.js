@@ -19,7 +19,7 @@ let payment = new wechatPay.Payment({
 // wechat pay notify middleware
 let middleware = wechatPay.middleware
 
-let payNotify = middleware(payment).getNotify().done
+// let payNotify = middleware(payment).getNotify().done
 
 /**
  * desc:微信付款页面，由于公众号支付页面需要支付的授权目录下面
@@ -104,6 +104,7 @@ router.get('/error', (req, res, next) => {
 
 router.all('/pay/wechatNotify', async (req, res, next) => {
   try {
+    console.log("this is in pay_wechatNotif.......................")
     var payNotify = new PaymentNotify();
 
     console.log("parseData======================" + JSON.stringify(payNotify.parseData(req.rawBody)))
