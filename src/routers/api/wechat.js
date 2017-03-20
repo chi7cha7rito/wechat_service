@@ -94,45 +94,5 @@ router.post("/getPrePayInfo", async (req, res, next) => {
   }
 })
 
-/**
- * @desc 添加微信的支付记录
- */
-router.post('createPayment', async (req, res, next) => {
-  try {
-    let memberId = req.session.user.member.id;
-    let appid = wechatConfig.appid;
-    let body = req.body.name;
-    let mch_id = wechatConfig.mch_id;
-    let notify_url = wechatConfig.host + '/wechat/notify';
-    let openid = req.session.user.member.wechat.wechatOpenId;
-    let out_trade_no = req.body.tradeNo;
-    let spbill_create_ip = req.body.ip;
-    let total_fee = req.body.fee;
-    let trade_type = req.body.tradeType;
-
-    let resp = await requestHelper.post({
-      "moduleName": "",
-      "controller": "",
-      "action": "createPayment",
-      "data": {
-        memberId,
-        appid,
-        body,
-        mch_id,
-        notify_url,
-        openid,
-        out_trade_no,
-        spbill_create_ip,
-        total_fee,
-        trade_type
-      }
-    })
-
-    return res.json(resp);
-
-  } catch (e) {
-    logger.error("api_wechat_createPayment_error" + e);
-  }
-})
 
 module.exports = router

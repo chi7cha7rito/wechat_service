@@ -188,6 +188,7 @@ router.all('/notify', middleware(paymentConfig).getNotify().done(async function 
   try {
     let openid = message.openid
     let out_trade_no = message.out_trade_no;//订单号
+    let memberId = message.attach;
 
     //先查询
     let payInfo = await requestHelper.get({
@@ -195,24 +196,44 @@ router.all('/notify', middleware(paymentConfig).getNotify().done(async function 
       "controller": "wechatPayment",
       "action": "find",
       "data": {
-        "memberId": req.session.user.member.id,
+        "memberId": memberId,
         "out_trade_no": out_trade_no
       }
     })
 
-    console.log("wechat_notify_getpayinfo=================>"+JSON.stringify(payInfo));
+    console.log("wechat_notify_getpayinfo=================>" + JSON.stringify(payInfo));
 
-    /**
-    * 查询订单，在自己系统里把订单标为已处理
-    * 如果订单之前已经处理过了直接返回成功
-    */
-    res.reply('success')
+    if (payInfo && payInfo.data) {
+      //更新payment row status 
+      let transaction_id = message.transaction_id;
+      let time_end = message.time_end;
+      let status = "2"
 
-    /**
-     * 有错误返回错误，不然微信会在一段时间里以一定频次请求你
-     * res.reply(new Error('...'))
-     */
+      let notifyInfo = await requestHelper.post({
+        "moduleName": "hulk_service",
+        "controller": "wechatPayment",
+        "action": "notify",
+        "data": {
+          transaction_id,
+          time_end,
+          status
+        }
+      })
 
+      if (notifyInfo.status == "1" && !notifyInfo.message) {
+        /**
+       * 查询订单，在自己系统里把订单标为已处理
+       * 如果订单之前已经处理过了直接返回成功
+       */
+        res.reply('success')
+      }
+      else {
+        /**
+       * 有错误返回错误，不然微信会在一段时间里以一定频次请求你
+       * res.reply(new Error('...'))
+       */
+      }
+    }
   } catch (e) {
     logger.error('wechat_notify_error' + e)
   }
