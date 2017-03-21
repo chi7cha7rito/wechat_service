@@ -36,7 +36,8 @@ function Controller () {
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
   this.apiUrl = {
     'account': {
-      'register': this.apiPrefix + 'account/add'
+      'register': this.apiPrefix + 'account/add',
+      'signIn': this.apiPrefix + 'account/signIn'
     },
     'common': {
       'verifyCode': this.apiPrefix + 'common/genVerifyCodeImg',

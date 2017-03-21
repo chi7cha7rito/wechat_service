@@ -30,7 +30,12 @@ router.get('/list', async (req, res, next) => {
       'data': {memberId}
     })
 
-    Object.assign(templateData, { 'title': '个人中心' }, {balance: balance.data || 0, points: points.data || 0 })
+    Object.assign(templateData, { 'title': '个人中心' }, {
+        balance: balance.data || 0, 
+        points: points.data || 0 ,
+        nickName:req.session.user.member.wechat.nickName,
+        headImgUrl:req.session.user.member.wechat.headImgUrl
+      })
 
     return res.render('personal/list', templateData)
   } catch (e) {

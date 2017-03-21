@@ -4,7 +4,9 @@ import captchapng from 'captchapng'
 
 let router = express.Router()
 
-// 生成数字验证码
+/**
+ * @desc 生成数字验证码
+ */
 router.get('/genVerifyCodeImg', (req, res, next) => {
   var verifyCode = parseInt(Math.random() * 9000 + 1000)
   var p = new captchapng(80, 30, verifyCode); // width,height,numeric captcha 
@@ -23,11 +25,16 @@ router.get('/genVerifyCodeImg', (req, res, next) => {
   res.end(imgbase64)
 })
 
-// 获取短信验证码
-router.post('/getSmsCode', (req, res, next) => {
+/**
+ * @desc 获取短信验证码
+ */
+router.post('/getSmsCode', async (req, res, next) => {
   try {
     let verifyCode = req.body.verifyCode
     let phoneNo = req.body.phoneNo
+    let code = Math.random().toString().slice(-6);
+
+    req.session.smsCode = code;
 
     if (verifyCode && verifyCode != req.session.verifyCode) {
       return res.json({
@@ -37,13 +44,33 @@ router.post('/getSmsCode', (req, res, next) => {
       })
     }
 
-    res.json({
-      'status': '1',
-      'message': '',
-      'data': null
+    let codeResp = requestHelper.post({
+      "moduleName": "sms_service",
+      "controller": "sms",
+      "action": "verifyCode",
+      "data": {
+        phoneNo,
+        code
+      }
     })
-  } catch(e) {
-    logger.error('')
+
+    if (codeResp.status == "1" && codeResp.message.length == 0) {
+      res.json({
+        'status': '1',
+        'message': '',
+        'data': null
+      })
+    }
+    else{
+      res.json({
+        'status': '0',
+        'message': '短信获取失败，请稍后再试',
+        'data': null
+      })
+    }
+
+  } catch (e) {
+    logger.error('api_common_error' + e);
   }
 })
 

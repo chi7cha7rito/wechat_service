@@ -41,7 +41,12 @@
             "prod": ""
         },
         "sms": {
-            "send": ""
+            "verifyCode": "/alidayu/secretCode",
+            "balancePlus": "/alidayu/balancePlus",
+            "balanceMinus": "/alidayu/balanceMinus",
+            "loyaltyPointPlus": "/alidayu/loyaltyPointPlus",
+            "loyaltyPointMinus": "/alidayu/loyaltyPointMinus",
+            "matchAttend": "/alidayu/matchAttend"
         }
     },
     "wechat": {

@@ -15,9 +15,19 @@ router.post("/add",async (req,res,next)=>{
         let name=req.body.name;
         let phoneNo=req.body.phoneNo;
         let idCardNo=req.body.idCardNo;
+        let smsCode=req.body.smsCode;
         let wechatOpenId=req.session.wechatUser.openid;
         let nickName=req.session.wechatUser.nickname;
         let headImgUrl=req.session.wechatUser.headimgurl;
+
+
+        if(req.session.smsCode!=smsCode){
+            return res.json({
+                "status":"0",
+                "message":"短信验证码错误",
+                "data":null
+            })
+        }
 
         let resp=await requestHelper.post({
             "moduleName":"hulk_service",
@@ -44,15 +54,17 @@ router.post("/add",async (req,res,next)=>{
 /**
  * 签到
  */
-router.get("/signIn",async (req,res,next)=>{
+router.post("/signIn",async (req,res,next)=>{
     try{
         let memberId=req.session.user.member.id
+        let comment=req.body.comment;
         let resp=await requestHelper.post({
             "moduleName":"hulk_service",
             "controller":"signIn",
             "action":"create",
             "data":{
-               memberId
+               memberId,
+               comment
             }
         })
 

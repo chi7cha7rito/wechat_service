@@ -33,19 +33,19 @@ router.all('/', wechat(wechatConfig.token, async (req, res, next) => {
   var message = req.weixin
   let open_id = message.FromUserName
 
-  // console.log(accessTokenInfo);
-  // let accessTokenInfo = await requestHelper.get({
-  //   "moduleName": "wechat",
-  //   "controller": "common",
-  //   "action": "getAccessToken",
-  //   "data": {
-  //     "grant_type": "client_credential",
-  //     "appid": wechatConfig.appid,
-  //     "secret": wechatConfig.secret
-  //   }
-  // });
+  console.log(accessTokenInfo);
+  let accessTokenInfo = await requestHelper.get({
+    "moduleName": "wechat",
+    "controller": "common",
+    "action": "getAccessToken",
+    "data": {
+      "grant_type": "client_credential",
+      "appid": wechatConfig.appid,
+      "secret": wechatConfig.secret
+    }
+  });
 
-  // console.log(accessTokenInfo)
+  console.log(accessTokenInfo)
 
   // //menu
   // let menuOption = {

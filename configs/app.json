@@ -5,8 +5,8 @@
         "secret": "hulk_club_20170312",
         "timeout": "1800"
     },
-    "soa":{
-        "token":"hulk_club_20170312"
+    "soa": {
+        "token": "hulk_club_20170312"
     },
     "middleware": {
         "global": [
@@ -14,7 +14,7 @@
         ],
         "api": [],
         "render": [
-           "userContext"
+            "userContext"
         ]
     }
 }
