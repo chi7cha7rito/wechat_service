@@ -108,12 +108,12 @@ router.all('/', wechat(wechatConfig.token, async (req, res, next) => {
   // }
 
   //create Menu
-  let menuResp = await requestHelper.post({
-    "moduleName": "wechat",
-    "controller": "common",
-    "action": "createMenu",
-    "data": menuOption
-  });
+  // let menuResp = await requestHelper.post({
+  //   "moduleName": "wechat",
+  //   "controller": "common",
+  //   "action": "createMenu",
+  //   "data": menuOption
+  // });
 
   // console.log(menuResp);
 
