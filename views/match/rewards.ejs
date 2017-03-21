@@ -1,0 +1,23 @@
+<%- include("../common/head") %>
+    <h1 class="name">
+        <%= matchName %>
+    </h1>
+    <div class="wrapper">
+        <div class="weui-cells">
+            <% if (rewards) {%>
+                <% rewards.forEach(function(item){ %>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <p>第 <%=item.ranking %> 名</p>
+                        </div>
+                    <div class="weui-cell__ft"><%= item.rewardPoints %></div>
+                </div>
+                <% }) %>
+            <% } else { %>
+                 <div class="weui-cell">
+                    暂无奖励
+                 </div>
+            <% } %
+        </div>
+    </div>
+<%- include("../common/footer") %>

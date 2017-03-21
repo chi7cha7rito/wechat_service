@@ -27,7 +27,8 @@
         "match": {
             "find": "match/findMatches",
             "apply": "attendance/createOnline",
-            "result": "attendance/findRankingByMemberId"
+            "result": "attendance/findRankingByMemberId",
+            "rewards":"matchReward/findAllActive"
         },
         "wechatPayment": {
             "create": "wechatPayment/create",

@@ -20,19 +20,29 @@ router.get('/apply', (req, res, next) => {
   return res.render("match/apply", templateData);
 })
 
-//比赛报名
-router.get('/info', (req, res, next) => {
-  let param = {
+//赛事奖励
+router.get('/rewards', (req, res, next) => {
+  try {
+    let param = {
     req: req,
     matchJavascript: true,
     matchStylesheet: true
+    }
+    let rewards = await requestHelper.get({
+        'moduleName': 'hulk_service',
+        'controller': 'match',
+        'action': 'rewards',
+        'data': { matchId: req.query.matchId }
+    })
+    let templateData = routerUtil.getTemplateBasicData(param);
+
+    Object.assign(templateData, { "title": "赛事奖励" },{rewards:rewards.data,matchName:req.query.matchName});
+
+    return res.render("match/rewards", templateData);
+  } catch (error) {
+    logger.error(`render_personal_list_error=>${JSON.stringify(e)}`)
+    return res.render('common/error')
   }
-
-  let templateData = routerUtil.getTemplateBasicData(param);
-
-  Object.assign(templateData, { "title": "赛事信息" });
-
-  return res.render("match/info", templateData);
 })
 
 //比赛成绩
