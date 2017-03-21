@@ -50,5 +50,21 @@ router.get('/result', (req, res, next) => {
   return res.render("match/result", templateData);
 })
 
+/**
+ * @desc 赛事分享--豪客风采
+ */
+router.get('/share',async (req,res,next)=>{
+   let param = {
+    req: req,
+    matchJavascript: true,
+    matchStylesheet: true
+  }
+
+  let templateData = routerUtil.getTemplateBasicData(param);
+
+  Object.assign(templateData, { "title": "豪客风采" });
+
+  return res.render("match/share", templateData);
+})
 
 module.exports = router

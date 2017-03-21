@@ -20,21 +20,6 @@ router.get('/register', (req, res, next) => {
   return res.render("account/register", templateData);
 })
 
-//在线充值
-router.get('/recharge', (req, res, next) => {
-  let param = {
-    req: req,
-    matchJavascript: true,
-    matchStylesheet: true
-  }
-
-  let templateData = routerUtil.getTemplateBasicData(param);
-
-  Object.assign(templateData, { "title": "在线充值" });
-
-  return res.render("account/recharge", templateData);
-})
-
 //签到
 router.get('/signIn', (req, res, next) => {
   let param = {
