@@ -10,7 +10,6 @@ function CreditsController () {
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
   Controller.call(this)
 
-
   /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
   定义pageSize
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -36,7 +35,7 @@ CreditsController.prototype.initPage = function () {
     'showLoadingTips': true,
     'process': function (data) {
       classSelf.renderList(data)
-      classSelf.initPullLoad();
+      classSelf.initPullLoad()
     }
   })
 }
@@ -54,7 +53,7 @@ CreditsController.prototype.initPullLoad = function () {
       pageSize: classSelf.pageSize,
       countKey: 'data.count',
       callback: function (resp) {
-        classSelf.renderList(resp.data,true)
+        classSelf.renderList(resp.data, true)
       }
     })
   })
@@ -70,10 +69,13 @@ CreditsController.prototype.renderList = function (data, isAppend) {
   if (!isAppend) {
     $recordsList.empty()
   }
-
-  $.each(data.rows, function (i, oRow) {
-    $recordsList.append(classSelf.getItem(oRow))
-  })
+  if (data && data.rows && data.rows.length) {
+    $.each(data.rows, function (i, oRow) {
+      $recordsList.append(classSelf.getItem(oRow))
+    })
+  }else {
+      $recordsList.append('<div class="weui-loadmore weui-loadmore_line"><span class="weui-loadmore__tips">暂无积分记录</span></div>')
+  }
 }
 /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 绘制item dom 
@@ -85,17 +87,6 @@ CreditsController.prototype.getItem = function (data) {
 
   var sourceStr = '充值返现'; // 1:充值返现,2:比赛奖励,3:店内消费,4:商城消费,5:手工调整
   var valueClass = 'positive',points = '+' + data.points
-  // if (data.source == '1') {
-  //   sourceStr = '充值返现'
-  // }else if (data.source == '2') {
-  //   sourceStr = '比赛奖励'
-  // }else if (data.source == '3') {
-  //   sourceStr = '店内消费'
-  // }else if (data.source == '4') {
-  //   sourceStr = '商城消费'
-  // }else if (data.source == '5') {
-  //   sourceStr = '手工调整'
-  // }
 
   if (!data.isPositive) {
     valueClass = 'negative'
@@ -108,7 +99,7 @@ CreditsController.prototype.getItem = function (data) {
   htmlTpl += '<p>' + this.utcToLocal(data.createdAt) + '</p>'
   htmlTpl += '</dt>'
 
-  htmlTpl += '<dd class="'+valueClass+'">' + points + '</dd>'
+  htmlTpl += '<dd class="' + valueClass + '">' + points + '</dd>'
 
   htmlTpl += '</dl>'
 

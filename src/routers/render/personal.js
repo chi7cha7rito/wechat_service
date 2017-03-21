@@ -69,7 +69,12 @@ router.get('/info', (req, res, next) => {
 
   let templateData = routerUtil.getTemplateBasicData(param)
 
-  Object.assign(templateData, { 'title': '修改个人信息' })
+  Object.assign(templateData, { 'title': '个人信息' },{
+    "name":req.session.user.name,
+    "idCardNo":req.session.user.idCardNo,
+    "phoneNo":req.session.user.phoneNo,
+    "level":req.session.user.member.level
+  })
 
   return res.render('personal/info', templateData)
 })
