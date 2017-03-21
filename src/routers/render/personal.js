@@ -34,7 +34,8 @@ router.get('/list', async (req, res, next) => {
         balance: balance.data || 0, 
         points: points.data || 0 ,
         nickName:req.session.user.member.wechat.nickName,
-        headImgUrl:req.session.user.member.wechat.headImgUrl
+        headImgUrl:req.session.user.member.wechat.headImgUrl,
+        level:req.session.user.member.level
       })
 
     return res.render('personal/list', templateData)
@@ -79,20 +80,6 @@ router.get('/info', (req, res, next) => {
   return res.render('personal/info', templateData)
 })
 
-// 充值记录
-// router.get('/recharge', (req, res, next) => {
-//   let param = {
-//     req: req,
-//     matchJavascript: true,
-//     matchStylesheet: true
-//   }
-
-//   let templateData = routerUtil.getTemplateBasicData(param)
-
-//   Object.assign(templateData, { "title": "充值记录" })
-
-//   return res.render("personal/recharge", templateData)
-// })
 
 // 积分记录
 router.get('/credits', (req, res, next) => {
