@@ -74,7 +74,7 @@ router.get('/info', (req, res, next) => {
     "name":req.session.user.name,
     "idCardNo":req.session.user.idCardNo,
     "phoneNo":req.session.user.phoneNo,
-    "level":req.session.user.member.level
+    "level":req.session.user.member.memberLevel.name
   })
 
   return res.render('personal/info', templateData)
