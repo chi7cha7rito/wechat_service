@@ -20,6 +20,7 @@ router.get("/get",async (req,res,next)=>{
             "controller":"match",
             "action":"find",
             "data":{
+               frequency:1,//平日赛
                pageIndex,
                pageSize
             }

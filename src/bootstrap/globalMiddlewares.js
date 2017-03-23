@@ -4,7 +4,6 @@ import cookieParser from 'cookie-parser'
 import session from 'express-session'
 import config from '../utils/config'
 import appConfs from '../../configs/app'
-import xmlBodyParse from 'body-parser-xml'
 import _ from 'lodash'
 
 let middlewares = loader.getModules('middlewares/global')

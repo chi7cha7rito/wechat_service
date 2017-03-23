@@ -83,47 +83,47 @@ MatchController.prototype.renderList = function (data, isAppend) {
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 MatchController.prototype.getItem = function (data) {
   var classSelf = this
-  var price = data.matchPrices[0] && data.matchPrices[0].price || 0
+  var price = 0
+  $.each(data.matchConfig.matchPrices, function (index, item) {
+    if (item.type.val === 1) price = item.price
+  })
   var htmlTpl = ''
   htmlTpl += '<div class="weui-form-preview">'
   htmlTpl += '<div class="weui-form-preview__hd">'
   htmlTpl += '<div class="weui-form-preview__item">'
   htmlTpl += '<label class="weui-form-preview__label">赛事名称</label>'
-  htmlTpl += '<em class="weui-form-preview__value name">' + data.name + '</em>'
+  htmlTpl += '<em class="weui-form-preview__value name">' + data.matchConfig.name + '</em>'
   htmlTpl += '</div>'
   htmlTpl += '</div>'
   htmlTpl += '<div class="weui-form-preview__bd">'
   htmlTpl += '<div class="weui-form-preview__item">'
   htmlTpl += '<label class="weui-form-preview__label">类型</label>'
-  htmlTpl += '<span class="weui-form-preview__value">' + data.Type.name + '【' + (data.online ? '线上' : '线下') + '】' + '</span>'
+  htmlTpl += '<span class="weui-form-preview__value">' + data.matchConfig.Type.name + '【' + data.matchConfig.SubType.name + '】' + '</span>'
   htmlTpl += '</div>'
   htmlTpl += '<div class="weui-form-preview__item">'
   htmlTpl += '<label class="weui-form-preview__label">举办方</label>'
-  htmlTpl += '<span class="weui-form-preview__value">' + data.holder + '</span>'
+  htmlTpl += '<span class="weui-form-preview__value">' + data.matchConfig.holder + '</span>'
   htmlTpl += '</div>'
   htmlTpl += '<div class="weui-form-preview__item">'
   htmlTpl += '<label class="weui-form-preview__label">门票费用</label>'
   htmlTpl += '<span class="weui-form-preview__value price">¥' + price + '</span>'
   htmlTpl += '</div>'
   htmlTpl += '<div class="weui-form-preview__item">'
-  htmlTpl += '<label class="weui-form-preview__label">比赛时间</label>'
-  htmlTpl += '<span class="weui-form-preview__value">' + classSelf.utcToLocal(data.opening) + '【' + data.SubType.name + '】' + '</span>'
+  htmlTpl += '<label class="weui-form-preview__label">报名截止</label>'
+  htmlTpl += '<span class="weui-form-preview__value">' + classSelf.utcToLocal(data.closingDatetime) + '</span>'
   htmlTpl += '</div>'
   htmlTpl += '<div class="weui-form-preview__item">'
-  htmlTpl += '<label class="weui-form-preview__label">状态</label>'
-  if (data.status === 1) {
-    htmlTpl += '<span class="weui-form-preview__value status">报名中</span>'
-  } else {
-    htmlTpl += '<span class="weui-form-preview__value status closed">已结束</span>'
-  }
+  htmlTpl += '<label class="weui-form-preview__label">比赛时间</label>'
+  htmlTpl += '<span class="weui-form-preview__value">' + classSelf.utcToLocal(data.openingDatetime) + '</span>'
   htmlTpl += '</div>'
   htmlTpl += '<div class="weui-form-preview__item">'
   htmlTpl += '<label class="weui-form-preview__label">赛事介绍</label>'
-  htmlTpl += '<span class="weui-form-preview__value">' + data.description + '</span>'
+  htmlTpl += '<span class="weui-form-preview__value">' + data.matchConfig.description + '</span>'
   htmlTpl += '</div>'
   htmlTpl += '</div>'
   htmlTpl += '<div class="weui-form-preview__ft">'
-  htmlTpl += '<a class="weui-form-preview__btn weui-form-preview__btn_primary attend" data-id="' + data.id + '" data-price="' + price + '" href="javascript:">报名</a>'
+  htmlTpl += '<a class="weui-form-preview__btn weui-form-preview__btn_primary" href="rewards?matchConfigId=' + data.matchConfigId + '&matchName=' + data.matchConfig.name + '">奖励</a>'
+  htmlTpl += '<a class="weui-form-preview__btn weui-form-preview__btn_primary attend" data-id="' + data.id + '" data-price="' + price + '" data-closing="' + data.closingDatetime + '" href="javascript:">报名</a>'
   htmlTpl += '</div>'
   htmlTpl += '</div>'
   return $(htmlTpl)
@@ -137,6 +137,12 @@ MatchController.prototype.bindEvent = function () {
   $('.match-list').on('click', '.attend', function () {
     var price = $(this).attr('data-price')
     var id = $(this).attr('data-id')
+    var closing = new Date(classSelf.utcToLocal($(this).attr('data-closing')))
+    var now = Date.now()
+    if (closing < now) {
+      $.toast('报名时间已截止', 'forbidden')
+      return false
+    }
     $.confirm({
       title: '报名参赛？',
       text: '赛事门票为' + price + '元，是否报名参加？',

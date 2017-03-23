@@ -21,18 +21,18 @@ router.get('/apply', (req, res, next) => {
 })
 
 //赛事奖励
-router.get('/rewards', (req, res, next) => {
+router.get('/rewards', async (req, res, next) => {
   try {
     let param = {
     req: req,
-    matchJavascript: true,
-    matchStylesheet: true
+    matchJavascript: false,
+    matchStylesheet: true,
     }
     let rewards = await requestHelper.get({
         'moduleName': 'hulk_service',
         'controller': 'match',
         'action': 'rewards',
-        'data': { matchId: req.query.matchId }
+        'data': { matchConfigId: req.query.matchConfigId }
     })
     let templateData = routerUtil.getTemplateBasicData(param);
 
