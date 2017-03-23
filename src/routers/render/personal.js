@@ -35,7 +35,7 @@ router.get('/list', async (req, res, next) => {
         points: points.data || 0 ,
         nickName:req.session.user.member.wechat.nickName,
         headImgUrl:req.session.user.member.wechat.headImgUrl,
-        level:req.session.user.member.level
+        level:req.session.user.member.memberLevel.name
       })
 
     return res.render('personal/list', templateData)
