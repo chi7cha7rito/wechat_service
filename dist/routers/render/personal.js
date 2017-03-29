@@ -46,10 +46,7 @@ router.get('/list', function () {
               matchStylesheet: true
             };
             templateData = _router2.default.getTemplateBasicData(param);
-
-            // let memberId = req.session.user.member.id
-
-            memberId = 1;
+            memberId = req.session.user.member.id;
             _context.next = 6;
             return requestHelper.get({
               'moduleName': 'hulk_service',
@@ -74,7 +71,10 @@ router.get('/list', function () {
 
             (0, _assign2.default)(templateData, { 'title': '个人中心' }, {
               balance: balance.data || 0,
-              points: points.data || 0
+              points: points.data || 0,
+              nickName: req.session.user.member.wechat.nickName,
+              headImgUrl: req.session.user.member.wechat.headImgUrl,
+              level: req.session.user.member.memberLevel.name
             });
 
             return _context.abrupt('return', res.render('personal/list', templateData));
@@ -83,7 +83,7 @@ router.get('/list', function () {
             _context.prev = 14;
             _context.t0 = _context['catch'](0);
 
-            _logger2.default.error('render_personal_list_error=>' + (typeof _context.t0 == 'string' ? _context.t0 : (0, _stringify2.default)(_context.t0)));
+            _logger2.default.error('render_personal_list_error=>' + (0, _stringify2.default)(_context.t0));
             return _context.abrupt('return', res.render('common/error'));
 
           case 18:
@@ -128,7 +128,7 @@ router.get('/info', function (req, res, next) {
     "name": req.session.user.name,
     "idCardNo": req.session.user.idCardNo,
     "phoneNo": req.session.user.phoneNo,
-    "level": req.session.user.member.level
+    "level": req.session.user.member.memberLevel.name
   });
 
   return res.render('personal/info', templateData);

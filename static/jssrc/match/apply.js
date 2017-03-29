@@ -98,7 +98,7 @@ MatchController.prototype.getItem = function (data) {
   htmlTpl += '<div class="weui-form-preview__bd">'
   htmlTpl += '<div class="weui-form-preview__item">'
   htmlTpl += '<label class="weui-form-preview__label">类型</label>'
-  htmlTpl += '<span class="weui-form-preview__value">' + data.matchConfig.Type.name + '【' + data.matchConfig.SubType.name + '】' + '</span>'
+  htmlTpl += '<span class="weui-form-preview__value">' + data.matchConfig.Type.name + '【' + data.matchConfig.subType.name + '】' + '</span>'
   htmlTpl += '</div>'
   htmlTpl += '<div class="weui-form-preview__item">'
   htmlTpl += '<label class="weui-form-preview__label">举办方</label>'
