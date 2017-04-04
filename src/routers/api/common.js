@@ -1,6 +1,8 @@
 import express from 'express'
 import logger from '../../utils/logger'
 import captchapng from 'captchapng'
+import moment from 'moment';
+
 
 let router = express.Router()
 
@@ -35,6 +37,7 @@ router.post('/getSmsCode', async (req, res, next) => {
     let code = Math.random().toString().slice(-6);
 
     req.session.smsCode = code;
+    req.session.smsCodeGenDate=moment().unix();
 
     if (verifyCode && verifyCode != req.session.verifyCode) {
       return res.json({
@@ -44,7 +47,7 @@ router.post('/getSmsCode', async (req, res, next) => {
       })
     }
 
-    let codeResp = requestHelper.post({
+    let codeResp = await requestHelper.post({
       "moduleName": "sms_service",
       "controller": "sms",
       "action": "verifyCode",

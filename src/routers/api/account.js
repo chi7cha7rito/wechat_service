@@ -4,6 +4,7 @@
 
 import express from 'express'
 import logger from '../../utils/logger';
+import moment from 'moment';
 
 let router = express.Router()
 
@@ -19,6 +20,15 @@ router.post("/add",async (req,res,next)=>{
         let wechatOpenId=req.session.wechatUser.openid;
         let nickName=req.session.wechatUser.nickname;
         let headImgUrl=req.session.wechatUser.headimgurl;
+        let dateNow=moment().unix();
+
+        if(dateNow-req.session.smsCodeGenDate>1750){
+            return res.json({
+                "status":"0",
+                "message":"短信验证码失效",
+                "data":null
+            })
+        }
 
 
         if(req.session.smsCode!=smsCode){
