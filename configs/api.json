@@ -58,7 +58,7 @@
         "common": {
             "getAccessToken": "cgi-bin/token",
             "getUserInfo": "cgi-bin/user/info",
-            "createMenu": "cgi-bin/menu/create?access_token=gauYa33A26n4vUvWL4uIwjon_d-3GI8DRzUEgyNjejlGYO52GgH8QOenWgyFwSonk_O2zKupraVXUsjBBvECUQIrt_R6slRolRkd0AQyQjEN7Q_iMb3CDYfT3-L9LDTwSCBfAFAOYX"
+            "createMenu": "cgi-bin/menu/create?access_token=fSW7nZGPiWHJeu_Xm9pWkmnt0LYU0VWfzVZIZneJRPG0R2G5k_9OVF8j-JbFNwMmt8W7VwA4CtWz7d00Q8saPYbwURzL_tlNdy3U9GBSUxyLXfzKNvOCi4mTWnCzISE9UALiACAKQB"
         }
     }
 }
