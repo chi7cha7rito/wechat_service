@@ -67,6 +67,12 @@ ResultController.prototype.renderList = function (data, isAppend) {
 
   if (!isAppend) {
     $recordsList.empty()
+    if (!data.count) {
+      var html = '<div class="weui-loadmore weui-loadmore_line">'
+      html += '<span class="weui-loadmore__tips">暂无数据</span>'
+      html += '</div>'
+      $recordsList.append(html)
+    }
   }
 
   $.each(data.rows, function (i, oRow) {
@@ -83,17 +89,21 @@ ResultController.prototype.getItem = function (data) {
   htmlTpl += '<div class="weui-form-preview__hd">'
   htmlTpl += '<div class="weui-form-preview__item">'
   htmlTpl += '<label class="weui-form-preview__label">赛事名次</label>'
-  htmlTpl += '<em class="weui-form-preview__value ranking">第' + data.result + '名</em>'
+  if (data.result) {
+    htmlTpl += '<em class="weui-form-preview__value ranking">第' + data.result + '名</em>'
+  } else {
+    htmlTpl += '<em class="weui-form-preview__value ranking">暂无</em>'
+  }
   htmlTpl += '</div>'
   htmlTpl += '</div>'
   htmlTpl += '<div class="weui-form-preview__bd">'
   htmlTpl += '<div class="weui-form-preview__item">'
   htmlTpl += '<label class="weui-form-preview__label">赛事名称</label>'
-  htmlTpl += '<span class="weui-form-preview__value">' + data.match.name + '</span>'
+  htmlTpl += '<span class="weui-form-preview__value">' + data.match.matchConfig.name + '</span>'
   htmlTpl += '</div>'
   htmlTpl += '<div class="weui-form-preview__item">'
   htmlTpl += '<label class="weui-form-preview__label">获得奖励</label>'
-  htmlTpl += '<span class="weui-form-preview__value">' + data.rewards + ' 积分</span>'
+  htmlTpl += '<span class="weui-form-preview__value">' + (data.rewards || 0) + ' 积分</span>'
   htmlTpl += '</div>'
   htmlTpl += '</div>'
   htmlTpl += '</div>'

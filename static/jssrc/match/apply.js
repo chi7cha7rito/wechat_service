@@ -72,6 +72,12 @@ MatchController.prototype.renderList = function (data, isAppend) {
 
   if (!isAppend) {
     $recordsList.empty()
+    if (!data.count) {
+      var html = '<div class="weui-loadmore weui-loadmore_line">'
+      html += '<span class="weui-loadmore__tips">暂无数据</span>'
+      html += '</div>'
+      $recordsList.append(html)
+    }
   }
 
   $.each(data.rows, function (i, oRow) {

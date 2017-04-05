@@ -56,8 +56,8 @@ RegisterController.prototype.bindEvents = function () {
 
     _this.addClass('span_disabled')
 
-    requestData.verifyCode=txtVerifyCode;
-    requestData.phoneNo=txtPhoneNo;
+    requestData.verifyCode = txtVerifyCode
+    requestData.phoneNo = txtPhoneNo
 
     classSelf.request(classSelf.apiUrl.common.getSmsCode, requestData, {
       type: 'POST',
