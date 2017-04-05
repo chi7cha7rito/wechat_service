@@ -20,6 +20,10 @@ var _captchapng = require('captchapng');
 
 var _captchapng2 = _interopRequireDefault(_captchapng);
 
+var _moment = require('moment');
+
+var _moment2 = _interopRequireDefault(_moment);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var router = _express2.default.Router();
@@ -62,9 +66,10 @@ router.post('/getSmsCode', function () {
 
 
             req.session.smsCode = code;
+            req.session.smsCodeGenDate = (0, _moment2.default)().unix();
 
             if (!(verifyCode && verifyCode != req.session.verifyCode)) {
-              _context.next = 7;
+              _context.next = 8;
               break;
             }
 
@@ -74,8 +79,9 @@ router.post('/getSmsCode', function () {
               'data': null
             }));
 
-          case 7:
-            codeResp = requestHelper.post({
+          case 8:
+            _context.next = 10;
+            return requestHelper.post({
               "moduleName": "sms_service",
               "controller": "sms",
               "action": "verifyCode",
@@ -84,6 +90,9 @@ router.post('/getSmsCode', function () {
                 code: code
               }
             });
+
+          case 10:
+            codeResp = _context.sent;
 
 
             if (codeResp.status == "1" && codeResp.message.length == 0) {
@@ -100,21 +109,21 @@ router.post('/getSmsCode', function () {
               });
             }
 
-            _context.next = 14;
+            _context.next = 17;
             break;
 
-          case 11:
-            _context.prev = 11;
+          case 14:
+            _context.prev = 14;
             _context.t0 = _context['catch'](0);
 
             _logger2.default.error('api_common_error' + _context.t0);
 
-          case 14:
+          case 17:
           case 'end':
             return _context.stop();
         }
       }
-    }, _callee, undefined, [[0, 11]]);
+    }, _callee, undefined, [[0, 14]]);
   }));
 
   return function (_x, _x2, _x3) {

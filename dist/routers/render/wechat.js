@@ -64,7 +64,7 @@ var middleware = _wechatPay2.default.middleware;
  */
 router.all('/', (0, _wechat2.default)(wechatConfig.token, function () {
   var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, res, next) {
-    var message, open_id;
+    var message, open_id, menuOption;
     return _regenerator2.default.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -86,65 +86,51 @@ router.all('/', (0, _wechat2.default)(wechatConfig.token, function () {
             // console.log(accessTokenInfo)
 
             // //menu
-            // let menuOption = {
-            //   "button": [
-            //     {
-            //       "name": "会员服务",
-            //       "sub_button": [
-            //         {
-            //           "type": "view",
-            //           "name": "会员中心",
-            //           "url": `${wechatConfig.host}/personal/list`
-            //         },
-            //         {
-            //           "type": "view",
-            //           "name": "在线充值",
-            //           "url": `${wechatConfig.host}/pay/wechat`
-            //         },
-            //         {
-            //           "type": "view",
-            //           "name": "在线签到",
-            //           "url": `${wechatConfig.host}/account/signIn`
-            //         },
-            //         {
-            //           "type": "view",
-            //           "name": "战绩查询",
-            //           "url": `${wechatConfig.host}/match/result`
-            //         },
-            //       ]
-            //     },
-            //     {
-            //       "name": "赛事报名",
-            //       "sub_button": [
-            //         {
-            //           "type": "view",
-            //           "name": "赛事预告",
-            //           "url": `${wechatConfig.host}/match/apply`
-            //         },
-            //         {
-            //           "type": "view",
-            //           "name": "在线报名",
-            //           "url": `${wechatConfig.host}/match/apply`
-            //         }
-            //       ]
-            //     },
-            //     {
-            //       "name": "豪客专享",
-            //       "sub_button": [
-            //         {
-            //           "type": "view",
-            //           "name": "贵宾室预定",
-            //           "url": `${wechatConfig.host}/booking/room`
-            //         },
-            //         {
-            //           "type": "view",
-            //           "name": "豪客风采",
-            //           "url": `${wechatConfig.host}/match/share`
-            //         }
-            //       ]
-            //     }
-            //   ]
-            // }
+
+            menuOption = {
+              "button": [{
+                "name": "会员服务",
+                "sub_button": [{
+                  "type": "view",
+                  "name": "会员中心",
+                  "url": wechatConfig.host + '/personal/list'
+                }, {
+                  "type": "view",
+                  "name": "在线充值",
+                  "url": wechatConfig.host + '/pay/wechat'
+                }, {
+                  "type": "view",
+                  "name": "在线签到",
+                  "url": wechatConfig.host + '/account/signIn'
+                }, {
+                  "type": "view",
+                  "name": "战绩查询",
+                  "url": wechatConfig.host + '/match/result'
+                }]
+              }, {
+                "name": "赛事报名",
+                "sub_button": [{
+                  "type": "view",
+                  "name": "赛事预告",
+                  "url": wechatConfig.host + '/match/apply'
+                }, {
+                  "type": "view",
+                  "name": "在线报名",
+                  "url": wechatConfig.host + '/match/apply'
+                }]
+              }, {
+                "name": "豪客专享",
+                "sub_button": [{
+                  "type": "view",
+                  "name": "贵宾室预定",
+                  "url": wechatConfig.host + '/booking/room'
+                }, {
+                  "type": "view",
+                  "name": "豪客风采",
+                  "url": wechatConfig.host + '/match/share'
+                }]
+              }]
+            };
 
             //create Menu
             // let menuResp = await requestHelper.post({
@@ -158,7 +144,7 @@ router.all('/', (0, _wechat2.default)(wechatConfig.token, function () {
 
             res.reply('尚在建设中，请耐心等待！');
 
-          case 3:
+          case 4:
           case 'end':
             return _context.stop();
         }

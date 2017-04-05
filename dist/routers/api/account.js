@@ -20,20 +20,24 @@ var _logger = require('../../utils/logger');
 
 var _logger2 = _interopRequireDefault(_logger);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _moment = require('moment');
 
-/**
- * desc:账户相关的api 定义
- */
+var _moment2 = _interopRequireDefault(_moment);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var router = _express2.default.Router();
 
 /**
  * 用户注册
  */
+/**
+ * desc:账户相关的api 定义
+ */
+
 router.post("/add", function () {
     var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, res, next) {
-        var name, phoneNo, idCardNo, smsCode, wechatOpenId, nickName, headImgUrl, resp;
+        var name, phoneNo, idCardNo, smsCode, wechatOpenId, nickName, headImgUrl, dateNow, resp;
         return _regenerator2.default.wrap(function _callee$(_context) {
             while (1) {
                 switch (_context.prev = _context.next) {
@@ -46,9 +50,22 @@ router.post("/add", function () {
                         wechatOpenId = req.session.wechatUser.openid;
                         nickName = req.session.wechatUser.nickname;
                         headImgUrl = req.session.wechatUser.headimgurl;
+                        dateNow = (0, _moment2.default)().unix();
 
+                        if (!(dateNow - req.session.smsCodeGenDate > 1750)) {
+                            _context.next = 11;
+                            break;
+                        }
+
+                        return _context.abrupt('return', res.json({
+                            "status": "0",
+                            "message": "短信验证码失效",
+                            "data": null
+                        }));
+
+                    case 11:
                         if (!(req.session.smsCode != smsCode)) {
-                            _context.next = 10;
+                            _context.next = 13;
                             break;
                         }
 
@@ -58,8 +75,8 @@ router.post("/add", function () {
                             "data": null
                         }));
 
-                    case 10:
-                        _context.next = 12;
+                    case 13:
+                        _context.next = 15;
                         return requestHelper.post({
                             "moduleName": "hulk_service",
                             "controller": "member",
@@ -74,27 +91,27 @@ router.post("/add", function () {
                             }
                         });
 
-                    case 12:
+                    case 15:
                         resp = _context.sent;
 
 
                         res.json(resp);
 
-                        _context.next = 19;
+                        _context.next = 22;
                         break;
 
-                    case 16:
-                        _context.prev = 16;
+                    case 19:
+                        _context.prev = 19;
                         _context.t0 = _context['catch'](0);
 
                         _logger2.default.error('api_account_add_error=>' + (0, _stringify2.default)(_context.t0));
 
-                    case 19:
+                    case 22:
                     case 'end':
                         return _context.stop();
                 }
             }
-        }, _callee, undefined, [[0, 16]]);
+        }, _callee, undefined, [[0, 19]]);
     }));
 
     return function (_x, _x2, _x3) {

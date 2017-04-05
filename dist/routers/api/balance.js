@@ -33,7 +33,7 @@ var router = _express2.default.Router();
  */
 router.get("/get", function () {
     var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, res, next) {
-        var pageIndex, pageSize, memberId, resp;
+        var pageIndex, pageSize, phoneNo, resp;
         return _regenerator2.default.wrap(function _callee$(_context) {
             while (1) {
                 switch (_context.prev = _context.next) {
@@ -41,7 +41,7 @@ router.get("/get", function () {
                         _context.prev = 0;
                         pageIndex = req.query.pageIndex;
                         pageSize = req.query.pageSize;
-                        memberId = req.session.user.member.id;
+                        phoneNo = req.session.user.member.user.phoneNo;
                         _context.next = 6;
                         return requestHelper.get({
                             "moduleName": "hulk_service",
@@ -50,7 +50,7 @@ router.get("/get", function () {
                             "data": {
                                 pageIndex: pageIndex,
                                 pageSize: pageSize,
-                                memberId: memberId
+                                phoneNo: phoneNo
                             }
                         });
 
