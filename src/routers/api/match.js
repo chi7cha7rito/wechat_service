@@ -4,7 +4,7 @@
 
 import express from 'express'
 import logger from '../../utils/logger'
-
+import moment from 'moment'
 let router = express.Router()
 
 /**
@@ -20,7 +20,9 @@ router.get("/get",async (req,res,next)=>{
             "controller":"match",
             "action":"find",
             "data":{
-               frequency:1,//平日赛
+               subType:1,//平日赛
+               status:1,
+               startClosing:moment().format(),
                pageIndex,
                pageSize
             }
