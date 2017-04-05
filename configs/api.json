@@ -1,8 +1,8 @@
 {
     "hulk_service": {
         "domain": {
-            "dev": "http://localhost:7003",
-            "prod": "http://localhost:7003"
+            "dev": "http://127.0.0.1:7001",
+            "prod": "http://127.0.0.1:7001"
         },
         "member": {
             "create": "member/create",
@@ -38,16 +38,16 @@
     },
     "sms_service": {
         "domain": {
-            "dev": "http://localhost:7001",
-            "prod": ""
+            "dev": "http://127.0.0.1:7002",
+            "prod": "http://127.0.0.1:7002"
         },
         "sms": {
-            "verifyCode": "/alidayu/secretCode",
-            "balancePlus": "/alidayu/balancePlus",
-            "balanceMinus": "/alidayu/balanceMinus",
-            "loyaltyPointPlus": "/alidayu/loyaltyPointPlus",
-            "loyaltyPointMinus": "/alidayu/loyaltyPointMinus",
-            "matchAttend": "/alidayu/matchAttend"
+            "verifyCode": "alidayu/secretCode",
+            "balancePlus": "alidayu/balancePlus",
+            "balanceMinus": "alidayu/balanceMinus",
+            "loyaltyPointPlus": "alidayu/loyaltyPointPlus",
+            "loyaltyPointMinus": "alidayu/loyaltyPointMinus",
+            "matchAttend": "alidayu/matchAttend"
         }
     },
     "wechat": {
