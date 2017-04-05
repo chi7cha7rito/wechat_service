@@ -11,8 +11,8 @@
     "nopm2": "cross-env STAGE_ENV=dev PORT=9109 node ./bin/www",
     "test": "pm2 restart pm2.config.js --only hulk_wechat_test",
     "sim": "pm2 restart pm2.config.js --only hulk_wechat_sim",
-    "prod": "pm2 restart pm2.config.js --only hulk_wechat_prod",
-    "stop": "pm2 stop hulk_wechat_dev",
+    "prod": "pm2 start pm2.config.js --only hulk_wechat_prod",
+    "stop": "pm2 stop hulk_wechat_prod",
     "deploy": "pm2 deploy pm2.config.js production --force"
   },
   "dependencies": {
