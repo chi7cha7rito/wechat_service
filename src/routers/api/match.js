@@ -29,7 +29,7 @@ router.get("/get",async (req,res,next)=>{
         res.json(resp)
 
     }catch(e){
-        logger.error(`api_match_get_error=>${JSON.stringify(e)}`)
+        logger.error(`api_match_get_error=>${e}`)
     }
 })
 
@@ -56,7 +56,7 @@ router.get("/result",async (req,res,next)=>{
         res.json(resp)
 
     }catch(e){
-        logger.error(`api_match_result_error=>${JSON.stringify(e)}`)
+        logger.error(`api_match_result_error=>${e}`)
     }
 })
 
@@ -80,7 +80,7 @@ router.post("/apply",async (req,res,next)=>{
         res.json(resp);
 
     }catch(e){
-        logger.error(`api_match_apply_error=>${JSON.stringify(e)}`)
+        logger.error(`api_match_apply_error=>${e}`)
     }
 })
 

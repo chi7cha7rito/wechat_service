@@ -56,7 +56,7 @@ router.post("/add",async (req,res,next)=>{
         res.json(resp);
 
     }catch(e){
-        logger.error(`api_account_add_error=>${JSON.stringify(e)}`);
+        logger.error(`api_account_add_error=>${e}`);
     }
 })
 
@@ -81,7 +81,7 @@ router.post("/signIn",async (req,res,next)=>{
         res.json(resp);
 
     }catch(e){
-        logger.error(`api_account_signIn_error=>${JSON.stringify(e)}`)
+        logger.error(`api_account_signIn_error=>${e}`)
     }
 })
 
