@@ -30,7 +30,7 @@ router.get("/get",async (req,res,next)=>{
         res.json(resp);
 
     }catch(e){
-        logger.error(`api_balance_get_error=>${JSON.stringify(e)}`);
+        logger.error(`api_balance_get_error=>${e}`);
     }
 })
 
@@ -53,7 +53,7 @@ router.get("/total",async (req,res,next)=>{
         res.json(resp);
 
     }catch(e){
-        logger.error(`api_balance_total_error=>${JSON.stringify(e)}`);
+        logger.error(`api_balance_total_error=>${e}`);
     }
 })
 
