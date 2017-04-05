@@ -35,7 +35,7 @@ SignInController.prototype.bindEvents = function () {
       'type': 'POST',
       'process': function (data) {
         if (data) {
-          $.toast('签到成功<br/>获取' + data.points + '豪气')
+          $.toast('签到成功')
         }
       },
       'onExceptionInterface': function () {
