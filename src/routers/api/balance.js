@@ -14,7 +14,7 @@ router.get("/get",async (req,res,next)=>{
     try{
         let pageIndex=req.query.pageIndex;
         let pageSize=req.query.pageSize;
-        let phoneNo=req.session.user.member.user.phoneNo;
+        let phoneNo=req.session.user.phoneNo;
 
         let resp=await requestHelper.get({
             "moduleName":"hulk_service",
