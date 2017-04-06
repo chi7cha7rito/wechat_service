@@ -6,7 +6,8 @@
         },
         "member": {
             "create": "member/create",
-            "find": "member/findByWechatOpenId"
+            "find": "member/findByWechatOpenId",
+            "findTotal": "member/findTotal"
         },
         "wechatToken": {
             "create": "wechatToken/create",
@@ -28,7 +29,7 @@
             "find": "match/findMatches",
             "apply": "attendance/createOnline",
             "result": "attendance/findRankingByMemberId",
-            "rewards":"matchReward/findAllActive"
+            "rewards": "matchReward/findAllActive"
         },
         "wechatPayment": {
             "create": "wechatPayment/create",

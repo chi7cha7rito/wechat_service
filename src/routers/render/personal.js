@@ -16,26 +16,26 @@ router.get('/list', async (req, res, next) => {
 
     let memberId = req.session.user.member.id
 
-    let balance = await requestHelper.get({
+    let totalInfo = await requestHelper.get({
       'moduleName': 'hulk_service',
-      'controller': 'balance',
-      'action': 'total',
+      'controller': 'member',
+      'action': 'findTotal',
       'data': {memberId}
     })
 
-    let points = await requestHelper.get({
-      'moduleName': 'hulk_service',
-      'controller': 'points',
-      'action': 'total',
-      'data': {memberId}
-    })
+    // let points = await requestHelper.get({
+    //   'moduleName': 'hulk_service',
+    //   'controller': 'points',
+    //   'action': 'total',
+    //   'data': {memberId}
+    // })
 
     Object.assign(templateData, { 'title': '个人中心' }, {
-        balance: balance.data || 0, 
-        points: points.data || 0 ,
+        balance: totalInfo.balance || 0, 
+        points: totalInfo.points || 0 ,
         nickName:req.session.user.member.wechat.nickName,
         headImgUrl:req.session.user.member.wechat.headImgUrl,
-        level:req.session.user.member.memberLevel.name
+        level:totalInfo.memberLevel.name
       })
 
     return res.render('personal/list', templateData)
