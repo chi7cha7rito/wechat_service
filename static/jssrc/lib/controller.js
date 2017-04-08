@@ -257,6 +257,15 @@ function Controller () {
     }
   }
 
+  /*-----------------------------------------------------------------------------------------------------------
+  验证18位身份证(含X|x)
+  -----------------------------------------------------------------------------------------------------------*/
+  this.checkIdNumber = function (text) {
+    var regu = '^([0-9]){17,18}(x|X)?$',
+      re = new RegExp(regu)
+    return re.test(text)
+  }
+
   this.utcToLocal = function (utc) {
     return moment.utc(utc).local().format('YYYY-MM-DD HH:mm')
   }

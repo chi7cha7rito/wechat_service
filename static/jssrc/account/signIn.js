@@ -36,6 +36,7 @@ SignInController.prototype.bindEvents = function () {
       'process': function (data) {
         if (data) {
           $.toast('签到成功')
+          _this.removeClass('disabled');
         }
       },
       'onExceptionInterface': function () {

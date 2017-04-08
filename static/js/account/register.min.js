@@ -107,7 +107,7 @@ RegisterController.prototype.bindEvents = function () {
       $.toptip('身份证不能为空', 'error')
       return false
     }else {
-      if (classSelf.IdCardValidate(txtIdCardNo)) {
+      if (classSelf.checkIdNumber(txtIdCardNo)) {
         $.toptip('不合法的身份证号', 'error')
         return false
       }
