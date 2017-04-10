@@ -4,10 +4,6 @@ var _regenerator = require('babel-runtime/regenerator');
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _stringify = require('babel-runtime/core-js/json/stringify');
-
-var _stringify2 = _interopRequireDefault(_stringify);
-
 var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
@@ -33,7 +29,7 @@ var router = _express2.default.Router();
  */
 router.get("/get", function () {
     var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, res, next) {
-        var pageIndex, pageSize, memberId, resp;
+        var pageIndex, pageSize, phoneNo, resp;
         return _regenerator2.default.wrap(function _callee$(_context) {
             while (1) {
                 switch (_context.prev = _context.next) {
@@ -41,7 +37,7 @@ router.get("/get", function () {
                         _context.prev = 0;
                         pageIndex = req.query.pageIndex;
                         pageSize = req.query.pageSize;
-                        memberId = req.session.user.member.id;
+                        phoneNo = req.session.user.phoneNo;
                         _context.next = 6;
                         return requestHelper.get({
                             "moduleName": "hulk_service",
@@ -50,7 +46,7 @@ router.get("/get", function () {
                             "data": {
                                 pageIndex: pageIndex,
                                 pageSize: pageSize,
-                                memberId: memberId
+                                phoneNo: phoneNo
                             }
                         });
 
@@ -67,7 +63,7 @@ router.get("/get", function () {
                         _context.prev = 10;
                         _context.t0 = _context['catch'](0);
 
-                        _logger2.default.error('api_credits_get_error=>' + (0, _stringify2.default)(_context.t0));
+                        _logger2.default.error('api_credits_get_error=>' + _context.t0);
 
                     case 13:
                     case 'end':
@@ -117,7 +113,7 @@ router.get("/total", function () {
                         _context2.prev = 8;
                         _context2.t0 = _context2['catch'](0);
 
-                        _logger2.default.error('api_points_total_error=>' + (0, _stringify2.default)(_context2.t0));
+                        _logger2.default.error('api_points_total_error=>' + _context2.t0);
 
                     case 11:
                     case 'end':

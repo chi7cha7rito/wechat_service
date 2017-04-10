@@ -35,6 +35,9 @@
             "create": "wechatPayment/create",
             "notify": "wechatPayment/notify",
             "find": "wechatPayment/findEntry"
+        },
+        "coupon":{
+            "find":"coupon/findAll"
         }
     },
     "sms_service": {

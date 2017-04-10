@@ -49,6 +49,9 @@ function Controller () {
     'balance': {
       'get': this.apiPrefix + 'balance/get'
     },
+    'coupon':{
+      'get': this.apiPrefix + 'coupon/get'
+    },
     'match': {
       'get': this.apiPrefix + 'match/get',
       'apply': this.apiPrefix + 'match/apply',

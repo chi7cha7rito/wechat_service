@@ -34,7 +34,7 @@ var router = _express2.default.Router();
 
 router.get('/list', function () {
   var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, res, next) {
-    var param, templateData, memberId, balance, points;
+    var param, templateData, memberId, totalInfo, memberInfo;
     return _regenerator2.default.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -50,48 +50,48 @@ router.get('/list', function () {
             _context.next = 6;
             return requestHelper.get({
               'moduleName': 'hulk_service',
-              'controller': 'balance',
-              'action': 'total',
+              'controller': 'member',
+              'action': 'findTotal',
               'data': { memberId: memberId }
             });
 
           case 6:
-            balance = _context.sent;
+            totalInfo = _context.sent;
             _context.next = 9;
             return requestHelper.get({
               'moduleName': 'hulk_service',
-              'controller': 'points',
-              'action': 'total',
-              'data': { memberId: memberId }
+              'controller': 'member',
+              'action': 'find',
+              'data': { wechatOpenId: req.session.user.member.wechat.wechatOpenId }
             });
 
           case 9:
-            points = _context.sent;
+            memberInfo = _context.sent;
 
-
+            req.session.user = memberInfo.data;
             (0, _assign2.default)(templateData, { 'title': '个人中心' }, {
-              balance: balance.data || 0,
-              points: points.data || 0,
+              balance: totalInfo.data && totalInfo.data.balance || 0,
+              points: totalInfo.data && totalInfo.data.points || 0,
               nickName: req.session.user.member.wechat.nickName,
               headImgUrl: req.session.user.member.wechat.headImgUrl,
-              level: req.session.user.member.memberLevel.name
+              level: memberInfo.data.member.memberLevel.name
             });
 
             return _context.abrupt('return', res.render('personal/list', templateData));
 
-          case 14:
-            _context.prev = 14;
+          case 15:
+            _context.prev = 15;
             _context.t0 = _context['catch'](0);
 
             _logger2.default.error('render_personal_list_error=>' + (0, _stringify2.default)(_context.t0));
             return _context.abrupt('return', res.render('common/error'));
 
-          case 18:
+          case 19:
           case 'end':
             return _context.stop();
         }
       }
-    }, _callee, undefined, [[0, 14]]);
+    }, _callee, undefined, [[0, 15]]);
   }));
 
   return function (_x, _x2, _x3) {
@@ -147,6 +147,21 @@ router.get('/credits', function (req, res, next) {
   (0, _assign2.default)(templateData, { 'title': '积分明细' });
 
   return res.render('personal/credits', templateData);
+});
+
+//我的优惠券
+router.get('/coupon', function (req, res, next) {
+  var param = {
+    req: req,
+    matchJavascript: true,
+    matchStylesheet: true
+  };
+
+  var templateData = _router2.default.getTemplateBasicData(param);
+
+  (0, _assign2.default)(templateData, { 'title': '我的优惠券' });
+
+  return res.render('personal/coupon', templateData);
 });
 
 module.exports = router;

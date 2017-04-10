@@ -4,10 +4,6 @@ var _regenerator = require('babel-runtime/regenerator');
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _stringify = require('babel-runtime/core-js/json/stringify');
-
-var _stringify2 = _interopRequireDefault(_stringify);
-
 var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
@@ -41,7 +37,7 @@ router.get("/get", function () {
                         _context.prev = 0;
                         pageIndex = req.query.pageIndex;
                         pageSize = req.query.pageSize;
-                        phoneNo = req.session.user.member.user.phoneNo;
+                        phoneNo = req.session.user.phoneNo;
                         _context.next = 6;
                         return requestHelper.get({
                             "moduleName": "hulk_service",
@@ -67,7 +63,7 @@ router.get("/get", function () {
                         _context.prev = 10;
                         _context.t0 = _context['catch'](0);
 
-                        _logger2.default.error('api_balance_get_error=>' + (0, _stringify2.default)(_context.t0));
+                        _logger2.default.error('api_balance_get_error=>' + _context.t0);
 
                     case 13:
                     case 'end':
@@ -117,7 +113,7 @@ router.get("/total", function () {
                         _context2.prev = 8;
                         _context2.t0 = _context2['catch'](0);
 
-                        _logger2.default.error('api_balance_total_error=>' + (0, _stringify2.default)(_context2.t0));
+                        _logger2.default.error('api_balance_total_error=>' + _context2.t0);
 
                     case 11:
                     case 'end':

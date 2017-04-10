@@ -4,10 +4,6 @@ var _regenerator = require('babel-runtime/regenerator');
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _stringify = require('babel-runtime/core-js/json/stringify');
-
-var _stringify2 = _interopRequireDefault(_stringify);
-
 var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
@@ -104,7 +100,7 @@ router.post("/add", function () {
                         _context.prev = 19;
                         _context.t0 = _context['catch'](0);
 
-                        _logger2.default.error('api_account_add_error=>' + (0, _stringify2.default)(_context.t0));
+                        _logger2.default.error('api_account_add_error=>' + _context.t0);
 
                     case 22:
                     case 'end':
@@ -156,7 +152,7 @@ router.post("/signIn", function () {
                         _context2.prev = 9;
                         _context2.t0 = _context2['catch'](0);
 
-                        _logger2.default.error('api_account_signIn_error=>' + (0, _stringify2.default)(_context2.t0));
+                        _logger2.default.error('api_account_signIn_error=>' + _context2.t0);
 
                     case 12:
                     case 'end':

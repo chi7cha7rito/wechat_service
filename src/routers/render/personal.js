@@ -96,4 +96,19 @@ router.get('/credits', (req, res, next) => {
   return res.render('personal/credits', templateData)
 })
 
+//我的优惠券
+router.get('/coupon', (req, res, next) => {
+  let param = {
+    req: req,
+    matchJavascript: true,
+    matchStylesheet: true
+  }
+
+  let templateData = routerUtil.getTemplateBasicData(param)
+
+  Object.assign(templateData, { 'title': '我的优惠券' })
+
+  return res.render('personal/coupon', templateData)
+})
+
 module.exports = router

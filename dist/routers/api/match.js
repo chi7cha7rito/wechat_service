@@ -4,10 +4,6 @@ var _regenerator = require('babel-runtime/regenerator');
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _stringify = require('babel-runtime/core-js/json/stringify');
-
-var _stringify2 = _interopRequireDefault(_stringify);
-
 var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
@@ -20,17 +16,21 @@ var _logger = require('../../utils/logger');
 
 var _logger2 = _interopRequireDefault(_logger);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _moment = require('moment');
 
-/**
- * desc:比赛相关的api 定义
- */
+var _moment2 = _interopRequireDefault(_moment);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var router = _express2.default.Router();
 
 /**
  * 获取赛事信息
  */
+/**
+ * desc:比赛相关的api 定义
+ */
+
 router.get("/get", function () {
     var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, res, next) {
         var pageIndex, pageSize, resp;
@@ -47,7 +47,9 @@ router.get("/get", function () {
                             "controller": "match",
                             "action": "find",
                             "data": {
-                                frequency: 1, //平日赛
+                                applyOnline: true,
+                                status: 1,
+                                startClosing: (0, _moment2.default)().format(),
                                 pageIndex: pageIndex,
                                 pageSize: pageSize
                             }
@@ -66,7 +68,7 @@ router.get("/get", function () {
                         _context.prev = 9;
                         _context.t0 = _context['catch'](0);
 
-                        _logger2.default.error('api_match_get_error=>' + (0, _stringify2.default)(_context.t0));
+                        _logger2.default.error('api_match_get_error=>' + _context.t0);
 
                     case 12:
                     case 'end':
@@ -120,7 +122,7 @@ router.get("/result", function () {
                         _context2.prev = 10;
                         _context2.t0 = _context2['catch'](0);
 
-                        _logger2.default.error('api_match_result_error=>' + (0, _stringify2.default)(_context2.t0));
+                        _logger2.default.error('api_match_result_error=>' + _context2.t0);
 
                     case 13:
                     case 'end':
@@ -172,7 +174,7 @@ router.post("/apply", function () {
                         _context3.prev = 9;
                         _context3.t0 = _context3['catch'](0);
 
-                        _logger2.default.error('api_match_apply_error=>' + (0, _stringify2.default)(_context3.t0));
+                        _logger2.default.error('api_match_apply_error=>' + _context3.t0);
 
                     case 12:
                     case 'end':
