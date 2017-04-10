@@ -106,7 +106,7 @@ CouponController.prototype.getItem = function (data) {
   htmlTpl += '<div class="weui-form-preview__hd">'
   htmlTpl += '<div class="weui-form-preview__item">'
   htmlTpl += '<label class="weui-form-preview__label">类型</label>'
-  htmlTpl += '<em class="weui-form-preview__value">' + data.name + '</em>'
+  htmlTpl += '<em class="weui-form-preview__value">' + data.type.name + '</em>'
   htmlTpl += '</div>'
   htmlTpl += '</div>'
   htmlTpl += '<div class="weui-form-preview__bd">'
