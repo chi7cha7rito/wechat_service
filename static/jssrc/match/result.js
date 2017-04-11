@@ -102,7 +102,7 @@ ResultController.prototype.getItem = function (data) {
   htmlTpl += '<span class="weui-form-preview__value">' + data.match.matchConfig.name + '</span>'
   htmlTpl += '</div>'
   htmlTpl += '<div class="weui-form-preview__item">'
-  htmlTpl += '<label class="weui-form-preview__label">获得奖励</label>'
+  htmlTpl += '<label class="weui-form-preview__label">奖励积分</label>'
   htmlTpl += '<span class="weui-form-preview__value">' + (data.rewards || 0) + ' 积分</span>'
   htmlTpl += '</div>'
   if (data.rewardsRemark && data.rewardsRemark.length) {
