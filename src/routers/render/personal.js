@@ -128,15 +128,18 @@ router.get('/sprit', async (req, res, next) => {
       'moduleName': 'hulk_service',
       'controller': 'sprit',
       'action': 'find',
-      'data': {startDatetime: moment().startOf('month'), endDatetime: moment().endOf('month')}
+      'data': {
+        startDatetime: moment().startOf('month').format('YYYY-MM-DD hh:mm:ss'),
+        endDatetime: moment().endOf('month').format('YYYY-MM-DD hh:mm:ss')
+      }
     })
     let monthTotal = await requestHelper.get({
       'moduleName': 'hulk_service',
       'controller': 'sprit',
       'action': 'totalByMemberId',
       'data': {
-          startDatetime: moment().startOf('month'),
-          endDatetime: moment().endOf('month'),
+          startDatetime: moment().startOf('month').format('YYYY-MM-DD hh:mm:ss'),
+          endDatetime: moment().endOf('month').format('YYYY-MM-DD hh:mm:ss'),
           memberId: req.session.user.member.id
         }
     })
@@ -145,7 +148,10 @@ router.get('/sprit', async (req, res, next) => {
       'moduleName': 'hulk_service',
       'controller': 'sprit',
       'action': 'find',
-      'data': {startDatetime: moment().startOf('year'), endDatetime: moment().endOf('year')}
+      'data': {
+        startDatetime: moment().startOf('year').format('YYYY-MM-DD hh:mm:ss'),
+        endDatetime: moment().endOf('year').format('YYYY-MM-DD hh:mm:ss')
+      }
     })
 
     let yearTotal = await requestHelper.get({
@@ -153,8 +159,8 @@ router.get('/sprit', async (req, res, next) => {
       'controller': 'sprit',
       'action': 'totalByMemberId',
       'data': {
-          startDatetime: moment().startOf('year'),
-          endDatetime: moment().endOf('year'),
+          startDatetime: moment().startOf('year').format('YYYY-MM-DD hh:mm:ss'),
+          endDatetime: moment().endOf('year').format('YYYY-MM-DD hh:mm:ss'),
           memberId: req.session.user.member.id
         }
     })

@@ -190,7 +190,10 @@ router.get('/sprit', function () {
               'moduleName': 'hulk_service',
               'controller': 'sprit',
               'action': 'find',
-              'data': { startDatetime: (0, _moment2.default)().startOf('month'), endDatetime: (0, _moment2.default)().endOf('month') }
+              'data': {
+                startDatetime: (0, _moment2.default)().startOf('month').format('YYYY-MM-DD hh:mm:ss'),
+                endDatetime: (0, _moment2.default)().endOf('month').format('YYYY-MM-DD hh:mm:ss')
+              }
             });
 
           case 5:
@@ -201,8 +204,8 @@ router.get('/sprit', function () {
               'controller': 'sprit',
               'action': 'totalByMemberId',
               'data': {
-                startDatetime: (0, _moment2.default)().startOf('month'),
-                endDatetime: (0, _moment2.default)().endOf('month'),
+                startDatetime: (0, _moment2.default)().startOf('month').format('YYYY-MM-DD hh:mm:ss'),
+                endDatetime: (0, _moment2.default)().endOf('month').format('YYYY-MM-DD hh:mm:ss'),
                 memberId: req.session.user.member.id
               }
             });
@@ -214,7 +217,10 @@ router.get('/sprit', function () {
               'moduleName': 'hulk_service',
               'controller': 'sprit',
               'action': 'find',
-              'data': { startDatetime: (0, _moment2.default)().startOf('year'), endDatetime: (0, _moment2.default)().endOf('year') }
+              'data': {
+                startDatetime: (0, _moment2.default)().startOf('year').format('YYYY-MM-DD hh:mm:ss'),
+                endDatetime: (0, _moment2.default)().endOf('year').format('YYYY-MM-DD hh:mm:ss')
+              }
             });
 
           case 11:
@@ -225,8 +231,8 @@ router.get('/sprit', function () {
               'controller': 'sprit',
               'action': 'totalByMemberId',
               'data': {
-                startDatetime: (0, _moment2.default)().startOf('year'),
-                endDatetime: (0, _moment2.default)().endOf('year'),
+                startDatetime: (0, _moment2.default)().startOf('year').format('YYYY-MM-DD hh:mm:ss'),
+                endDatetime: (0, _moment2.default)().endOf('year').format('YYYY-MM-DD hh:mm:ss'),
                 memberId: req.session.user.member.id
               }
             });
