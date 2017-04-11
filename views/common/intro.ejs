@@ -1,5 +1,22 @@
 <%- include("../common/head") %>
+<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=5KZBZ-G2RH3-XGR3U-3OE4K-4D7MF-UGFXQ"></script>
 <div class="wrapper">
-    <p>俱乐部地址:杨浦区国霞路435号星汇广场二期，3号楼205</p>
+    <div class="weui-panel">
+        <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_text">
+                <h4 class="weui-media-box__title">地址</h4>
+                <p class="weui-media-box__desc">杨浦区国霞路435号星汇广场二期，3号楼205</p>
+                <div class="map" id="map">
+                </div>
+            </div>
+            <!--<div class="weui-media-box weui-media-box_text">
+                <h4 class="weui-media-box__title">地址</h4>
+                <p class="weui-media-box__desc">杨浦区国霞路435号星汇广场二期，3号楼205</p>
+                <div class="map">
+                </div>
+            </div>-->
+        </div>
+    </div>
 </div>
+
 <%- include("../common/footer") %>
