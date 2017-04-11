@@ -171,7 +171,7 @@ router.get('/coupon', function (req, res, next) {
 /**
  * @desc 豪气排名
  */
-router.get('/ranking', function () {
+router.get('/sprit', function () {
   var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(req, res, next) {
     var param, templateData, monthRanking, monthTotal, yearRanking, yearTotal, info;
     return _regenerator2.default.wrap(function _callee2$(_context2) {

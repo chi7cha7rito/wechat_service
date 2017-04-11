@@ -114,7 +114,7 @@ router.get('/coupon', (req, res, next) => {
 /**
  * @desc 豪气排名
  */
-router.get('/ranking', async (req, res, next) => {
+router.get('/sprit', async (req, res, next) => {
   try {
     let param = {
       req: req,
