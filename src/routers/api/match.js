@@ -8,9 +8,9 @@ import moment from 'moment'
 let router = express.Router()
 
 /**
- * 获取赛事信息
+ * 获取在线报名赛事信息
  */
-router.get("/get",async (req,res,next)=>{
+router.get("/getOnline",async (req,res,next)=>{
     try{
         let pageIndex=req.query.pageIndex
         let pageSize=req.query.pageSize
@@ -21,6 +21,33 @@ router.get("/get",async (req,res,next)=>{
             "action":"find",
             "data":{
                applyOnline:true,
+               status:1,
+               startClosing:moment().format(),
+               pageIndex,
+               pageSize
+            }
+        })
+
+        res.json(resp)
+
+    }catch(e){
+        logger.error(`api_match_get_error=>${e}`)
+    }
+})
+
+/**
+ * 获取在线报名赛事信息
+ */
+router.get("/getAll",async (req,res,next)=>{
+    try{
+        let pageIndex=req.query.pageIndex
+        let pageSize=req.query.pageSize
+
+        let resp=await requestHelper.get({
+            "moduleName":"hulk_service",
+            "controller":"match",
+            "action":"find",
+            "data":{
                status:1,
                startClosing:moment().format(),
                pageIndex,

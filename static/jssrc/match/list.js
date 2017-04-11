@@ -1,6 +1,6 @@
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
  1. 项目名称：豪客微信站
- 2. 文件名称：static/jssrc/match/apply.js --> (赛事/赛事列表)
+ 2. 文件名称：static/jssrc/match/list.js --> (赛事/赛事列表)
  3. 作者：RyanLu
  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -32,7 +32,7 @@ function MatchController () {
 MatchController.prototype.initPage = function () {
   var classSelf = this
 
-  classSelf.request(classSelf.apiUrl.match.getOnline, {
+  classSelf.request(classSelf.apiUrl.match.getAll, {
     'pageIndex': 1,
     'pageSize': classSelf.pageSize
   }, {
@@ -51,7 +51,7 @@ MatchController.prototype.initPullLoad = function () {
   var classSelf = this
   require(['components/pullload.js'], function () {
     $('.match-list').pullload({
-      apiUrl: classSelf.apiUrl.match.getOnline,
+      apiUrl: classSelf.apiUrl.match.getAll,
       threshold: 15,
       crossDoman: false,
       pageSize: classSelf.pageSize,
@@ -129,43 +129,10 @@ MatchController.prototype.getItem = function (data) {
   htmlTpl += '</div>'
   htmlTpl += '<div class="weui-form-preview__ft">'
   htmlTpl += '<a class="weui-form-preview__btn weui-form-preview__btn_primary" href="rewards?matchConfigId=' + data.matchConfigId + '&matchName=' + data.matchConfig.name + '">奖励</a>'
-  htmlTpl += '<a class="weui-form-preview__btn weui-form-preview__btn_primary attend" data-id="' + data.id + '" data-price="' + price + '" data-closing="' + data.closingDatetime + '" href="javascript:">报名</a>'
   htmlTpl += '</div>'
   htmlTpl += '</div>'
   return $(htmlTpl)
 }
-
-/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-绑定事件
------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-MatchController.prototype.bindEvent = function () {
-  var classSelf = this
-  $('.match-list').on('click', '.attend', function () {
-    var price = $(this).attr('data-price')
-    var id = $(this).attr('data-id')
-    var closing = new Date(classSelf.utcToLocal($(this).attr('data-closing')))
-    var now = Date.now()
-    if (closing < now) {
-      $.toast('报名时间已截止', 'forbidden')
-      return false
-    }
-    $.confirm({
-      title: '报名参赛？',
-      text: '赛事门票为' + price + '元，是否报名参加？',
-      onOK: function () {
-        classSelf.request(classSelf.apiUrl.match.apply, {matchId: id}, {
-          'type': 'post',
-          // 'showLoadingTips': true,
-          'process': function (data) {
-            $.toast('报名成功')
-          }
-        })
-      },
-      onCancel: function () {}
-    })
-  })
-}
-
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 类的初始化
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/

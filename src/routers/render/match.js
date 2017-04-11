@@ -15,9 +15,24 @@ router.get('/apply', (req, res, next) => {
 
   let templateData = routerUtil.getTemplateBasicData(param);
 
-  Object.assign(templateData, { "title": "赛事汇总" });
+  Object.assign(templateData, { "title": "在线报名" });
 
   return res.render("match/apply", templateData);
+})
+
+//赛事预告
+router.get('/list', (req, res, next) => {
+  let param = {
+    req: req,
+    matchJavascript: true,
+    matchStylesheet: true
+  }
+
+  let templateData = routerUtil.getTemplateBasicData(param);
+
+  Object.assign(templateData, { "title": "赛事预告" });
+
+  return res.render("match/list", templateData);
 })
 
 //赛事奖励

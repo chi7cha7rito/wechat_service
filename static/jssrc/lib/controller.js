@@ -49,11 +49,12 @@ function Controller () {
     'balance': {
       'get': this.apiPrefix + 'balance/get'
     },
-    'coupon':{
+    'coupon': {
       'get': this.apiPrefix + 'coupon/get'
     },
     'match': {
-      'get': this.apiPrefix + 'match/get',
+      'getOnline': this.apiPrefix + 'match/getOnline',
+      'getAll': this.apiPrefix + 'match/getAll',
       'apply': this.apiPrefix + 'match/apply',
       'result': this.apiPrefix + 'match/result'
     },

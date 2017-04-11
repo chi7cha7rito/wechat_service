@@ -42,9 +42,24 @@ router.get('/apply', function (req, res, next) {
 
   var templateData = _router2.default.getTemplateBasicData(param);
 
-  (0, _assign2.default)(templateData, { "title": "赛事汇总" });
+  (0, _assign2.default)(templateData, { "title": "在线报名" });
 
   return res.render("match/apply", templateData);
+});
+
+//赛事预告
+router.get('/list', function (req, res, next) {
+  var param = {
+    req: req,
+    matchJavascript: true,
+    matchStylesheet: true
+  };
+
+  var templateData = _router2.default.getTemplateBasicData(param);
+
+  (0, _assign2.default)(templateData, { "title": "赛事预告" });
+
+  return res.render("match/list", templateData);
 });
 
 //赛事奖励
