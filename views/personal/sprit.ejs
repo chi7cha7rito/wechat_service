@@ -22,7 +22,7 @@
                         <% monthRanking.forEach(function(item,index) {%>
                             <div class="weui-cell">
                                 <div class="weui-cell__bd">
-                                <p><%= index %>.<%= item.name%></p>
+                                <p><%= (index + 1) %>.<%= item.name%></p>
                                 </div>
                                 <div class="weui-cell__ft"><%= item.total%></div>
                             </div>
@@ -46,7 +46,7 @@
                         <% yearRanking.forEach(function(item,index) { %>
                             <div class="weui-cell">
                                 <div class="weui-cell__bd">
-                                <p><%= index %>.<%= item.name%></p>
+                                <p><%= (index + 1) %>.<%= item.name%></p>
                                 </div>
                                 <div class="weui-cell__ft"><%= item.total%></div>
                             </div>
