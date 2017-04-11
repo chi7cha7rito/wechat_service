@@ -6,10 +6,9 @@
         <div class="weui-cells">
             <% if (rewards) { %>
                 <% rewards.forEach(function(item){ %>
-                    <div class="weui-form-preview">
+                    <div class="weui-form-preview" stype="margin-bottom:20px;Ï">
                         <div class="weui-form-preview__hd">
-                            <label class="weui-form-preview__label">名次</label>
-                            <em class="weui-form-preview__value"><%= item.ranking %></em>
+                            <label class="weui-form-preview__label">第<%= item.ranking %>名</label>
                         </div>
                         <div class="weui-form-preview__bd">
                             <div class="weui-form-preview__item">
