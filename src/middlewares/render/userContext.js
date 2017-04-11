@@ -17,9 +17,8 @@ export default async (req, res, next) => {
 
         //todo:之后需要加个配置管理如下的特殊需求
         if (absoluteUrl == "/account/register"
-            || absoluteUrl == "/wechat/"
-            || absoluteUrl == "/wechat/auth"
-            || absoluteUrl == "/wechat/notify") {
+            || req.baseUrl == "/wechat"
+            || req.baseUrl=="/common") {
             next()
         }
         else {
