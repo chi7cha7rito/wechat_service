@@ -7,7 +7,10 @@
             <% if (rewards) { %>
                 <% rewards.forEach(function(item){ %>
                     <div class="weui-form-preview">
-                        <div class="ranking">第<%= item.ranking %>名</div>
+                        <div class="weui-form-preview__hd">
+                            <label class="weui-form-preview__label">名次</label>
+                            <em class="weui-form-preview__value">第<%= item.ranking %>名</em>
+                        </div>
                         <div class="weui-form-preview__bd">
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">积分奖励</label>
