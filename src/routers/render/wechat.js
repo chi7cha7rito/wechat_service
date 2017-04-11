@@ -120,10 +120,10 @@ router.all('/', wechat(wechatConfig.token, async (req, res, next) => {
   // res.reply('尚在建设中，请耐心等待！')
   res.reply([
       {
-        title: '你来我家接我吧',
-        description: '这是女神与高富帅之间的对话',
+        title: '快来加入豪客俱乐部',
+        description: '',
         picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
-        url: 'http://nodeapi.cloudfoundry.com/'
+        url: 'http://www.holecardsclub.com/common/intro'
       }
     ]);
 }))

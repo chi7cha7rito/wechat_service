@@ -145,10 +145,10 @@ router.all('/', (0, _wechat2.default)(wechatConfig.token, function () {
             // res.reply('尚在建设中，请耐心等待！')
 
             res.reply([{
-              title: '你来我家接我吧',
-              description: '这是女神与高富帅之间的对话',
+              title: '快来加入豪客俱乐部',
+              description: '',
               picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
-              url: 'http://nodeapi.cloudfoundry.com/'
+              url: 'http://www.holecardsclub.com/common/intro'
             }]);
 
           case 4:
