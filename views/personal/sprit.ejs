@@ -12,13 +12,19 @@
         <div class="weui-tab__bd">
             <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
                 <div class="weui-cells">
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                        <p>您当月豪气</p>
+                        </div>
+                        <div class="weui-cell__ft"><%= monthTotal %></div>
+                    </div>
                     <% if(monthRanking.length) {%>
                         <% monthRanking.forEach(function(item,index) {%>
                             <div class="weui-cell">
                                 <div class="weui-cell__bd">
-                                <p><%= index %>-<%= item.name%></p>
+                                <p><%= index %>.<%= item.name%></p>
                                 </div>
-                                <div class="weui-cell__ft"><%= item.total%>></div>
+                                <div class="weui-cell__ft"><%= item.total%></div>
                             </div>
                         <% }) %>
                     <%} else {%>
@@ -30,13 +36,19 @@
             </div>
             <div id="tab2" class="weui-tab__bd-item">
                 <div class="weui-cells">
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                        <p>您当年豪气</p>
+                        </div>
+                        <div class="weui-cell__ft"><%= yearTotal %></div>
+                    </div>
                    <% if(yearRanking.length) {%>
                         <% yearRanking.forEach(function(item,index) { %>
                             <div class="weui-cell">
                                 <div class="weui-cell__bd">
-                                <p><%= index %>-<%= item.name%></p>
+                                <p><%= index %>.<%= item.name%></p>
                                 </div>
-                                <div class="weui-cell__ft"><%= item.total%>></div>
+                                <div class="weui-cell__ft"><%= item.total%></div>
                             </div>
                         <% }) %>
                     <%} else {%>
