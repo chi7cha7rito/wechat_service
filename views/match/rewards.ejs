@@ -3,34 +3,32 @@
         <%= matchName %>
     </h1>
     <div class="wrapper">
-        <div class="weui-cells">
-            <% if (rewards) { %>
-                <% rewards.forEach(function(item){ %>
-                    <div class="weui-form-preview">
-                        <div class="weui-form-preview__hd">
-                            <label class="weui-form-preview__label">名次</label>
-                            <em class="weui-form-preview__value">第<%= item.ranking %>名</em>
-                        </div>
-                        <div class="weui-form-preview__bd">
-                            <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">积分奖励</label>
-                                <span class="weui-form-preview__value"><%= item.rewardPoints %> 积分</span>
-                            </div>
-                            <% if(item.remark.length) {%>
-                                <div class="weui-form-preview__item">
-                                    <label class="weui-form-preview__label">备注</label>
-                                    <span class="weui-form-preview__value"><%= item.remark %></span>
-                                </div>
-                            <%}%>
-                        </div>
+        <% if (rewards) { %>
+            <% rewards.forEach(function(item){ %>
+                <div class="weui-form-preview">
+                    <div class="weui-form-preview__hd">
+                        <label class="weui-form-preview__label">名次</label>
+                        <em class="weui-form-preview__value">第<%= item.ranking %>名</em>
                     </div>
-                <% }) %>
-            <% } else { %>
-                 <div class="weui-cell">
-                    暂无奖励
-                 </div>
-            <% } %>
-        </div>
+                    <div class="weui-form-preview__bd">
+                        <div class="weui-form-preview__item">
+                            <label class="weui-form-preview__label">积分奖励</label>
+                            <span class="weui-form-preview__value"><%= item.rewardPoints %> 积分</span>
+                        </div>
+                        <% if(item.remark.length) {%>
+                            <div class="weui-form-preview__item">
+                                <label class="weui-form-preview__label">备注</label>
+                                <span class="weui-form-preview__value"><%= item.remark %></span>
+                            </div>
+                        <%}%>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+                <div class="weui-loadmore weui-loadmore_line">
+                <span class="weui-loadmore__tips">暂无奖励</span>
+                </div>
+        <% } %>
     </div>
 <%- include("../common/footer") %>
 
