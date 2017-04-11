@@ -28,6 +28,10 @@ var _router = require('../../utils/router');
 
 var _router2 = _interopRequireDefault(_router);
 
+var _moment = require('moment');
+
+var _moment2 = _interopRequireDefault(_moment);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var router = _express2.default.Router();
@@ -163,6 +167,102 @@ router.get('/coupon', function (req, res, next) {
 
   return res.render('personal/coupon', templateData);
 });
+
+/**
+ * @desc 豪气排名
+ */
+router.get('/ranking', function () {
+  var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(req, res, next) {
+    var param, templateData, monthRanking, monthTotal, yearRanking, yearTotal, info;
+    return _regenerator2.default.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.prev = 0;
+            param = {
+              req: req,
+              matchJavascript: false,
+              matchStylesheet: false
+            };
+            templateData = _router2.default.getTemplateBasicData(param);
+            _context2.next = 5;
+            return requestHelper.get({
+              'moduleName': 'hulk_service',
+              'controller': 'sprit',
+              'action': 'find',
+              'data': { startDatetime: (0, _moment2.default)().startOf('month'), endDatetime: (0, _moment2.default)().endOf('month') }
+            });
+
+          case 5:
+            monthRanking = _context2.sent;
+            _context2.next = 8;
+            return requestHelper.get({
+              'moduleName': 'hulk_service',
+              'controller': 'sprit',
+              'action': 'totalByMemberId',
+              'data': {
+                startDatetime: (0, _moment2.default)().startOf('month'),
+                endDatetime: (0, _moment2.default)().endOf('month'),
+                memberId: req.session.user.member.id
+              }
+            });
+
+          case 8:
+            monthTotal = _context2.sent;
+            _context2.next = 11;
+            return requestHelper.get({
+              'moduleName': 'hulk_service',
+              'controller': 'sprit',
+              'action': 'find',
+              'data': { startDatetime: (0, _moment2.default)().startOf('year'), endDatetime: (0, _moment2.default)().endOf('year') }
+            });
+
+          case 11:
+            yearRanking = _context2.sent;
+            _context2.next = 14;
+            return requestHelper.get({
+              'moduleName': 'hulk_service',
+              'controller': 'sprit',
+              'action': 'totalByMemberId',
+              'data': {
+                startDatetime: (0, _moment2.default)().startOf('year'),
+                endDatetime: (0, _moment2.default)().endOf('year'),
+                memberId: req.session.user.member.id
+              }
+            });
+
+          case 14:
+            yearTotal = _context2.sent;
+            info = {
+              monthTotal: monthTotal.data,
+              yearTotal: yearTotal.data,
+              monthRanking: monthRanking.data.rows,
+              yearRanking: yearRanking.data.rows
+            };
+
+            (0, _assign2.default)(templateData, { 'title': '豪气排名' }, info);
+
+            return _context2.abrupt('return', res.render('personal/sprit', templateData));
+
+          case 20:
+            _context2.prev = 20;
+            _context2.t0 = _context2['catch'](0);
+
+            _logger2.default.error('render_ranking_error=>' + (0, _stringify2.default)(_context2.t0));
+            return _context2.abrupt('return', res.render('common/error'));
+
+          case 24:
+          case 'end':
+            return _context2.stop();
+        }
+      }
+    }, _callee2, undefined, [[0, 20]]);
+  }));
+
+  return function (_x4, _x5, _x6) {
+    return _ref2.apply(this, arguments);
+  };
+}());
 
 module.exports = router;
 //# sourceMappingURL=personal.js.map

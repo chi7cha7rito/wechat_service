@@ -1,7 +1,7 @@
 import express from 'express'
 import logger from '../../utils/logger'
 import routerUtil from '../../utils/router'
-
+import moment from 'moment'
 let router = express.Router()
 
 router.get('/list', async (req, res, next) => {
@@ -109,6 +109,68 @@ router.get('/coupon', (req, res, next) => {
   Object.assign(templateData, { 'title': '我的优惠券' })
 
   return res.render('personal/coupon', templateData)
+})
+
+/**
+ * @desc 豪气排名
+ */
+router.get('/ranking', async (req, res, next) => {
+  try {
+    let param = {
+      req: req,
+      matchJavascript: false,
+      matchStylesheet: false
+    }
+
+    let templateData = routerUtil.getTemplateBasicData(param);
+
+    let monthRanking = await requestHelper.get({
+      'moduleName': 'hulk_service',
+      'controller': 'sprit',
+      'action': 'find',
+      'data': {startDatetime: moment().startOf('month'), endDatetime: moment().endOf('month')}
+    })
+    let monthTotal = await requestHelper.get({
+      'moduleName': 'hulk_service',
+      'controller': 'sprit',
+      'action': 'totalByMemberId',
+      'data': {
+          startDatetime: moment().startOf('month'),
+          endDatetime: moment().endOf('month'),
+          memberId: req.session.user.member.id
+        }
+    })
+
+    let yearRanking =  await requestHelper.get({
+      'moduleName': 'hulk_service',
+      'controller': 'sprit',
+      'action': 'find',
+      'data': {startDatetime: moment().startOf('year'), endDatetime: moment().endOf('year')}
+    })
+
+    let yearTotal = await requestHelper.get({
+      'moduleName': 'hulk_service',
+      'controller': 'sprit',
+      'action': 'totalByMemberId',
+      'data': {
+          startDatetime: moment().startOf('year'),
+          endDatetime: moment().endOf('year'),
+          memberId: req.session.user.member.id
+        }
+    })
+    let info = {
+      monthTotal:monthTotal.data,
+      yearTotal:yearTotal.data,
+      monthRanking:monthRanking.data.rows,
+      yearRanking:yearRanking.data.rows
+    }
+    Object.assign(templateData, { 'title': '豪气排名' },info)
+
+    return res.render('personal/sprit', templateData)
+  } catch (e) {
+    logger.error(`render_ranking_error=>${JSON.stringify(e)}`)
+    return res.render('common/error')
+  }
 })
 
 module.exports = router

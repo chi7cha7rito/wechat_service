@@ -36,8 +36,12 @@
             "notify": "wechatPayment/notify",
             "find": "wechatPayment/findEntry"
         },
-        "coupon":{
-            "find":"coupon/findAll"
+        "coupon": {
+            "find": "coupon/findAll"
+        },
+        "sprit": {
+            "find": "sprit/spritRanking",
+            "totalByMemberId": "sprit/totalByMemberId"
         }
     },
     "sms_service": {

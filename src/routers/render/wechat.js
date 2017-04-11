@@ -80,7 +80,7 @@ router.all('/', wechat(wechatConfig.token, async (req, res, next) => {
           {
             "type": "view",
             "name": "赛事预告",
-            "url": `${wechatConfig.host}/match/apply`
+            "url": `${wechatConfig.host}/match/list`
           },
           {
             "type": "view",

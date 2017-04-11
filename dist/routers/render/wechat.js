@@ -112,7 +112,7 @@ router.all('/', (0, _wechat2.default)(wechatConfig.token, function () {
                 "sub_button": [{
                   "type": "view",
                   "name": "赛事预告",
-                  "url": wechatConfig.host + '/match/apply'
+                  "url": wechatConfig.host + '/match/list'
                 }, {
                   "type": "view",
                   "name": "在线报名",
