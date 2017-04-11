@@ -142,7 +142,14 @@ router.all('/', (0, _wechat2.default)(wechatConfig.token, function () {
 
             // console.log(menuResp);
 
-            res.reply('尚在建设中，请耐心等待！');
+            // res.reply('尚在建设中，请耐心等待！')
+
+            res.reply([{
+              title: '你来我家接我吧',
+              description: '这是女神与高富帅之间的对话',
+              picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
+              url: 'http://nodeapi.cloudfoundry.com/'
+            }]);
 
           case 4:
           case 'end':
