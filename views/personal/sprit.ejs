@@ -13,13 +13,14 @@
             <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
                 <div class="weui-cells">
                     <% if(monthRanking.length) {%>
-                        <% monthRanking.forEach(item,index)%>
-                        <div class="weui-cell">
-                            <div class="weui-cell__bd">
-                            <p><%= index %>-<%= item.name%></p>
+                        <% monthRanking.forEach(function(item,index) {%>
+                            <div class="weui-cell">
+                                <div class="weui-cell__bd">
+                                <p><%= index %>-<%= item.name%></p>
+                                </div>
+                                <div class="weui-cell__ft"><%= item.total%>></div>
                             </div>
-                            <div class="weui-cell__ft"><%= item.total%>></div>
-                        </div>
+                        <% }) %>
                     <%} else {%>
                          <div class="weui-loadmore weui-loadmore_line">
                             <span class="weui-loadmore__tips">暂无数据</span>
@@ -30,13 +31,14 @@
             <div id="tab2" class="weui-tab__bd-item">
                 <div class="weui-cells">
                    <% if(yearRanking.length) {%>
-                        <% yearRanking.forEach(item,index)%>
-                        <div class="weui-cell">
-                            <div class="weui-cell__bd">
-                            <p><%= index %>-<%= item.name%></p>
+                        <% yearRanking.forEach(function(item,index) { %>
+                            <div class="weui-cell">
+                                <div class="weui-cell__bd">
+                                <p><%= index %>-<%= item.name%></p>
+                                </div>
+                                <div class="weui-cell__ft"><%= item.total%>></div>
                             </div>
-                            <div class="weui-cell__ft"><%= item.total%>></div>
-                        </div>
+                        <% }) %>
                     <%} else {%>
                          <div class="weui-loadmore weui-loadmore_line">
                             <span class="weui-loadmore__tips">暂无数据</span>
