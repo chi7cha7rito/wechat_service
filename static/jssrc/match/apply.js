@@ -113,7 +113,7 @@ MatchController.prototype.getItem = function (data) {
   htmlTpl += '</div>'
   htmlTpl += '<div class="weui-form-preview__item">'
   htmlTpl += '<label class="weui-form-preview__label">门票费用</label>'
-  htmlTpl += '<span class="weui-form-preview__value price">¥' + price.price || '未公布' + '</span>'
+  htmlTpl += '<span class="weui-form-preview__value price">¥' + (price.price || '未公布') + '</span>'
   htmlTpl += '</div>'
   htmlTpl += '<div class="weui-form-preview__item">'
   htmlTpl += '<label class="weui-form-preview__label">报名截止</label>'
