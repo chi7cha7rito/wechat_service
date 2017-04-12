@@ -92,7 +92,7 @@ MatchController.prototype.getItem = function (data) {
   var price = {}
   var memberLevelId = $('#memberLevelId').val().toString()
   $.each(data.matchConfig.matchPrices, function (index, item) {
-    if (item.id.toString() === memberLevelId) price = {id: item.id, price: item.price}
+    if (item.type.toString() === memberLevelId) price = {id: item.id, price: item.price}
   })
   var htmlTpl = ''
   htmlTpl += '<div class="weui-form-preview">'
