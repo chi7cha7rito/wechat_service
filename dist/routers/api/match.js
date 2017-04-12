@@ -196,7 +196,7 @@ router.get("/result", function () {
  */
 router.post("/apply", function () {
     var _ref4 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4(req, res, next) {
-        var memberId, matchId, resp;
+        var memberId, matchId, matchPriceId, resp;
         return _regenerator2.default.wrap(function _callee4$(_context4) {
             while (1) {
                 switch (_context4.prev = _context4.next) {
@@ -204,38 +204,40 @@ router.post("/apply", function () {
                         _context4.prev = 0;
                         memberId = req.session.user.member.id;
                         matchId = req.body.matchId;
-                        _context4.next = 5;
+                        matchPriceId = req.body.matchPriceId;
+                        _context4.next = 6;
                         return requestHelper.post({
                             "moduleName": "hulk_service",
                             "controller": "match",
                             "action": "apply",
                             "data": {
                                 memberId: memberId,
-                                matchId: matchId
+                                matchId: matchId,
+                                matchPriceId: matchPriceId
                             }
                         });
 
-                    case 5:
+                    case 6:
                         resp = _context4.sent;
 
 
                         res.json(resp);
 
-                        _context4.next = 12;
+                        _context4.next = 13;
                         break;
 
-                    case 9:
-                        _context4.prev = 9;
+                    case 10:
+                        _context4.prev = 10;
                         _context4.t0 = _context4['catch'](0);
 
                         _logger2.default.error('api_match_apply_error=>' + _context4.t0);
 
-                    case 12:
+                    case 13:
                     case 'end':
                         return _context4.stop();
                 }
             }
-        }, _callee4, undefined, [[0, 9]]);
+        }, _callee4, undefined, [[0, 10]]);
     }));
 
     return function (_x10, _x11, _x12) {

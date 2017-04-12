@@ -96,13 +96,15 @@ router.post("/apply",async (req,res,next)=>{
     try{
         let memberId=req.session.user.member.id
         let matchId = req.body.matchId
+        let matchPriceId = req.body.matchPriceId
         let resp=await requestHelper.post({
             "moduleName":"hulk_service",
             "controller":"match",
             "action":"apply",
             "data":{
                memberId,
-               matchId
+               matchId,
+               matchPriceId
             }
         })
 

@@ -89,9 +89,10 @@ MatchController.prototype.renderList = function (data, isAppend) {
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 MatchController.prototype.getItem = function (data) {
   var classSelf = this
-  var price = 0
+  var price = {}
+  var memberLevelId = $('#memberLevelId').val().toString()
   $.each(data.matchConfig.matchPrices, function (index, item) {
-    if (item.type.val === 1) price = item.price
+    if (item.Type.id.toString() === memberLevelId) price = {id: item.id, price: item.price}
   })
   var htmlTpl = ''
   htmlTpl += '<div class="weui-form-preview">'
@@ -112,7 +113,7 @@ MatchController.prototype.getItem = function (data) {
   htmlTpl += '</div>'
   htmlTpl += '<div class="weui-form-preview__item">'
   htmlTpl += '<label class="weui-form-preview__label">门票费用</label>'
-  htmlTpl += '<span class="weui-form-preview__value price">¥' + price + '</span>'
+  htmlTpl += '<span class="weui-form-preview__value price">¥' + price.price + '</span>'
   htmlTpl += '</div>'
   htmlTpl += '<div class="weui-form-preview__item">'
   htmlTpl += '<label class="weui-form-preview__label">报名截止</label>'
@@ -133,7 +134,7 @@ MatchController.prototype.getItem = function (data) {
   htmlTpl += '</div>'
   htmlTpl += '<div class="weui-form-preview__ft">'
   htmlTpl += '<a class="weui-form-preview__btn weui-form-preview__btn_primary" href="rewards?matchConfigId=' + data.matchConfigId + '&matchName=' + data.matchConfig.name + '">奖励</a>'
-  htmlTpl += '<a class="weui-form-preview__btn weui-form-preview__btn_primary attend" data-id="' + data.id + '" data-price="' + price + '" data-closing="' + data.closingDatetime + '" href="javascript:">报名</a>'
+  htmlTpl += '<a class="weui-form-preview__btn weui-form-preview__btn_primary attend" data-id="' + data.id + '" data-price="' + price.price + '" data-match-price-id="' + price.id + '" data-closing="' + data.closingDatetime + '" href="javascript:">报名</a>'
   htmlTpl += '</div>'
   htmlTpl += '</div>'
   return $(htmlTpl)
@@ -147,6 +148,7 @@ MatchController.prototype.bindEvent = function () {
   $('.match-list').on('click', '.attend', function () {
     var price = $(this).attr('data-price')
     var id = $(this).attr('data-id')
+    var matchPriceId = $(this).attr('data-match-price-id')
     var closing = new Date(classSelf.utcToLocal($(this).attr('data-closing')))
     var now = Date.now()
     if (closing < now) {
@@ -157,7 +159,7 @@ MatchController.prototype.bindEvent = function () {
       title: '报名参赛？',
       text: '赛事门票为' + price + '元，是否报名参加？',
       onOK: function () {
-        classSelf.request(classSelf.apiUrl.match.apply, {matchId: id}, {
+        classSelf.request(classSelf.apiUrl.match.apply, {matchId: id, matchPriceId: matchPriceId}, {
           'type': 'post',
           // 'showLoadingTips': true,
           'process': function (data) {

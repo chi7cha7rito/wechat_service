@@ -1,38 +1,61 @@
 import express from "express";
-import Logger from '../../utils/logger';
+import logger from '../../utils/logger';
 import routerUtil from "../../utils/router";
 
 
 let router = express.Router();
 
 //比赛报名
-router.get('/apply', (req, res, next) => {
-  let param = {
+router.get('/apply',async (req, res, next) => {
+  try {
+    let param = {
     req: req,
     matchJavascript: true,
     matchStylesheet: true
   }
+  let memberInfo = await requestHelper.get({
+      'moduleName': 'hulk_service',
+      'controller': 'member',
+      'action': 'find',
+      'data': {wechatOpenId:req.session.user.member.wechat.wechatOpenId}
+  })
 
   let templateData = routerUtil.getTemplateBasicData(param);
 
-  Object.assign(templateData, { "title": "在线报名" });
+  Object.assign(templateData, { "title": "在线报名" },{memberLevelId:memberInfo.data.member.memberLevel.id});
 
   return res.render("match/apply", templateData);
+  } catch (e) {
+    logger.error(`render_match_apply_error=>${JSON.stringify(e)}`)
+    return res.render('common/error')
+  }
 })
 
 //赛事预告
-router.get('/list', (req, res, next) => {
-  let param = {
-    req: req,
-    matchJavascript: true,
-    matchStylesheet: true
+router.get('/list',async (req, res, next) => {
+  try {
+    let param = {
+      req: req,
+      matchJavascript: true,
+      matchStylesheet: true
+    }
+
+    let memberInfo = await requestHelper.get({
+        'moduleName': 'hulk_service',
+        'controller': 'member',
+        'action': 'find',
+        'data': {wechatOpenId:req.session.user.member.wechat.wechatOpenId}
+    })
+
+    let templateData = routerUtil.getTemplateBasicData(param);
+
+    Object.assign(templateData, { "title": "赛事预告" }, {memberLevelId:memberInfo.data.member.memberLevel.id});
+
+    return res.render("match/list", templateData);
+  } catch (e) {
+    logger.error(`render_match_list_error=>${JSON.stringify(e)}`)
+    return res.render('common/error')
   }
-
-  let templateData = routerUtil.getTemplateBasicData(param);
-
-  Object.assign(templateData, { "title": "赛事预告" });
-
-  return res.render("match/list", templateData);
 })
 
 //赛事奖励

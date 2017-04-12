@@ -84,9 +84,10 @@ MatchController.prototype.renderList = function (data, isAppend) {
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 MatchController.prototype.getItem = function (data) {
   var classSelf = this
-  var price = 0
+  var price = {}
+  var memberLevelId = $('#memberLevelId').val().toString()
   $.each(data.matchConfig.matchPrices, function (index, item) {
-    if (item.type.val === 1) price = item.price
+    if (item.Type.id.toString() === memberLevelId) price = {id: item.id, price: item.price}
   })
   var htmlTpl = ''
   htmlTpl += '<div class="weui-form-preview">'
@@ -107,7 +108,7 @@ MatchController.prototype.getItem = function (data) {
   htmlTpl += '</div>'
   htmlTpl += '<div class="weui-form-preview__item">'
   htmlTpl += '<label class="weui-form-preview__label">门票费用</label>'
-  htmlTpl += '<span class="weui-form-preview__value price">¥' + price + '</span>'
+  htmlTpl += '<span class="weui-form-preview__value price">¥' + price.price + '</span>'
   htmlTpl += '</div>'
   htmlTpl += '<div class="weui-form-preview__item">'
   htmlTpl += '<label class="weui-form-preview__label">报名截止</label>'
