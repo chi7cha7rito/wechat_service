@@ -113,7 +113,7 @@ MatchController.prototype.getItem = function (data) {
   htmlTpl += '</div>'
   htmlTpl += '<div class="weui-form-preview__item">'
   htmlTpl += '<label class="weui-form-preview__label">门票费用</label>'
-  htmlTpl += '<span class="weui-form-preview__value price">¥' + price.price + '</span>'
+  htmlTpl += '<span class="weui-form-preview__value price">¥' + price.price || '未公布' + '</span>'
   htmlTpl += '</div>'
   htmlTpl += '<div class="weui-form-preview__item">'
   htmlTpl += '<label class="weui-form-preview__label">报名截止</label>'
@@ -153,6 +153,10 @@ MatchController.prototype.bindEvent = function () {
     var now = Date.now()
     if (closing < now) {
       $.toast('报名时间已截止', 'forbidden')
+      return false
+    }
+    if(!parseFloat(price) || !parseInt(matchPriceId)){
+       $.toast('价格未公布，无法报名', 'forbidden')
       return false
     }
     $.confirm({
