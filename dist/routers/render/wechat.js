@@ -145,7 +145,8 @@ router.all('/', (0, _wechat2.default)(wechatConfig.token, function () {
             // res.reply('尚在建设中，请耐心等待！')
 
             if (message.EventKey == "booking_room") {
-              res.reply('贵宾室预定，请拨打电话 <a style="color:#a8a8a8;" href="tel:"></a> ');
+              //<a style="color:#a8a8a8;" href="tel:"></a> 
+              res.reply('贵宾室预定，请拨打电话');
             } else {
               res.reply([{
                 title: '快来加入豪客俱乐部',
