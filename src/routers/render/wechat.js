@@ -120,7 +120,7 @@ router.all('/', wechat(wechatConfig.token, async (req, res, next) => {
   // res.reply('尚在建设中，请耐心等待！')
 
   if(message.EventKey=="booking_room"){
-    res.reply('贵宾室预定，请拨打电话 <a style="color:#a8a8a8;" href="tel:400-821-5365">400-821-5365</a> ')
+    res.reply('贵宾室预定，请拨打电话 <a style="color:#a8a8a8;" href="tel:"></a> ')
   }
   else{
       res.reply([
