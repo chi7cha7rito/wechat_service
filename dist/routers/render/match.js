@@ -137,7 +137,7 @@ router.get('/list', function () {
 //赛事奖励
 router.get('/rewards', function () {
   var _ref3 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3(req, res, next) {
-    var param, rewards, templateData;
+    var param, rewards, templateData, total;
     return _regenerator2.default.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
@@ -159,25 +159,28 @@ router.get('/rewards', function () {
           case 4:
             rewards = _context3.sent;
             templateData = _router2.default.getTemplateBasicData(param);
+            total = 0;
 
-
-            (0, _assign2.default)(templateData, { "title": "赛事奖励" }, { rewards: rewards.data, matchName: req.query.matchName });
+            if (rewards.data && rewards.data.length > 0) rewards.data.forEach(function (x, i) {
+              return total += x.rewardPoints || 0;
+            });
+            (0, _assign2.default)(templateData, { "title": "赛事奖励" }, { rewards: rewards.data, matchName: req.query.matchName, total: total });
 
             return _context3.abrupt("return", res.render("match/rewards", templateData));
 
-          case 10:
-            _context3.prev = 10;
+          case 12:
+            _context3.prev = 12;
             _context3.t0 = _context3["catch"](0);
 
             _logger2.default.error("render_personal_list_error=>" + (0, _stringify2.default)(e));
             return _context3.abrupt("return", res.render('common/error'));
 
-          case 14:
+          case 16:
           case "end":
             return _context3.stop();
         }
       }
-    }, _callee3, undefined, [[0, 10]]);
+    }, _callee3, undefined, [[0, 12]]);
   }));
 
   return function (_x7, _x8, _x9) {

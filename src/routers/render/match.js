@@ -73,8 +73,9 @@ router.get('/rewards', async (req, res, next) => {
         'data': { matchConfigId: req.query.matchConfigId }
     })
     let templateData = routerUtil.getTemplateBasicData(param);
-
-    Object.assign(templateData, { "title": "赛事奖励" },{rewards:rewards.data,matchName:req.query.matchName});
+    let total = 0
+    if(rewards.data && rewards.data.length >0) rewards.data.forEach((x,i)=> total += x.rewardPoints || 0 )
+    Object.assign(templateData, { "title": "赛事奖励" },{rewards:rewards.data,matchName:req.query.matchName,total:total});
 
     return res.render("match/rewards", templateData);
   } catch (error) {
