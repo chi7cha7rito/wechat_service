@@ -122,7 +122,7 @@ router.all('/', wechat(wechatConfig.token, async (req, res, next) => {
       {
         title: '快来加入豪客俱乐部',
         description: '',
-        picurl: 'http://www.holecardsclub.com/images/wechatIMG208.jpeg',
+        picurl: 'http://www.holecardsclub.com/images/WechatIMG208.jpeg',
         url: 'http://www.holecardsclub.com/common/intro'
       }
     ]);
