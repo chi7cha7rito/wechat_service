@@ -146,7 +146,7 @@ router.all('/', (0, _wechat2.default)(wechatConfig.token, function () {
 
             if (message.EventKey == "booking_room") {
               res.reply('贵宾室预定，请拨打电话 <a style="color:#a8a8a8;" href="tel:400-821-5365">400-821-5365</a> ');
-            } else if (message.EventKey == "share") {} else {
+            } else {
               res.reply([{
                 title: '快来加入豪客俱乐部',
                 description: '',
