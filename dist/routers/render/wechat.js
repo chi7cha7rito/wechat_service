@@ -4,10 +4,6 @@ var _regenerator = require('babel-runtime/regenerator');
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _stringify = require('babel-runtime/core-js/json/stringify');
-
-var _stringify2 = _interopRequireDefault(_stringify);
-
 var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
@@ -76,9 +72,6 @@ router.all('/', (0, _wechat2.default)(wechatConfig.token, function () {
             message = req.weixin;
             open_id = message.FromUserName;
 
-
-            console.log("Message from wechat==============" + (0, _stringify2.default)(message));
-
             // let accessTokenInfo = await requestHelper.get({
             //   "moduleName": "wechat",
             //   "controller": "common",
@@ -93,6 +86,7 @@ router.all('/', (0, _wechat2.default)(wechatConfig.token, function () {
             // console.log(accessTokenInfo)
 
             // //menu
+
             menuOption = {
               "button": [{
                 "name": "会员服务",
@@ -150,14 +144,18 @@ router.all('/', (0, _wechat2.default)(wechatConfig.token, function () {
 
             // res.reply('尚在建设中，请耐心等待！')
 
-            res.reply([{
-              title: '快来加入豪客俱乐部',
-              description: '',
-              picurl: 'http://www.holecardsclub.com/images/WechatIMG208.jpeg',
-              url: 'http://www.holecardsclub.com/common/intro'
-            }]);
+            if (message.EventKey == "booking_room") {
+              res.reply('贵宾室预定，请拨打电话 <a style="color:#a8a8a8;" href="tel:400-821-5365">400-821-5365</a> ');
+            } else if (message.EventKey == "share") {} else {
+              res.reply([{
+                title: '快来加入豪客俱乐部',
+                description: '',
+                picurl: 'http://www.holecardsclub.com/images/WechatIMG208.jpeg',
+                url: 'http://www.holecardsclub.com/common/intro'
+              }]);
+            }
 
-          case 5:
+          case 4:
           case 'end':
             return _context.stop();
         }
