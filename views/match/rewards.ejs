@@ -15,7 +15,7 @@
                             <label class="weui-form-preview__label">积分奖励</label>
                             <span class="weui-form-preview__value"><%= item.rewardPoints %> 积分</span>
                         </div>
-                        <% if(item.remark.length) {%>
+                        <% if(item.remark && item.remark.length) {%>
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">备注</label>
                                 <span class="weui-form-preview__value"><%= item.remark %></span>
