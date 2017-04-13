@@ -6,18 +6,18 @@
         <% if (rewards) { %>
             <% rewards.forEach(function(item){ %>
                 <div class="weui-form-preview">
-                    <div class="weui-form-preview__hd">
-                        <label class="weui-form-preview__label">名次</label>
-                        <em class="weui-form-preview__value">第<%= item.ranking %>名</em>
-                    </div>
                     <div class="weui-form-preview__bd">
+                        <div class="weui-form-preview__item">
+                            <label class="weui-form-preview__label">名次</label>
+                            <span class="weui-form-preview__value">第<%= item.ranking %>名</span>
+                        </div>
                         <div class="weui-form-preview__item">
                             <label class="weui-form-preview__label">积分奖励</label>
                             <span class="weui-form-preview__value"><%= item.rewardPoints %> 积分</span>
                         </div>
                         <% if(item.remark && item.remark.length) {%>
                             <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">备注</label>
+                                <label class="weui-form-preview__label">奖励说明</label>
                                 <span class="weui-form-preview__value"><%= item.remark %></span>
                             </div>
                         <%}%>
