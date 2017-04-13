@@ -133,6 +133,9 @@ MatchController.prototype.getItem = function (data) {
   htmlTpl += '</div>'
   htmlTpl += '</div>'
   htmlTpl += '<div class="weui-form-preview__ft">'
+  if (data.matchConfig.url && data.matchConfig.url.length > 0) {
+    htmlTpl += '<a class="weui-form-preview__btn weui-form-preview__btn_primary" href="' + data.matchConfig.url + '">介绍</a>'
+  }
   htmlTpl += '<a class="weui-form-preview__btn weui-form-preview__btn_primary" href="rewards?matchConfigId=' + data.matchConfigId + '&matchName=' + data.matchConfig.name + '">奖励</a>'
   htmlTpl += '<a class="weui-form-preview__btn weui-form-preview__btn_primary attend" data-id="' + data.id + '" data-price="' + price.price + '" data-match-price-id="' + price.id + '" data-closing="' + data.closingDatetime + '" href="javascript:">报名</a>'
   htmlTpl += '</div>'
@@ -155,8 +158,8 @@ MatchController.prototype.bindEvent = function () {
       $.toast('报名时间已截止', 'forbidden')
       return false
     }
-    if(!parseFloat(price) || !parseInt(matchPriceId)){
-       $.toast('价格未公布，无法报名', 'forbidden')
+    if (!parseFloat(price) || !parseInt(matchPriceId)) {
+      $.toast('价格未公布，无法报名', 'forbidden')
       return false
     }
     $.confirm({

@@ -128,6 +128,9 @@ MatchController.prototype.getItem = function (data) {
   htmlTpl += '</div>'
   htmlTpl += '</div>'
   htmlTpl += '<div class="weui-form-preview__ft">'
+  if (data.matchConfig.url && data.matchConfig.url.length > 0) {
+    htmlTpl += '<a class="weui-form-preview__btn weui-form-preview__btn_primary" href="' + data.matchConfig.url + '">介绍</a>'
+  }
   htmlTpl += '<a class="weui-form-preview__btn weui-form-preview__btn_primary" href="rewards?matchConfigId=' + data.matchConfigId + '&matchName=' + data.matchConfig.name + '">奖励</a>'
   htmlTpl += '</div>'
   htmlTpl += '</div>'
