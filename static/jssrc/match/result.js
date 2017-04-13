@@ -85,34 +85,32 @@ ResultController.prototype.renderList = function (data, isAppend) {
 ResultController.prototype.getItem = function (data) {
   var classSelf = this
   var htmlTpl = ''
-  htmlTpl += '<div class="weui-form-preview">'
-  htmlTpl += '<div class="weui-form-preview__hd">'
-  htmlTpl += '<div class="weui-form-preview__item">'
-  htmlTpl += '<label class="weui-form-preview__label">赛事名次</label>'
   if (data.result) {
-    htmlTpl += '<em class="weui-form-preview__value ranking">第' + data.result + '名</em>'
-  } else {
-    htmlTpl += '<em class="weui-form-preview__value ranking">暂无</em>'
-  }
-  htmlTpl += '</div>'
-  htmlTpl += '</div>'
-  htmlTpl += '<div class="weui-form-preview__bd">'
-  htmlTpl += '<div class="weui-form-preview__item">'
-  htmlTpl += '<label class="weui-form-preview__label">赛事名称</label>'
-  htmlTpl += '<span class="weui-form-preview__value">' + data.match.matchConfig.name + '</span>'
-  htmlTpl += '</div>'
-  htmlTpl += '<div class="weui-form-preview__item">'
-  htmlTpl += '<label class="weui-form-preview__label">奖励积分</label>'
-  htmlTpl += '<span class="weui-form-preview__value">' + (data.rewards || 0) + ' 积分</span>'
-  htmlTpl += '</div>'
-  if (data.rewardsRemark && data.rewardsRemark.length) {
+    htmlTpl += '<div class="weui-form-preview">'
+    htmlTpl += '<div class="weui-form-preview__hd">'
     htmlTpl += '<div class="weui-form-preview__item">'
-    htmlTpl += '<label class="weui-form-preview__label">奖励说明</label>'
-    htmlTpl += '<span class="weui-form-preview__value">' + data.rewardsRemark + '</span>'
+    htmlTpl += '<label class="weui-form-preview__label">赛事名次</label>'
+    htmlTpl += '<em class="weui-form-preview__value ranking">第' + data.result + '名</em>'
+    htmlTpl += '</div>'
+    htmlTpl += '</div>'
+    htmlTpl += '<div class="weui-form-preview__bd">'
+    htmlTpl += '<div class="weui-form-preview__item">'
+    htmlTpl += '<label class="weui-form-preview__label">赛事名称</label>'
+    htmlTpl += '<span class="weui-form-preview__value">' + data.match.matchConfig.name + '</span>'
+    htmlTpl += '</div>'
+    htmlTpl += '<div class="weui-form-preview__item">'
+    htmlTpl += '<label class="weui-form-preview__label">奖励积分</label>'
+    htmlTpl += '<span class="weui-form-preview__value">' + (data.rewards || 0) + ' 积分</span>'
+    htmlTpl += '</div>'
+    if (data.rewardsRemark && data.rewardsRemark.length) {
+      htmlTpl += '<div class="weui-form-preview__item">'
+      htmlTpl += '<label class="weui-form-preview__label">奖励说明</label>'
+      htmlTpl += '<span class="weui-form-preview__value">' + data.rewardsRemark + '</span>'
+      htmlTpl += '</div>'
+    }
+    htmlTpl += '</div>'
     htmlTpl += '</div>'
   }
-  htmlTpl += '</div>'
-  htmlTpl += '</div>'
   return $(htmlTpl)
 }
 
