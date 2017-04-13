@@ -33,6 +33,8 @@ router.all('/', wechat(wechatConfig.token, async (req, res, next) => {
   var message = req.weixin
   let open_id = message.FromUserName
 
+  console.log("Message from wechat=============="+JSON.stringify(message));
+
   // let accessTokenInfo = await requestHelper.get({
   //   "moduleName": "wechat",
   //   "controller": "common",
@@ -118,6 +120,7 @@ router.all('/', wechat(wechatConfig.token, async (req, res, next) => {
   // console.log(menuResp);
 
   // res.reply('尚在建设中，请耐心等待！')
+
   res.reply([
       {
         title: '快来加入豪客俱乐部',

@@ -4,6 +4,10 @@ var _regenerator = require('babel-runtime/regenerator');
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
+var _stringify = require('babel-runtime/core-js/json/stringify');
+
+var _stringify2 = _interopRequireDefault(_stringify);
+
 var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
@@ -72,6 +76,9 @@ router.all('/', (0, _wechat2.default)(wechatConfig.token, function () {
             message = req.weixin;
             open_id = message.FromUserName;
 
+
+            console.log("Message from wechat==============" + (0, _stringify2.default)(message));
+
             // let accessTokenInfo = await requestHelper.get({
             //   "moduleName": "wechat",
             //   "controller": "common",
@@ -86,7 +93,6 @@ router.all('/', (0, _wechat2.default)(wechatConfig.token, function () {
             // console.log(accessTokenInfo)
 
             // //menu
-
             menuOption = {
               "button": [{
                 "name": "会员服务",
@@ -151,7 +157,7 @@ router.all('/', (0, _wechat2.default)(wechatConfig.token, function () {
               url: 'http://www.holecardsclub.com/common/intro'
             }]);
 
-          case 4:
+          case 5:
           case 'end':
             return _context.stop();
         }
