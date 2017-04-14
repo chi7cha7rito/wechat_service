@@ -76,8 +76,11 @@ router.get('/list', function () {
             (0, _assign2.default)(templateData, { 'title': '个人中心' }, {
               balance: totalInfo.data && totalInfo.data.balance || 0,
               points: totalInfo.data && totalInfo.data.points || 0,
-              nickName: req.session.user.member.wechat.nickName,
-              headImgUrl: req.session.user.member.wechat.headImgUrl,
+              // nickName:req.session.user.member.wechat.nickName,
+              // headImgUrl:req.session.user.member.wechat.headImgUrl,
+              phoneNo: req.session.user.phoneNo,
+              name: req.session.user.name,
+              cardNo: req.sessin.member.cardNo,
               level: memberInfo.data.member.memberLevel.name
             });
 

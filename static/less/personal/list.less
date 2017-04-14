@@ -22,19 +22,41 @@
         }
         &.header {
             background-color: #fff;
-            padding-bottom: 10px;
-            .wechat {
-                padding: 30px 0;
-                text-align: center;
+            padding-bottom: 10px; // .wechat {
+            //     padding: 30px 0;
+            //     text-align: center;
+            //     img {
+            //         .border-radius(50px);
+            //         width: 50px;
+            //         height: 50px;
+            //         .inline-block();
+            //     }
+            //     span {
+            //         margin-left: 20px;
+            //         font-size: 14px;
+            //     }
+            // }
+            .card {
+                padding: 15px 50px;
+                position: relative;
                 img {
-                    .border-radius(50px);
-                    width: 50px;
-                    height: 50px;
-                    .inline-block();
+                    width: 100%
                 }
-                span {
-                    margin-left: 20px;
-                    font-size: 14px;
+                .info {
+                    color: #e4c578;
+                    position: absolute;
+                }
+                .name {
+                    left: 245px;
+                    bottom: 60px;
+                }
+                .phone {
+                    left: 70px;
+                    top: 20px;
+                }
+                .number {
+                    left: 220px;
+                    top: 20px;
                 }
             }
         }
@@ -56,21 +78,17 @@
                     &.fa-search-plus {
                         color: #8CBF26
                     }
-
-                    &.fa-gamepad{
+                    &.fa-gamepad {
                         color: #FF69B4;
                     }
-
-                    &.fa-sign-in{
+                    &.fa-sign-in {
                         color: #996600;
                     }
-
-                    &.fa-phone-square{
-                        color:#A200FF
+                    &.fa-phone-square {
+                        color: #A200FF
                     }
-
-                     &.fa-gift{
-                        color:#F95355
+                    &.fa-gift {
+                        color: #F95355
                     }
                 }
             }
