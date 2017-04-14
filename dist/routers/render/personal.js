@@ -80,7 +80,7 @@ router.get('/list', function () {
               // headImgUrl:req.session.user.member.wechat.headImgUrl,
               phoneNo: req.session.user.phoneNo,
               name: req.session.user.name,
-              cardNo: req.sessin.member.cardNo,
+              cardNo: req.session.member.cardNo,
               level: memberInfo.data.member.memberLevel.name
             });
 
