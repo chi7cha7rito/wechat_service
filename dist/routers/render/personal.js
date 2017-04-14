@@ -1,12 +1,12 @@
 'use strict';
 
-var _regenerator = require('babel-runtime/regenerator');
-
-var _regenerator2 = _interopRequireDefault(_regenerator);
-
 var _stringify = require('babel-runtime/core-js/json/stringify');
 
 var _stringify2 = _interopRequireDefault(_stringify);
+
+var _regenerator = require('babel-runtime/regenerator');
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
 
 var _assign = require('babel-runtime/core-js/object/assign');
 
@@ -90,7 +90,7 @@ router.get('/list', function () {
             _context.prev = 15;
             _context.t0 = _context['catch'](0);
 
-            _logger2.default.error('render_personal_list_error=>' + (0, _stringify2.default)(_context.t0));
+            _logger2.default.error('render_personal_list_error=>' + _context.t0);
             return _context.abrupt('return', res.render('common/error'));
 
           case 19:

@@ -43,7 +43,7 @@ router.get('/list', async (req, res, next) => {
 
     return res.render('personal/list', templateData)
   } catch (e) {
-    logger.error(`render_personal_list_error=>${JSON.stringify(e)}`)
+    logger.error(`render_personal_list_error=>${e}`)
     return res.render('common/error')
   }
 })
