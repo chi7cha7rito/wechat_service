@@ -196,7 +196,7 @@ router.get("/result", function () {
  */
 router.post("/apply", function () {
     var _ref4 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4(req, res, next) {
-        var memberId, matchId, matchPriceId, resp;
+        var memberId, matchId, matchPriceId, payType, resp;
         return _regenerator2.default.wrap(function _callee4$(_context4) {
             while (1) {
                 switch (_context4.prev = _context4.next) {
@@ -205,7 +205,8 @@ router.post("/apply", function () {
                         memberId = req.session.user.member.id;
                         matchId = req.body.matchId;
                         matchPriceId = req.body.matchPriceId;
-                        _context4.next = 6;
+                        payType = req.body.payType;
+                        _context4.next = 7;
                         return requestHelper.post({
                             "moduleName": "hulk_service",
                             "controller": "match",
@@ -213,31 +214,32 @@ router.post("/apply", function () {
                             "data": {
                                 memberId: memberId,
                                 matchId: matchId,
-                                matchPriceId: matchPriceId
+                                matchPriceId: matchPriceId,
+                                payType: payType
                             }
                         });
 
-                    case 6:
+                    case 7:
                         resp = _context4.sent;
 
 
                         res.json(resp);
 
-                        _context4.next = 13;
+                        _context4.next = 14;
                         break;
 
-                    case 10:
-                        _context4.prev = 10;
+                    case 11:
+                        _context4.prev = 11;
                         _context4.t0 = _context4['catch'](0);
 
                         _logger2.default.error('api_match_apply_error=>' + _context4.t0);
 
-                    case 13:
+                    case 14:
                     case 'end':
                         return _context4.stop();
                 }
             }
-        }, _callee4, undefined, [[0, 10]]);
+        }, _callee4, undefined, [[0, 11]]);
     }));
 
     return function (_x10, _x11, _x12) {
