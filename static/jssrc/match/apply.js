@@ -4,7 +4,7 @@
  3. 作者：RyanLu
  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
-function MatchController () {
+function MatchController() {
   /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
   继承于Controller基类
   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -36,12 +36,12 @@ MatchController.prototype.initPage = function () {
     'pageIndex': 1,
     'pageSize': classSelf.pageSize
   }, {
-    'showLoadingTips': true,
-    'process': function (data) {
-      classSelf.renderList(data)
-      classSelf.initPullLoad()
-    }
-  })
+      'showLoadingTips': true,
+      'process': function (data) {
+        classSelf.renderList(data)
+        classSelf.initPullLoad()
+      }
+    })
 }
 
 /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -90,9 +90,10 @@ MatchController.prototype.renderList = function (data, isAppend) {
 MatchController.prototype.getItem = function (data) {
   var classSelf = this
   var price = {}
-  var memberLevelId = $('#memberLevelId').val().toString()
+  var memberLevelId = $('#memberLevelId').val().toString();
+
   $.each(data.matchConfig.matchPrices, function (index, item) {
-    if (item.type.toString() === memberLevelId) price = {id: item.id, price: item.price}
+    if (item.type.toString() === memberLevelId) price = { id: item.id, price: item.price }
   })
   var htmlTpl = ''
   htmlTpl += '<div class="weui-form-preview">'
@@ -137,7 +138,9 @@ MatchController.prototype.getItem = function (data) {
     htmlTpl += '<a class="weui-form-preview__btn weui-form-preview__btn_primary" href="' + data.matchConfig.url + '">介绍</a>'
   }
   htmlTpl += '<a class="weui-form-preview__btn weui-form-preview__btn_primary" href="rewards?matchConfigId=' + data.matchConfigId + '&matchName=' + data.matchConfig.name + '">奖励</a>'
-  htmlTpl += '<a class="weui-form-preview__btn weui-form-preview__btn_primary attend" data-id="' + data.id + '" data-price="' + price.price + '" data-match-price-id="' + price.id + '" data-closing="' + data.closingDatetime + '" href="javascript:">报名</a>'
+
+  htmlTpl += '<a class="weui-form-preview__btn weui-form-preview__btn_primary attend" data-type="2" data-id="' + data.id + '" data-price="' + price.price + '" data-match-price-id="' + price.id + '" data-closing="' + data.closingDatetime + '" href="javascript:">积分报名</a>'
+  htmlTpl += '<a class="weui-form-preview__btn weui-form-preview__btn_primary attend" data-type="1" data-id="' + data.id + '" data-price="' + price.price + '" data-match-price-id="' + price.id + '" data-closing="' + data.closingDatetime + '" href="javascript:">余额报名</a>'
   htmlTpl += '</div>'
   htmlTpl += '</div>'
   return $(htmlTpl)
@@ -152,6 +155,7 @@ MatchController.prototype.bindEvent = function () {
     var price = $(this).attr('data-price')
     var id = $(this).attr('data-id')
     var matchPriceId = $(this).attr('data-match-price-id')
+    var payType = $(this).attr('data-type');
     var closing = new Date(classSelf.utcToLocal($(this).attr('data-closing')))
     var now = Date.now()
     if (closing < now) {
@@ -166,7 +170,7 @@ MatchController.prototype.bindEvent = function () {
       title: '报名参赛？',
       text: '赛事门票为' + price + '元，是否报名参加？',
       onOK: function () {
-        classSelf.request(classSelf.apiUrl.match.apply, {matchId: id, matchPriceId: matchPriceId}, {
+        classSelf.request(classSelf.apiUrl.match.apply, { matchId: id, matchPriceId: matchPriceId, payType: payType }, {
           'type': 'post',
           // 'showLoadingTips': true,
           'process': function (data) {
@@ -174,7 +178,7 @@ MatchController.prototype.bindEvent = function () {
           }
         })
       },
-      onCancel: function () {}
+      onCancel: function () { }
     })
   })
 }
