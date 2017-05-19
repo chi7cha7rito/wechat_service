@@ -151,7 +151,7 @@ router.all('/', (0, _wechat2.default)(wechatConfig.token, function () {
               res.reply([{
                 title: '快来加入豪客俱乐部',
                 description: '',
-                picurl: 'http://www.holecardsclub.com/images/WechatIMG208.jpeg',
+                picurl: 'http://www.holecardsclub.com/images/WechatIMG2.jpeg',
                 url: 'http://www.holecardsclub.com/common/intro'
               }]);
             }
